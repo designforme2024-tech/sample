@@ -16,16 +16,13 @@
   <meta name="twitter:title" content="AssignInc — Futuristic AI Services for MSMEs & B2B" />
   <meta name="twitter:description" content="Design, ship, and scale production AI." />
 
-  <!-- Icons (replace with your files) -->
+  <!-- Icons -->
   <link rel="icon" href="/Logo.png" sizes="any">
   <link rel="icon" href="/Logo.png" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    /* Smooth scroll for all anchor jumps */
-    html { scroll-behavior: smooth; }
-
     /* Reveal (respects reduced motion) */
     .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -36,7 +33,7 @@
     /* Focus ring for keyboard users */
     :where(a, button, input, textarea) { outline: none; }
     :where(a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible) {
-      box-shadow: 0 0 0 3px rgba(56,189,248,.6); /* sky-400 */
+      box-shadow: 0 0 0 3px rgba(56,189,248,.6);
       border-radius: .75rem;
     }
     /* Accessible skip link */
@@ -66,9 +63,10 @@
 
   <!-- Header -->
   <header class="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-blue-950/40">
-    <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between" aria-label="Primary">
+    <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 sm:py-4 flex items-center justify-between" aria-label="Primary">
       <a href="#" class="flex items-center gap-2">
-        <img src="/Logo.png" alt="AssignInc" class="h-16 w-auto" />
+        <!-- Larger logo; slightly smaller on mobile to save vertical space -->
+        <img src="/Logo.png" alt="AssignInc" class="h-12 sm:h-16 w-auto" />
         <span class="sr-only">AssignInc</span>
       </a>
 
@@ -81,68 +79,73 @@
         <a href="#contact" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-cyan-400 px-4 py-2 text-sm font-medium shadow-lg shadow-sky-700/30 hover:opacity-90">Book a Strategy Call →</a>
       </div>
 
-      <!-- Mobile -->
-      <button id="menuBtn" class="md:hidden inline-flex items-center justify-center rounded-xl border border-white/10 bg-white/10 px-3 py-2 text-sm" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">
-        Menu
+      <!-- Mobile: breadcrumb icon instead of "Menu" -->
+      <button id="menuBtn" class="md:hidden inline-flex items-center justify-center rounded-xl border border-white/10 bg-white/10 p-2"
+        aria-expanded="false" aria-controls="mobileMenu" aria-label="Open navigation">
+        <!-- Breadcrumb chevrons icon -->
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M6 4l6 8-6 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12 4l6 8-6 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity=".7"/>
+        </svg>
       </button>
     </nav>
 
     <!-- Mobile panel -->
     <div id="mobileMenu" class="md:hidden hidden border-t border-white/10 bg-blue-950/70 backdrop-blur">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 grid gap-2 text-sm text-white/90">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 grid gap-1 text-base text-white/90">
         <a href="#services" class="py-2 mobile-nav-link">Services</a>
         <a href="#process" class="py-2 mobile-nav-link">Process</a>
         <a href="#case" class="py-2 mobile-nav-link">Case Studies</a>
         <a href="#contact" class="py-2 mobile-nav-link">Contact</a>
-        <a href="#contact" class="mt-2 inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-sky-500 to-cyan-400 px-4 py-2 font-medium shadow-lg shadow-sky-700/30 hover:opacity-90 mobile-nav-link">Book a Strategy Call →</a>
+        <a href="#contact" class="mt-1 inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-sky-500 to-cyan-400 px-4 py-2 font-medium shadow-lg shadow-sky-700/30 hover:opacity-90 mobile-nav-link">Book a Strategy Call →</a>
       </div>
     </div>
   </header>
 
   <main id="main">
     <!-- Hero -->
-    <section class="relative overflow-hidden scroll-mt-36 md:scroll-mt-40">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
-        <p class="reveal inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">
+    <section class="relative overflow-hidden scroll-mt-28 sm:scroll-mt-32 md:scroll-mt-40">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14 sm:py-16 lg:py-20">
+        <p class="reveal inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] sm:text-xs text-white/70">
           <span aria-hidden="true" class="h-2 w-2 rounded-full bg-sky-400 animate-pulse"></span>
           Futuristic AI for MSMEs & Early Stage B2B
         </p>
 
-        <h1 class="reveal mt-6 text-4xl sm:text-6xl font-semibold tracking-tight leading-[1.1]">
+        <h1 class="reveal mt-5 sm:mt-6 text-3xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.1]">
           Build tomorrow's <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-cyan-300">AI-first organisation</span> today
         </h1>
 
-        <p class="reveal mt-6 max-w-2xl text-white/70">
+        <p class="reveal mt-4 sm:mt-6 max-w-prose text-white/70">
           AssignInc partners with founders and operators to design, ship, and scale production AI. From automation to go-to-market, we deliver outcomes — securely and with enterprise rigor.
         </p>
 
-        <div class="reveal mt-8 flex flex-wrap items-center gap-3" aria-label="Value props">
-          <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">MSME Ready</span>
-          <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">B2B Native</span>
-          <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">Secure by Design</span>
-          <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">Global Scale</span>
+        <div class="reveal mt-6 sm:mt-8 flex flex-wrap items-center gap-2 sm:gap-3" aria-label="Value props">
+          <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] sm:text-xs text-white/70">MSME Ready</span>
+          <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] sm:text-xs text-white/70">B2B Native</span>
+          <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] sm:text-xs text-white/70">Secure by Design</span>
+          <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] sm:text-xs text-white/70">Global Scale</span>
         </div>
 
-        <div class="reveal mt-10 flex gap-3">
-          <a href="#contact" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-cyan-400 px-5 py-3 text-sm font-medium shadow-lg shadow-sky-700/30 hover:opacity-90">Start a Pilot</a>
-          <a href="/AssignInc-Capabilities.pdf" class="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/10 px-5 py-3 text-sm font-medium hover:bg-white/20">Download Capabilities Deck</a>
+        <div class="reveal mt-7 sm:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4">
+          <a href="#contact" class="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-cyan-400 px-5 py-3 text-sm font-medium shadow-lg shadow-sky-700/30 hover:opacity-90">Start a Pilot</a>
+          <a href="/AssignInc-Capabilities.pdf" class="inline-flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/10 px-5 py-3 text-sm font-medium hover:bg-white/20">Download Capabilities Deck</a>
         </div>
 
-        <div class="reveal mt-14 grid grid-cols-2 sm:grid-cols-4 gap-6" aria-label="Key metrics">
-          <div class="rounded-2xl bg-white/5 border border-white/10 p-4"><div class="text-xl sm:text-2xl font-semibold">&lt; 6 weeks</div><div class="text-xs text-white/60 mt-1">From pilot to production</div></div>
-          <div class="rounded-2xl bg-white/5 border border-white/10 p-4"><div class="text-xl sm:text-2xl font-semibold">30–60%</div><div class="text-xs text-white/60 mt-1">Ops cost reduction</div></div>
-          <div class="rounded-2xl bg-white/5 border border-white/10 p-4"><div class="text-xl sm:text-2xl font-semibold">3×</div><div class="text-xs text-white/60 mt-1">Lead response speed</div></div>
-          <div class="rounded-2xl bg-white/5 border border-white/10 p-4"><div class="text-xl sm:text-2xl font-semibold">99.9%</div><div class="text-xs text-white/60 mt-1">Uptime on managed stack</div></div>
+        <div class="reveal mt-10 sm:mt-12 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-6" aria-label="Key metrics">
+          <div class="rounded-2xl bg-white/5 border border-white/10 p-3 sm:p-4"><div class="text-lg sm:text-2xl font-semibold">&lt; 6 weeks</div><div class="text-[11px] sm:text-xs text-white/60 mt-1">From pilot to production</div></div>
+          <div class="rounded-2xl bg-white/5 border border-white/10 p-3 sm:p-4"><div class="text-lg sm:text-2xl font-semibold">30–60%</div><div class="text-[11px] sm:text-xs text-white/60 mt-1">Ops cost reduction</div></div>
+          <div class="rounded-2xl bg-white/5 border border-white/10 p-3 sm:p-4"><div class="text-lg sm:text-2xl font-semibold">3×</div><div class="text-[11px] sm:text-xs text-white/60 mt-1">Lead response speed</div></div>
+          <div class="rounded-2xl bg-white/5 border border-white/10 p-3 sm:p-4"><div class="text-lg sm:text-2xl font-semibold">99.9%</div><div class="text-[11px] sm:text-xs text-white/60 mt-1">Uptime on managed stack</div></div>
         </div>
       </div>
     </section>
 
     <!-- Logos -->
-    <section class="border-t border-white/10 scroll-mt-36 md:scroll-mt-40" aria-labelledby="logo-grid-title">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
+    <section class="border-t border-white/10 scroll-mt-28 sm:scroll-mt-32 md:scroll-mt-40" aria-labelledby="logo-grid-title">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
         <h2 id="logo-grid-title" class="sr-only">Trusted by</h2>
-        <p class="text-center text-xs uppercase tracking-widest text-white/50 mb-6">Trusted by forward-thinking teams</p>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 opacity-80">
+        <p class="text-center text-[11px] sm:text-xs uppercase tracking-widest text-white/50 mb-5 sm:mb-6">Trusted by forward-thinking teams</p>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 sm:gap-6 opacity-80">
           <div class="text-center text-white/60 text-sm border border-white/10 rounded-xl py-3 bg-white/5">Asteron</div>
           <div class="text-center text-white/60 text-sm border border-white/10 rounded-xl py-3 bg-white/5">BytePath</div>
           <div class="text-center text-white/60 text-sm border border-white/10 rounded-xl py-3 bg-white/5">Nimbus</div>
@@ -154,15 +157,15 @@
     </section>
 
     <!-- Services -->
-    <section id="services" class="border-t border-white/10 scroll-mt-36 md:scroll-mt-40" aria-labelledby="services-title">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
-        <h2 id="services-title" class="reveal text-3xl sm:text-4xl font-semibold tracking-tight">Services engineered for outcomes</h2>
-        <p class="reveal mt-3 max-w-2xl text-white/70">Modular offerings to meet you where you are. Pick one track or combine for end-to-end transformation.</p>
+    <section id="services" class="border-t border-white/10 scroll-mt-28 sm:scroll-mt-32 md:scroll-mt-40" aria-labelledby="services-title">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14 sm:py-16">
+        <h2 id="services-title" class="reveal text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight">Services engineered for outcomes</h2>
+        <p class="reveal mt-3 max-w-prose text-white/70">Modular offerings to meet you where you are. Pick one track or combine for end-to-end transformation.</p>
 
-        <div class="mt-10 grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+        <div class="mt-8 sm:mt-10 grid md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
           <!-- 1 -->
-          <div class="reveal rounded-2xl bg-gradient-to-b from-white/10 to-white/[0.03] border border-white/10 p-6">
-            <div class="flex items-center justify-between"><div class="text-lg font-semibold">AI Automation</div><div aria-hidden="true" class="h-4 w-4 rounded-full bg-sky-400"></div></div>
+          <div class="reveal rounded-2xl bg-gradient-to-b from-white/10 to-white/[0.03] border border-white/10 p-5 sm:p-6">
+            <div class="flex items-center justify-between"><div class="text-base sm:text-lg font-semibold">AI Automation</div><div aria-hidden="true" class="h-4 w-4 rounded-full bg-sky-400"></div></div>
             <p class="mt-2 text-sm text-white/70">Design and deploy intelligent workflows that automate back-office, sales ops, and support — with measurable ROI in weeks.</p>
             <ul class="mt-4 space-y-2 text-sm text-white/70 list-disc list-inside">
               <li>Agentic process orchestration</li>
@@ -172,8 +175,8 @@
             <a href="#contact" class="mt-5 inline-flex w-full items-center justify-center rounded-xl border border-white/10 bg-white/10 px-4 py-2 text-sm hover:bg-white/20">Explore AI Automation</a>
           </div>
           <!-- 2 -->
-          <div class="reveal rounded-2xl bg-gradient-to-b from-white/10 to-white/[0.03] border border-white/10 p-6">
-            <div class="flex items-center justify-between"><div class="text-lg font-semibold">Whitelabel AI Solution</div><div aria-hidden="true" class="h-4 w-4 rounded-full bg-blue-400"></div></div>
+          <div class="reveal rounded-2xl bg-gradient-to-b from-white/10 to-white/[0.03] border border-white/10 p-5 sm:p-6">
+            <div class="flex items-center justify-between"><div class="text-base sm:text-lg font-semibold">Whitelabel AI Solution</div><div aria-hidden="true" class="h-4 w-4 rounded-full bg-blue-400"></div></div>
             <p class="mt-2 text-sm text-white/70">Launch your own branded copilots, chat widgets, and AI products — multi-tenant, secure, and ready for enterprise scale.</p>
             <ul class="mt-4 space-y-2 text-sm text-white/70 list-disc list-inside">
               <li>Multi-tenant architecture</li>
@@ -183,8 +186,8 @@
             <a href="#contact" class="mt-5 inline-flex w-full items-center justify-center rounded-xl border border-white/10 bg-white/10 px-4 py-2 text-sm hover:bg-white/20">Explore Whitelabel</a>
           </div>
           <!-- 3 -->
-          <div class="reveal rounded-2xl bg-gradient-to-b from-white/10 to-white/[0.03] border border-white/10 p-6">
-            <div class="flex items-center justify-between"><div class="text-lg font-semibold">AI Marketing</div><div aria-hidden="true" class="h-4 w-4 rounded-full bg-cyan-400"></div></div>
+          <div class="reveal rounded-2xl bg-gradient-to-b from-white/10 to-white/[0.03] border border-white/10 p-5 sm:p-6">
+            <div class="flex items-center justify-between"><div class="text-base sm:text-lg font-semibold">AI Marketing</div><div aria-hidden="true" class="h-4 w-4 rounded-full bg-cyan-400"></div></div>
             <p class="mt-2 text-sm text-white/70">Full-funnel growth with generative creatives, predictive audiences, and channel-optimized campaigns that learn in realtime.</p>
             <ul class="mt-4 space-y-2 text-sm text-white/70 list-disc list-inside">
               <li>Gen creative & ad ops</li>
@@ -194,8 +197,8 @@
             <a href="#contact" class="mt-5 inline-flex w-full items-center justify-center rounded-xl border border-white/10 bg-white/10 px-4 py-2 text-sm hover:bg-white/20">Explore AI Marketing</a>
           </div>
           <!-- 4 -->
-          <div class="reveal rounded-2xl bg-gradient-to-b from-white/10 to-white/[0.03] border border-white/10 p-6">
-            <div class="flex items-center justify-between"><div class="text-lg font-semibold">AI Feasibility Analysis</div><div aria-hidden="true" class="h-4 w-4 rounded-full bg-indigo-400"></div></div>
+          <div class="reveal rounded-2xl bg-gradient-to-b from-white/10 to-white/[0.03] border border-white/10 p-5 sm:p-6">
+            <div class="flex items-center justify-between"><div class="text-base sm:text-lg font-semibold">AI Feasibility Analysis</div><div aria-hidden="true" class="h-4 w-4 rounded-full bg-indigo-400"></div></div>
             <p class="mt-2 text-sm text-white/70">Fast-track due diligence on where AI fits your business. We map data, process, and compliance to a realistic roadmap.</p>
             <ul class="mt-4 space-y-2 text-sm text-white/70 list-disc list-inside">
               <li>Use-case discovery</li>
@@ -205,8 +208,8 @@
             <a href="#contact" class="mt-5 inline-flex w-full items-center justify-center rounded-xl border border-white/10 bg-white/10 px-4 py-2 text-sm hover:bg-white/20">Explore Feasibility</a>
           </div>
           <!-- 5 -->
-          <div class="reveal rounded-2xl bg-gradient-to-b from-white/10 to-white/[0.03] border border-white/10 p-6">
-            <div class="flex items-center justify-between"><div class="text-lg font-semibold">Data & ML Infrastructure</div><div aria-hidden="true" class="h-4 w-4 rounded-full bg-sky-500"></div></div>
+          <div class="reveal rounded-2xl bg-gradient-to-b from-white/10 to-white/[0.03] border border-white/10 p-5 sm:p-6">
+            <div class="flex items-center justify-between"><div class="text-base sm:text-lg font-semibold">Data & ML Infrastructure</div><div aria-hidden="true" class="h-4 w-4 rounded-full bg-sky-500"></div></div>
             <p class="mt-2 text-sm text-white/70">From data pipelines to vector databases and model ops — production-grade, observability-first stacks.</p>
             <ul class="mt-4 space-y-2 text-sm text-white/70 list-disc list-inside">
               <li>ETL & data contracts</li>
@@ -216,8 +219,8 @@
             <a href="#contact" class="mt-5 inline-flex w-full items-center justify-center rounded-xl border border-white/10 bg-white/10 px-4 py-2 text-sm hover:bg-white/20">Explore Data & ML</a>
           </div>
           <!-- 6 -->
-          <div class="reveal rounded-2xl bg-gradient-to-b from-white/10 to-white/[0.03] border border-white/10 p-6">
-            <div class="flex items-center justify-between"><div class="text-lg font-semibold">Copilots for Teams</div><div aria-hidden="true" class="h-4 w-4 rounded-full bg-blue-500"></div></div>
+          <div class="reveal rounded-2xl bg-gradient-to-b from-white/10 to-white/[0.03] border border-white/10 p-5 sm:p-6">
+            <div class="flex items-center justify-between"><div class="text-base sm:text-lg font-semibold">Copilots for Teams</div><div aria-hidden="true" class="h-4 w-4 rounded-full bg-blue-500"></div></div>
             <p class="mt-2 text-sm text-white/70">Task-specific assistants for sales, HR, ops and finance. Reduce swivel-chair work and boost team throughput.</p>
             <ul class="mt-4 space-y-2 text-sm text-white/70 list-disc list-inside">
               <li>CRM copilots</li>
@@ -231,12 +234,12 @@
     </section>
 
     <!-- Outcomes / Case Studies -->
-    <section id="case" class="border-t border-white/10 scroll-mt-36 md:scroll-mt-40" aria-labelledby="outcomes-title">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
-        <h2 id="outcomes-title" class="reveal text-3xl sm:text-4xl font-semibold tracking-tight">Outcomes that compound</h2>
-        <p class="reveal mt-3 max-w-2xl text-white/70">A snapshot of how MSMEs and early-stage B2B teams use AssignInc to move faster with less.</p>
-        <div class="mt-10 grid md:grid-cols-3 gap-6">
-          <article class="reveal rounded-2xl bg-white/5 border border-white/10 p-6">
+    <section id="case" class="border-t border-white/10 scroll-mt-28 sm:scroll-mt-32 md:scroll-mt-40" aria-labelledby="outcomes-title">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14 sm:py-16">
+        <h2 id="outcomes-title" class="reveal text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight">Outcomes that compound</h2>
+        <p class="reveal mt-3 max-w-prose text-white/70">A snapshot of how MSMEs and early-stage B2B teams use AssignInc to move faster with less.</p>
+        <div class="mt-8 sm:mt-10 grid md:grid-cols-3 gap-4 sm:gap-6">
+          <article class="reveal rounded-2xl bg-white/5 border border-white/10 p-5 sm:p-6">
             <h3 class="text-lg font-semibold">Lead Gen Copilot</h3>
             <p class="mt-2 text-sm text-white/70">Inbound response assistant across website, WhatsApp, and email. Context-aware, CRM-native.</p>
             <ul class="mt-3 list-disc list-inside text-sm text-white/70 space-y-1">
@@ -245,7 +248,7 @@
               <li>Hands-off after-hours coverage</li>
             </ul>
           </article>
-          <article class="reveal rounded-2xl bg-white/5 border border-white/10 p-6">
+          <article class="reveal rounded-2xl bg-white/5 border border-white/10 p-5 sm:p-6">
             <h3 class="text-lg font-semibold">Ops Automation Fabric</h3>
             <p class="mt-2 text-sm text-white/70">Unified agents orchestrating inventory, invoicing, and ticket triage with human approval gates.</p>
             <ul class="mt-3 list-disc list-inside text-sm text-white/70 space-y-1">
@@ -254,7 +257,7 @@
               <li>Audit trail & observability</li>
             </ul>
           </article>
-          <article class="reveal rounded-2xl bg-white/5 border border-white/10 p-6">
+          <article class="reveal rounded-2xl bg-white/5 border border-white/10 p-5 sm:p-6">
             <h3 class="text-lg font-semibold">Secure RAG on Docs</h3>
             <p class="mt-2 text-sm text-white/70">Private knowledge answers over policies, contracts, and SOPs with strong access controls.</p>
             <ul class="mt-3 list-disc list-inside text-sm text-white/70 space-y-1">
@@ -268,28 +271,28 @@
     </section>
 
     <!-- Process -->
-    <section id="process" class="border-t border-white/10 scroll-mt-36 md:scroll-mt-40" aria-labelledby="process-title">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
-        <h2 id="process-title" class="reveal text-3xl sm:text-4xl font-semibold tracking-tight">From idea to impact — fast</h2>
-        <div class="mt-10 grid md:grid-cols-2 xl:grid-cols-4 gap-6">
-          <div class="reveal rounded-2xl bg-gradient-to-b from-white/10 to-white/[0.03] border border-white/10 p-6">
+    <section id="process" class="border-t border-white/10 scroll-mt-28 sm:scroll-mt-32 md:scroll-mt-40" aria-labelledby="process-title">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14 sm:py-16">
+        <h2 id="process-title" class="reveal text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight">From idea to impact — fast</h2>
+        <div class="mt-8 sm:mt-10 grid md:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6">
+          <div class="reveal rounded-2xl bg-gradient-to-b from-white/10 to-white/[0.03] border border-white/10 p-5 sm:p-6">
             <div class="text-sm text-white/50">01</div>
-            <div class="text-xl font-semibold">Discovery Sprint</div>
+            <div class="text-lg font-semibold">Discovery Sprint</div>
             <p class="mt-2 text-sm text-white/70">Align on impact, constraints, and data readiness. Get a prioritized AI roadmap and TCO model.</p>
           </div>
-          <div class="reveal rounded-2xl bg-gradient-to-b from-white/10 to-white/[0.03] border border-white/10 p-6">
+          <div class="reveal rounded-2xl bg-gradient-to-b from-white/10 to-white/[0.03] border border-white/10 p-5 sm:p-6">
             <div class="text-sm text-white/50">02</div>
-            <div class="text-xl font-semibold">Proof of Value</div>
+            <div class="text-lg font-semibold">Proof of Value</div>
             <p class="mt-2 text-sm text-white/70">Pilot a narrow workflow with hard metrics, human QA, and guardrails from day one.</p>
           </div>
-          <div class="reveal rounded-2xl bg-gradient-to-b from-white/10 to-white/[0.03] border border-white/10 p-6">
+          <div class="reveal rounded-2xl bg-gradient-to-b from-white/10 to-white/[0.03] border border-white/10 p-5 sm:p-6">
             <div class="text-sm text-white/50">03</div>
-            <div class="text-xl font-semibold">Scale & Integrate</div>
+            <div class="text-lg font-semibold">Scale & Integrate</div>
             <p class="mt-2 text-sm text-white/70">Harden the pipeline, add observability, integrate with your stack, and drive adoption with playbooks.</p>
           </div>
-          <div class="reveal rounded-2xl bg-gradient-to-b from-white/10 to-white/[0.03] border border-white/10 p-6">
+          <div class="reveal rounded-2xl bg-gradient-to-b from-white/10 to-white/[0.03] border border-white/10 p-5 sm:p-6">
             <div class="text-sm text-white/50">04</div>
-            <div class="text-xl font-semibold">Operate & Evolve</div>
+            <div class="text-lg font-semibold">Operate & Evolve</div>
             <p class="mt-2 text-sm text-white/70">SLAs, monitoring, regular evals, and continuous improvements as models and your business evolve.</p>
           </div>
         </div>
@@ -297,11 +300,11 @@
     </section>
 
     <!-- Engagement models -->
-    <section class="border-t border-white/10 scroll-mt-36 md:scroll-mt-40" aria-labelledby="engagement-title">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
-        <h2 id="engagement-title" class="reveal text-3xl sm:text-4xl font-semibold tracking-tight">Engagement models</h2>
-        <div class="mt-8 grid md:grid-cols-3 gap-6">
-          <div class="reveal rounded-2xl bg-white/5 border border-white/10 p-6">
+    <section class="border-t border-white/10 scroll-mt-28 sm:scroll-mt-32 md:scroll-mt-40" aria-labelledby="engagement-title">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14 sm:py-16">
+        <h2 id="engagement-title" class="reveal text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight">Engagement models</h2>
+        <div class="mt-8 grid md:grid-cols-3 gap-4 sm:gap-6">
+          <div class="reveal rounded-2xl bg-white/5 border border-white/10 p-5 sm:p-6">
             <div class="text-xl font-semibold">Jumpstart</div>
             <div class="text-sm text-white/60">Best for MSMEs</div>
             <ul class="mt-4 space-y-2 text-sm text-white/70 list-disc list-inside">
@@ -311,7 +314,7 @@
             </ul>
             <a href="#contact" aria-label="Talk to Sales about Jumpstart" class="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-sky-500 to-cyan-400 px-4 py-2 text-sm font-medium shadow-lg shadow-sky-700/30 hover:opacity-90">Talk to Sales</a>
           </div>
-          <div class="reveal rounded-2xl bg-gradient-to-b from-sky-500/10 to-cyan-500/10 border border-white/10 p-6">
+          <div class="reveal rounded-2xl bg-gradient-to-b from-sky-500/10 to-cyan-500/10 border border-white/10 p-5 sm:p-6">
             <div class="text-xl font-semibold">Scale</div>
             <div class="text-sm text-white/60">For growing teams</div>
             <ul class="mt-4 space-y-2 text-sm text-white/70 list-disc list-inside">
@@ -321,7 +324,7 @@
             </ul>
             <a href="#contact" aria-label="Talk to Sales about Scale" class="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-sky-500 to-cyan-400 px-4 py-2 text-sm font-medium shadow-lg shadow-sky-700/30 hover:opacity-90">Talk to Sales</a>
           </div>
-          <div class="reveal rounded-2xl bg-white/5 border border-white/10 p-6">
+          <div class="reveal rounded-2xl bg-white/5 border border-white/10 p-5 sm:p-6">
             <div class="text-xl font-semibold">Enterprise</div>
             <div class="text-sm text-white/60">For complex stacks</div>
             <ul class="mt-4 space-y-2 text-sm text-white/70 list-disc list-inside">
@@ -336,11 +339,11 @@
     </section>
 
     <!-- Contact -->
-    <section id="contact" class="border-t border-white/10 scroll-mt-36 md:scroll-mt-40" aria-labelledby="contact-title">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
-        <h2 id="contact-title" class="reveal text-3xl sm:text-4xl font-semibold tracking-tight">Let’s architect your AI advantage</h2>
-        <div class="mt-8 grid lg:grid-cols-2 gap-8">
-          <div class="reveal rounded-2xl bg-white/5 border border-white/10 p-6">
+    <section id="contact" class="border-t border-white/10 scroll-mt-28 sm:scroll-mt-32 md:scroll-mt-40" aria-labelledby="contact-title">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14 sm:py-16">
+        <h2 id="contact-title" class="reveal text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight">Let’s architect your AI advantage</h2>
+        <div class="mt-8 grid lg:grid-cols-2 gap-6 sm:gap-8">
+          <div class="reveal rounded-2xl bg-white/5 border border-white/10 p-5 sm:p-6">
             <h3 class="text-xl font-semibold mb-3">Share your goals</h3>
             <form class="space-y-4" id="leadForm" novalidate>
               <div class="grid sm:grid-cols-2 gap-4">
@@ -370,11 +373,11 @@
             </form>
           </div>
           <div class="space-y-6">
-            <div class="reveal rounded-2xl bg-gradient-to-b from-white/10 to-white/[0.03] border border-white/10 p-6">
+            <div class="reveal rounded-2xl bg-gradient-to-b from-white/10 to-white/[0.03] border border-white/10 p-5 sm:p-6">
               <div class="text-xl font-semibold">Reference Architecture</div>
               <p class="mt-2 text-sm text-white/70">Event-driven pipelines · Vector search (RAG) · Policy engine · Eval harness · Analytics · Admin console.</p>
             </div>
-            <div class="reveal rounded-2xl bg-white/5 border border-white/10 p-6">
+            <div class="reveal rounded-2xl bg-white/5 border border-white/10 p-5 sm:p-6">
               <div class="text-xl font-semibold">Getting Started</div>
               <ol class="mt-2 list-decimal list-inside text-sm text-white/70 space-y-1">
                 <li>Pick a high-leverage workflow</li>
@@ -452,20 +455,19 @@
       menuBtn.addEventListener('click', () => {
         const open = mobileMenu.classList.toggle('hidden') === false;
         menuBtn.setAttribute('aria-expanded', String(open));
-        menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        menuBtn.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
       });
-
-      // Close mobile menu after clicking an in-page link and smooth-scroll
+      // Close mobile menu after clicking an in-page link
       mobileMenu.querySelectorAll('.mobile-nav-link').forEach(link => {
         link.addEventListener('click', () => {
           mobileMenu.classList.add('hidden');
           menuBtn.setAttribute('aria-expanded', 'false');
-          menuBtn.setAttribute('aria-label', 'Open menu');
+          menuBtn.setAttribute('aria-label', 'Open navigation');
         });
       });
     }
 
-    // Enhance anchor clicks for smooth scrolling and accurate focus (desktop + footer links)
+    // Enhance anchor clicks for smooth scrolling + focus (desktop + footer links)
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', (e) => {
         const id = anchor.getAttribute('href');
