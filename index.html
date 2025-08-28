@@ -2,236 +2,477 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>AssignInc — Futuristic AI Services for MSMEs & B2B</title>
+  <meta name="description" content="AssignInc partners with founders and operators to design, ship, and scale production AI—securely and with enterprise rigor." />
+  <link rel="canonical" href="https://www.assigninc.example/" />
+
+  <!-- Social -->
+  <meta property="og:title" content="AssignInc — Futuristic AI Services for MSMEs & B2B" />
+  <meta property="og:description" content="From automation to go-to-market, we deliver outcomes with enterprise rigor." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://www.assigninc.example/og-image.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AssignInc — Futuristic AI Services for MSMEs & B2B" />
+  <meta name="twitter:description" content="Design, ship, and scale production AI." />
+
+  <!-- Icons (replace with your files) -->
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    .reveal { opacity: 0; transform: translateY(16px); transition: all .6s ease; }
+    /* Reveal (respects reduced motion) */
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+      .animate-pulse { animation: none !important; }
+    }
+    /* Focus ring for keyboard users */
+    :where(a, button, input, textarea) { outline: none; }
+    :where(a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible) {
+      box-shadow: 0 0 0 3px rgba(56,189,248,.6); /* sky-400 */
+      border-radius: .75rem;
+    }
+    /* Accessible skip link */
+    .skip-link { position:absolute; left:-999px; top:auto; width:1px; height:1px; overflow:hidden; }
+    .skip-link:focus { left:1rem; top:1rem; width:auto; height:auto; padding:.5rem .75rem; z-index:1000; }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "name":"AssignInc",
+    "url":"https://www.assigninc.example/",
+    "logo":"https://www.assigninc.example/logo.png",
+    "sameAs": [],
+    "description":"Futuristic AI services for MSMEs & B2B innovators."
+  }
+  </script>
 </head>
-<body class="min-h-screen bg-gradient-to-b from-slate-950 via-blue-950 to-slate-900 text-slate-200 selection:bg-sky-300/30">
+<body class="min-h-screen bg-gradient-to-b from-blue-950 via-slate-950 to-blue-900 text-white selection:bg-sky-300/40">
+  <a href="#main" class="skip-link rounded-xl bg-sky-600 text-white">Skip to content</a>
 
   <!-- Background glows -->
-  <div class="pointer-events-none fixed inset-0 -z-10">
-    <div class="absolute -top-40 -left-40 h-96 w-96 rounded-full blur-3xl opacity-20 bg-sky-500/40"></div>
-    <div class="absolute -bottom-40 -right-40 h-[28rem] w-[28rem] rounded-full blur-3xl opacity-20 bg-teal-500/30"></div>
+  <div aria-hidden="true" class="pointer-events-none fixed inset-0 -z-10">
+    <div class="absolute -top-40 -left-40 h-96 w-96 rounded-full blur-3xl opacity-30 bg-gradient-to-tr from-sky-500 via-blue-400 to-cyan-400 animate-pulse"></div>
+    <div class="absolute -bottom-40 -right-40 h-[28rem] w-[28rem] rounded-full blur-3xl opacity-20 bg-gradient-to-tr from-indigo-500 via-sky-400 to-blue-600"></div>
   </div>
 
   <!-- Header -->
-  <header class="sticky top-0 z-50 border-b border-white/10 bg-white/5 backdrop-blur-xl shadow-lg shadow-sky-900/10">
-    <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
-      <a href="#top" class="flex items-center gap-3">
-        <img src="logo.png" alt="AssignInc" class="h-10 sm:h-12 w-auto object-contain drop-shadow-lg"/>
+  <header class="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-blue-950/40">
+    <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between" aria-label="Primary">
+      <a href="#" class="flex items-center gap-2">
+        <img src="assets/assigninc-logo.png" alt="AssignInc" class="h-6 w-auto" />
         <span class="sr-only">AssignInc</span>
       </a>
-      <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-200">
-        <a href="#services" class="hover:text-white transition">Services</a>
-        <a href="#process" class="hover:text-white transition">Process</a>
-        <a href="#case" class="hover:text-white transition">Case Studies</a>
-        <a href="#contact" class="hover:text-white transition">Contact</a>
-        <a href="#contact" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-sky-400 to-teal-300 px-4 py-2 text-slate-900 font-semibold shadow hover:scale-105 hover:shadow-md hover:shadow-sky-400/30 transition">
-          Book a Strategy Call →
-        </a>
+
+      <!-- Desktop -->
+      <div class="hidden md:flex items-center gap-6 text-sm text-white/80">
+        <a href="#services" class="hover:text-white">Services</a>
+        <a href="#process" class="hover:text-white">Process</a>
+        <a href="#case" class="hover:text-white">Case Studies</a>
+        <a href="#contact" class="hover:text-white">Contact</a>
+        <a href="#contact" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-cyan-400 px-4 py-2 text-sm font-medium shadow-lg shadow-sky-700/30 hover:opacity-90">Book a Strategy Call →</a>
       </div>
+
+      <!-- Mobile -->
+      <button id="menuBtn" class="md:hidden inline-flex items-center justify-center rounded-xl border border-white/10 bg-white/10 px-3 py-2 text-sm" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">
+        Menu
+      </button>
     </nav>
+
+    <!-- Mobile panel -->
+    <div id="mobileMenu" class="md:hidden hidden border-t border-white/10 bg-blue-950/70 backdrop-blur">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 grid gap-2 text-sm text-white/90">
+        <a href="#services" class="py-2">Services</a>
+        <a href="#process" class="py-2">Process</a>
+        <a href="#case" class="py-2">Case Studies</a>
+        <a href="#contact" class="py-2">Contact</a>
+        <a href="#contact" class="mt-2 inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-sky-500 to-cyan-400 px-4 py-2 font-medium shadow-lg shadow-sky-700/30 hover:opacity-90">Book a Strategy Call →</a>
+      </div>
+    </div>
   </header>
 
-  <!-- Hero -->
-  <section class="relative overflow-hidden">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 text-center">
-      <div class="reveal inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 backdrop-blur px-3 py-1 text-xs text-slate-300 shadow">
-        <span class="h-2 w-2 rounded-full bg-sky-400 animate-pulse"></span>
-        Futuristic AI for MSMEs & Early Stage B2B
-      </div>
-
-      <h1 class="reveal mt-6 text-4xl sm:text-6xl font-bold tracking-tight leading-[1.1] text-white">
-        Build tomorrow's <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-teal-300">AI-first organisation</span> today
-      </h1>
-
-      <p class="reveal mt-6 max-w-2xl mx-auto text-slate-300">
-        AssignInc partners with founders and operators to design, ship, and scale production AI. From automation to go-to-market, we deliver outcomes — securely and with enterprise rigor.
-      </p>
-
-      <div class="reveal mt-10 flex flex-wrap justify-center gap-4">
-        <a href="#contact" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-sky-400 to-teal-300 px-6 py-3 text-sm font-medium text-slate-900 shadow-lg hover:scale-105 hover:shadow-sky-400/30 transition">Start a Pilot</a>
-        <a href="#contact" class="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/10 backdrop-blur px-6 py-3 text-sm font-medium text-slate-200 hover:bg-white/20 transition">Download Capabilities Deck</a>
-      </div>
-
-      <div class="reveal mt-14 grid grid-cols-2 sm:grid-cols-4 gap-6">
-        <div class="rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-4 text-center shadow-sm">
-          <div class="text-xl sm:text-2xl font-semibold text-sky-400">&lt; 6 weeks</div>
-          <div class="text-xs text-slate-400 mt-1">From pilot to production</div>
-        </div>
-        <div class="rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-4 text-center shadow-sm">
-          <div class="text-xl sm:text-2xl font-semibold text-sky-400">30–60%</div>
-          <div class="text-xs text-slate-400 mt-1">Ops cost reduction</div>
-        </div>
-        <div class="rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-4 text-center shadow-sm">
-          <div class="text-xl sm:text-2xl font-semibold text-sky-400">3×</div>
-          <div class="text-xs text-slate-400 mt-1">Lead response speed</div>
-        </div>
-        <div class="rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-4 text-center shadow-sm">
-          <div class="text-xl sm:text-2xl font-semibold text-sky-400">99.9%</div>
-          <div class="text-xs text-slate-400 mt-1">Uptime on managed stack</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
- <!-- Services -->
-<section id="services" class="border-t border-white/10 bg-gradient-to-b from-slate-950 to-slate-900">
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
-    <h2 class="reveal text-3xl sm:text-4xl font-semibold text-white">Services engineered for outcomes</h2>
-    <p class="reveal mt-3 max-w-2xl text-slate-300">
-      Purpose-built AI tracks that transform how MSMEs and B2B ventures operate. 
-      Each service is modular, secure, and designed for compounding impact.
-    </p>
-
-    <div class="mt-10 grid md:grid-cols-2 xl:grid-cols-3 gap-6">
-
-      <!-- AI Automation -->
-      <div class="reveal rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-6 shadow hover:shadow-lg hover:shadow-sky-500/20 transition">
-        <div class="flex items-center justify-between">
-          <div class="text-lg font-semibold text-white">AI Automation</div>
-          <div class="h-4 w-4 rounded-full bg-sky-400"></div>
-        </div>
-        <p class="mt-2 text-sm text-slate-300">
-          Replace repetitive workflows with intelligent, adaptive agents. 
-          From sales ops to finance reconciliation, AI orchestrates multi-step processes — reducing errors and cutting costs while keeping a human in the loop where it matters.
+  <main id="main">
+    <!-- Hero -->
+    <section class="relative overflow-hidden">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
+        <p class="reveal inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">
+          <span aria-hidden="true" class="h-2 w-2 rounded-full bg-sky-400 animate-pulse"></span>
+          Futuristic AI for MSMEs & Early Stage B2B
         </p>
-        <ul class="mt-4 space-y-2 text-sm text-slate-400 list-disc list-inside">
-          <li>End-to-end process orchestration</li>
-          <li>Hybrid RPA + LLM pipelines</li>
-          <li>Smart approval & exception handling</li>
-        </ul>
-      </div>
 
-      <!-- Whitelabel AI Solution -->
-      <div class="reveal rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-6 shadow hover:shadow-lg hover:shadow-sky-500/20 transition">
-        <div class="flex items-center justify-between">
-          <div class="text-lg font-semibold text-white">Whitelabel AI Solution</div>
-          <div class="h-4 w-4 rounded-full bg-blue-400"></div>
-        </div>
-        <p class="mt-2 text-sm text-slate-300">
-          Launch your own branded AI copilots, chat platforms, or knowledge assistants. 
-          Multi-tenant by design, these solutions let you offer AI products to customers under your brand — with built-in billing, analytics, and security.
+        <h1 class="reveal mt-6 text-4xl sm:text-6xl font-semibold tracking-tight leading-[1.1]">
+          Build tomorrow's <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-cyan-300">AI-first organisation</span> today
+        </h1>
+
+        <p class="reveal mt-6 max-w-2xl text-white/70">
+          AssignInc partners with founders and operators to design, ship, and scale production AI. From automation to go-to-market, we deliver outcomes — securely and with enterprise rigor.
         </p>
-        <ul class="mt-4 space-y-2 text-sm text-slate-400 list-disc list-inside">
-          <li>Customizable white-label copilots</li>
-          <li>Tenant management + usage metering</li>
-          <li>Enterprise-ready hosting & SLAs</li>
-        </ul>
-      </div>
 
-      <!-- AI Marketing -->
-      <div class="reveal rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-6 shadow hover:shadow-lg hover:shadow-sky-500/20 transition">
-        <div class="flex items-center justify-between">
-          <div class="text-lg font-semibold text-white">AI Marketing</div>
-          <div class="h-4 w-4 rounded-full bg-cyan-400"></div>
+        <div class="reveal mt-8 flex flex-wrap items-center gap-3" aria-label="Value props">
+          <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">MSME Ready</span>
+          <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">B2B Native</span>
+          <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">Secure by Design</span>
+          <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">Global Scale</span>
         </div>
-        <p class="mt-2 text-sm text-slate-300">
-          Supercharge growth with AI-driven marketing stacks. 
-          From predictive segmentation to auto-generated creative, campaigns adapt in real-time to maximize ROI across channels — without bloating your team.
-        </p>
-        <ul class="mt-4 space-y-2 text-sm text-slate-400 list-disc list-inside">
-          <li>Generative ad creative & content engines</li>
-          <li>Predictive audience targeting</li>
-          <li>SEO & omni-channel optimization</li>
-        </ul>
-      </div>
 
-      <!-- AI Feasibility Analysis -->
-      <div class="reveal rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-6 shadow hover:shadow-lg hover:shadow-sky-500/20 transition">
-        <div class="flex items-center justify-between">
-          <div class="text-lg font-semibold text-white">AI Feasibility Analysis</div>
-          <div class="h-4 w-4 rounded-full bg-indigo-400"></div>
+        <div class="reveal mt-10 flex gap-3">
+          <a href="#contact" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-cyan-400 px-5 py-3 text-sm font-medium shadow-lg shadow-sky-700/30 hover:opacity-90">Start a Pilot</a>
+          <a href="/AssignInc-Capabilities.pdf" class="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/10 px-5 py-3 text-sm font-medium hover:bg-white/20">Download Capabilities Deck</a>
         </div>
-        <p class="mt-2 text-sm text-slate-300">
-          Identify where AI delivers the highest impact. 
-          We assess your workflows, data readiness, compliance constraints, and cost models — producing a clear roadmap with quantified ROI potential.
-        </p>
-        <ul class="mt-4 space-y-2 text-sm text-slate-400 list-disc list-inside">
-          <li>Use-case discovery workshops</li>
-          <li>Data, infra & compliance audits</li>
-          <li>ROI & TCO modelling</li>
-        </ul>
-      </div>
 
-      <!-- Data & ML Infrastructure -->
-      <div class="reveal rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-6 shadow hover:shadow-lg hover:shadow-sky-500/20 transition">
-        <div class="flex items-center justify-between">
-          <div class="text-lg font-semibold text-white">Data & ML Infrastructure</div>
-          <div class="h-4 w-4 rounded-full bg-sky-500"></div>
+        <div class="reveal mt-14 grid grid-cols-2 sm:grid-cols-4 gap-6" aria-label="Key metrics">
+          <div class="rounded-2xl bg-white/5 border border-white/10 p-4"><div class="text-xl sm:text-2xl font-semibold">&lt; 6 weeks</div><div class="text-xs text-white/60 mt-1">From pilot to production</div></div>
+          <div class="rounded-2xl bg-white/5 border border-white/10 p-4"><div class="text-xl sm:text-2xl font-semibold">30–60%</div><div class="text-xs text-white/60 mt-1">Ops cost reduction</div></div>
+          <div class="rounded-2xl bg-white/5 border border-white/10 p-4"><div class="text-xl sm:text-2xl font-semibold">3×</div><div class="text-xs text-white/60 mt-1">Lead response speed</div></div>
+          <div class="rounded-2xl bg-white/5 border border-white/10 p-4"><div class="text-xl sm:text-2xl font-semibold">99.9%</div><div class="text-xs text-white/60 mt-1">Uptime on managed stack</div></div>
         </div>
-        <p class="mt-2 text-sm text-slate-300">
-          Build the backbone for intelligent systems. 
-          From real-time ETL pipelines to vector search engines and observability dashboards, we deliver infra that scales securely with your business.
-        </p>
-        <ul class="mt-4 space-y-2 text-sm text-slate-400 list-disc list-inside">
-          <li>Event-driven data pipelines</li>
-          <li>Vector DBs & RAG frameworks</li>
-          <li>MLOps, monitoring & eval harnesses</li>
-        </ul>
       </div>
+    </section>
 
-      <!-- Copilots for Teams -->
-      <div class="reveal rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-6 shadow hover:shadow-lg hover:shadow-sky-500/20 transition">
-        <div class="flex items-center justify-between">
-          <div class="text-lg font-semibold text-white">Copilots for Teams</div>
-          <div class="h-4 w-4 rounded-full bg-blue-500"></div>
+    <!-- Logos -->
+    <section class="border-t border-white/10" aria-labelledby="logo-grid-title">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
+        <h2 id="logo-grid-title" class="sr-only">Trusted by</h2>
+        <p class="text-center text-xs uppercase tracking-widest text-white/50 mb-6">Trusted by forward-thinking teams</p>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 opacity-80">
+          <div class="text-center text-white/60 text-sm border border-white/10 rounded-xl py-3 bg-white/5">Asteron</div>
+          <div class="text-center text-white/60 text-sm border border-white/10 rounded-xl py-3 bg-white/5">BytePath</div>
+          <div class="text-center text-white/60 text-sm border border-white/10 rounded-xl py-3 bg-white/5">Nimbus</div>
+          <div class="text-center text-white/60 text-sm border border-white/10 rounded-xl py-3 bg-white/5">QuantaCloud</div>
+          <div class="text-center text-white/60 text-sm border border-white/10 rounded-xl py-3 bg-white/5">VertexWorks</div>
+          <div class="text-center text-white/60 text-sm border border-white/10 rounded-xl py-3 bg-white/5">Wavely</div>
         </div>
-        <p class="mt-2 text-sm text-slate-300">
-          Empower teams with task-specific copilots built into existing tools. 
-          From CRM copilots that qualify leads to HR bots that understand policies, copilots eliminate swivel-chair tasks and boost throughput.
-        </p>
-        <ul class="mt-4 space-y-2 text-sm text-slate-400 list-disc list-inside">
-          <li>Sales & CRM copilots</li>
-          <li>HR & compliance assistants</li>
-          <li>Ops copilots with approval flows</li>
-        </ul>
       </div>
+    </section>
 
-    </div>
-  </div>
-</section>
+    <!-- Services -->
+    <section id="services" class="border-t border-white/10" aria-labelledby="services-title">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+        <h2 id="services-title" class="reveal text-3xl sm:text-4xl font-semibold tracking-tight">Services engineered for outcomes</h2>
+        <p class="reveal mt-3 max-w-2xl text-white/70">Modular offerings to meet you where you are. Pick one track or combine for end-to-end transformation.</p>
 
+        <div class="mt-10 grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+          <!-- Cards (unchanged content, kept concise) -->
+          <!-- 1 -->
+          <div class="reveal rounded-2xl bg-gradient-to-b from-white/10 to-white/[0.03] border border-white/10 p-6">
+            <div class="flex items-center justify-between"><div class="text-lg font-semibold">AI Automation</div><div aria-hidden="true" class="h-4 w-4 rounded-full bg-sky-400"></div></div>
+            <p class="mt-2 text-sm text-white/70">Design and deploy intelligent workflows that automate back-office, sales ops, and support — with measurable ROI in weeks.</p>
+            <ul class="mt-4 space-y-2 text-sm text-white/70 list-disc list-inside">
+              <li>Agentic process orchestration</li>
+              <li>RPA + LLM hybrid flows</li>
+              <li>Human-in-the-loop review</li>
+            </ul>
+            <a href="#contact" class="mt-5 inline-flex w-full items-center justify-center rounded-xl border border-white/10 bg-white/10 px-4 py-2 text-sm hover:bg-white/20">Explore AI Automation</a>
+          </div>
+          <!-- 2 -->
+          <div class="reveal rounded-2xl bg-gradient-to-b from-white/10 to-white/[0.03] border border-white/10 p-6">
+            <div class="flex items-center justify-between"><div class="text-lg font-semibold">Whitelabel AI Solution</div><div aria-hidden="true" class="h-4 w-4 rounded-full bg-blue-400"></div></div>
+            <p class="mt-2 text-sm text-white/70">Launch your own branded copilots, chat widgets, and AI products — multi-tenant, secure, and ready for enterprise scale.</p>
+            <ul class="mt-4 space-y-2 text-sm text-white/70 list-disc list-inside">
+              <li>Multi-tenant architecture</li>
+              <li>Billing & usage metering</li>
+              <li>SLA-ready deployment</li>
+            </ul>
+            <a href="#contact" class="mt-5 inline-flex w-full items-center justify-center rounded-xl border border-white/10 bg-white/10 px-4 py-2 text-sm hover:bg-white/20">Explore Whitelabel</a>
+          </div>
+          <!-- 3 -->
+          <div class="reveal rounded-2xl bg-gradient-to-b from-white/10 to-white/[0.03] border border-white/10 p-6">
+            <div class="flex items-center justify-between"><div class="text-lg font-semibold">AI Marketing</div><div aria-hidden="true" class="h-4 w-4 rounded-full bg-cyan-400"></div></div>
+            <p class="mt-2 text-sm text-white/70">Full-funnel growth with generative creatives, predictive audiences, and channel-optimized campaigns that learn in realtime.</p>
+            <ul class="mt-4 space-y-2 text-sm text-white/70 list-disc list-inside">
+              <li>Gen creative & ad ops</li>
+              <li>Predictive segmentation</li>
+              <li>Content engines & SEO</li>
+            </ul>
+            <a href="#contact" class="mt-5 inline-flex w-full items-center justify-center rounded-xl border border-white/10 bg-white/10 px-4 py-2 text-sm hover:bg-white/20">Explore AI Marketing</a>
+          </div>
+          <!-- 4 -->
+          <div class="reveal rounded-2xl bg-gradient-to-b from-white/10 to-white/[0.03] border border-white/10 p-6">
+            <div class="flex items-center justify-between"><div class="text-lg font-semibold">AI Feasibility Analysis</div><div aria-hidden="true" class="h-4 w-4 rounded-full bg-indigo-400"></div></div>
+            <p class="mt-2 text-sm text-white/70">Fast-track due diligence on where AI fits your business. We map data, process, and compliance to a realistic roadmap.</p>
+            <ul class="mt-4 space-y-2 text-sm text-white/70 list-disc list-inside">
+              <li>Use-case discovery</li>
+              <li>Tech & cost feasibility</li>
+              <li>Risk & compliance gating</li>
+            </ul>
+            <a href="#contact" class="mt-5 inline-flex w-full items-center justify-center rounded-xl border border-white/10 bg-white/10 px-4 py-2 text-sm hover:bg-white/20">Explore Feasibility</a>
+          </div>
+          <!-- 5 -->
+          <div class="reveal rounded-2xl bg-gradient-to-b from-white/10 to-white/[0.03] border border-white/10 p-6">
+            <div class="flex items-center justify-between"><div class="text-lg font-semibold">Data & ML Infrastructure</div><div aria-hidden="true" class="h-4 w-4 rounded-full bg-sky-500"></div></div>
+            <p class="mt-2 text-sm text-white/70">From data pipelines to vector databases and model ops — production-grade, observability-first stacks.</p>
+            <ul class="mt-4 space-y-2 text-sm text-white/70 list-disc list-inside">
+              <li>ETL & data contracts</li>
+              <li>Vector search & RAG</li>
+              <li>MLOps & evals</li>
+            </ul>
+            <a href="#contact" class="mt-5 inline-flex w-full items-center justify-center rounded-xl border border-white/10 bg-white/10 px-4 py-2 text-sm hover:bg-white/20">Explore Data & ML</a>
+          </div>
+          <!-- 6 -->
+          <div class="reveal rounded-2xl bg-gradient-to-b from-white/10 to-white/[0.03] border border-white/10 p-6">
+            <div class="flex items-center justify-between"><div class="text-lg font-semibold">Copilots for Teams</div><div aria-hidden="true" class="h-4 w-4 rounded-full bg-blue-500"></div></div>
+            <p class="mt-2 text-sm text-white/70">Task-specific assistants for sales, HR, ops and finance. Reduce swivel-chair work and boost team throughput.</p>
+            <ul class="mt-4 space-y-2 text-sm text-white/70 list-disc list-inside">
+              <li>CRM copilots</li>
+              <li>Policy-aware HR bots</li>
+              <li>Ops assistants</li>
+            </ul>
+            <a href="#contact" class="mt-5 inline-flex w-full items-center justify-center rounded-xl border border-white/10 bg-white/10 px-4 py-2 text-sm hover:bg-white/20">Explore Copilots</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Outcomes / Case Studies -->
+    <section id="case" class="border-t border-white/10" aria-labelledby="outcomes-title">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+        <h2 id="outcomes-title" class="reveal text-3xl sm:text-4xl font-semibold tracking-tight">Outcomes that compound</h2>
+        <p class="reveal mt-3 max-w-2xl text-white/70">A snapshot of how MSMEs and early-stage B2B teams use AssignInc to move faster with less.</p>
+        <div class="mt-10 grid md:grid-cols-3 gap-6">
+          <article class="reveal rounded-2xl bg-white/5 border border-white/10 p-6">
+            <h3 class="text-lg font-semibold">Lead Gen Copilot</h3>
+            <p class="mt-2 text-sm text-white/70">Inbound response assistant across website, WhatsApp, and email. Context-aware, CRM-native.</p>
+            <ul class="mt-3 list-disc list-inside text-sm text-white/70 space-y-1">
+              <li>3× faster lead qualification</li>
+              <li>+18% pipeline velocity</li>
+              <li>Hands-off after-hours coverage</li>
+            </ul>
+          </article>
+          <article class="reveal rounded-2xl bg-white/5 border border-white/10 p-6">
+            <h3 class="text-lg font-semibold">Ops Automation Fabric</h3>
+            <p class="mt-2 text-sm text-white/70">Unified agents orchestrating inventory, invoicing, and ticket triage with human approval gates.</p>
+            <ul class="mt-3 list-disc list-inside text-sm text-white/70 space-y-1">
+              <li>42% reduction in manual touches</li>
+              <li>Sub-1h SLA on ticket routing</li>
+              <li>Audit trail & observability</li>
+            </ul>
+          </article>
+          <article class="reveal rounded-2xl bg-white/5 border border-white/10 p-6">
+            <h3 class="text-lg font-semibold">Secure RAG on Docs</h3>
+            <p class="mt-2 text-sm text-white/70">Private knowledge answers over policies, contracts, and SOPs with strong access controls.</p>
+            <ul class="mt-3 list-disc list-inside text-sm text-white/70 space-y-1">
+              <li>Confident responses with citations</li>
+              <li>PII redaction & safe completion</li>
+              <li>Deployed in VPC / on-prem</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Process -->
+    <section id="process" class="border-t border-white/10" aria-labelledby="process-title">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+        <h2 id="process-title" class="reveal text-3xl sm:text-4xl font-semibold tracking-tight">From idea to impact — fast</h2>
+        <div class="mt-10 grid md:grid-cols-2 xl:grid-cols-4 gap-6">
+          <!-- 01..04 cards (unchanged) -->
+          <div class="reveal rounded-2xl bg-gradient-to-b from-white/10 to-white/[0.03] border border-white/10 p-6">
+            <div class="text-sm text-white/50">01</div>
+            <div class="text-xl font-semibold">Discovery Sprint</div>
+            <p class="mt-2 text-sm text-white/70">Align on impact, constraints, and data readiness. Get a prioritized AI roadmap and TCO model.</p>
+          </div>
+          <div class="reveal rounded-2xl bg-gradient-to-b from-white/10 to-white/[0.03] border border-white/10 p-6">
+            <div class="text-sm text-white/50">02</div>
+            <div class="text-xl font-semibold">Proof of Value</div>
+            <p class="mt-2 text-sm text-white/70">Pilot a narrow workflow with hard metrics, human QA, and guardrails from day one.</p>
+          </div>
+          <div class="reveal rounded-2xl bg-gradient-to-b from-white/10 to-white/[0.03] border border-white/10 p-6">
+            <div class="text-sm text-white/50">03</div>
+            <div class="text-xl font-semibold">Scale & Integrate</div>
+            <p class="mt-2 text-sm text-white/70">Harden the pipeline, add observability, integrate with your stack, and drive adoption with playbooks.</p>
+          </div>
+          <div class="reveal rounded-2xl bg-gradient-to-b from-white/10 to-white/[0.03] border border-white/10 p-6">
+            <div class="text-sm text-white/50">04</div>
+            <div class="text-xl font-semibold">Operate & Evolve</div>
+            <p class="mt-2 text-sm text-white/70">SLAs, monitoring, regular evals, and continuous improvements as models and your business evolve.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Engagement models -->
+    <section class="border-t border-white/10" aria-labelledby="engagement-title">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+        <h2 id="engagement-title" class="reveal text-3xl sm:text-4xl font-semibold tracking-tight">Engagement models</h2>
+        <div class="mt-8 grid md:grid-cols-3 gap-6">
+          <!-- three cards unchanged; added buttons have aria labels -->
+          <div class="reveal rounded-2xl bg-white/5 border border-white/10 p-6">
+            <div class="text-xl font-semibold">Jumpstart</div>
+            <div class="text-sm text-white/60">Best for MSMEs</div>
+            <ul class="mt-4 space-y-2 text-sm text-white/70 list-disc list-inside">
+              <li>2-week discovery</li>
+              <li>Single use-case pilot</li>
+              <li>ROI baseline & roadmap</li>
+            </ul>
+            <a href="#contact" aria-label="Talk to Sales about Jumpstart" class="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-sky-500 to-cyan-400 px-4 py-2 text-sm font-medium shadow-lg shadow-sky-700/30 hover:opacity-90">Talk to Sales</a>
+          </div>
+          <div class="reveal rounded-2xl bg-gradient-to-b from-sky-500/10 to-cyan-500/10 border border-white/10 p-6">
+            <div class="text-xl font-semibold">Scale</div>
+            <div class="text-sm text-white/60">For growing teams</div>
+            <ul class="mt-4 space-y-2 text-sm text-white/70 list-disc list-inside">
+              <li>Multi-use-case rollout</li>
+              <li>Integrations & SSO</li>
+              <li>Playbooks & enablement</li>
+            </ul>
+            <a href="#contact" aria-label="Talk to Sales about Scale" class="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-sky-500 to-cyan-400 px-4 py-2 text-sm font-medium shadow-lg shadow-sky-700/30 hover:opacity-90">Talk to Sales</a>
+          </div>
+          <div class="reveal rounded-2xl bg-white/5 border border-white/10 p-6">
+            <div class="text-xl font-semibold">Enterprise</div>
+            <div class="text-sm text-white/60">For complex stacks</div>
+            <ul class="mt-4 space-y-2 text-sm text-white/70 list-disc list-inside">
+              <li>VPC / on-prem</li>
+              <li>Custom models & fine-tuning</li>
+              <li>SLAs & governance</li>
+            </ul>
+            <a href="#contact" aria-label="Talk to Sales about Enterprise" class="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-sky-500 to-cyan-400 px-4 py-2 text-sm font-medium shadow-lg shadow-sky-700/30 hover:opacity-90">Talk to Sales</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="border-t border-white/10" aria-labelledby="contact-title">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+        <h2 id="contact-title" class="reveal text-3xl sm:text-4xl font-semibold tracking-tight">Let’s architect your AI advantage</h2>
+        <div class="mt-8 grid lg:grid-cols-2 gap-8">
+          <div class="reveal rounded-2xl bg-white/5 border border-white/10 p-6">
+            <h3 class="text-xl font-semibold mb-3">Share your goals</h3>
+            <form class="space-y-4" id="leadForm" novalidate>
+              <div class="grid sm:grid-cols-2 gap-4">
+                <label class="block">
+                  <span class="sr-only">Full name</span>
+                  <input name="name" placeholder="Full name" required class="h-11 w-full rounded-xl bg-white/10 border border-white/10 px-3 outline-none focus:ring-2 focus:ring-sky-400" />
+                </label>
+                <label class="block">
+                  <span class="sr-only">Work email</span>
+                  <input name="email" type="email" placeholder="Work email" required class="h-11 w-full rounded-xl bg-white/10 border border-white/10 px-3 outline-none focus:ring-2 focus:ring-sky-400" />
+                </label>
+              </div>
+              <label class="block">
+                <span class="sr-only">Company</span>
+                <input name="company" placeholder="Company" class="h-11 w-full rounded-xl bg-white/10 border border-white/10 px-3 outline-none focus:ring-2 focus:ring-sky-400" />
+              </label>
+              <label class="block">
+                <span class="sr-only">Website / LinkedIn</span>
+                <input name="site" placeholder="Website / LinkedIn" class="h-11 w-full rounded-xl bg-white/10 border border-white/10 px-3 outline-none focus:ring-2 focus:ring-sky-400" />
+              </label>
+              <label class="block">
+                <span class="sr-only">What would success look like in 90 days?</span>
+                <textarea name="message" placeholder="What would success look like in 90 days?" class="min-h-[120px] w-full rounded-xl bg-white/10 border border-white/10 p-3 outline-none focus:ring-2 focus:ring-sky-400"></textarea>
+              </label>
+              <button type="submit" class="w-full rounded-xl bg-gradient-to-r from-sky-500 to-cyan-400 px-5 py-3 text-sm font-medium shadow-lg shadow-sky-700/30 hover:opacity-90">Submit →</button>
+              <p id="formNote" class="mt-2 text-xs text-white/70" aria-live="polite"></p>
+            </form>
+          </div>
+          <div class="space-y-6">
+            <div class="reveal rounded-2xl bg-gradient-to-b from-white/10 to-white/[0.03] border border-white/10 p-6">
+              <div class="text-xl font-semibold">Reference Architecture</div>
+              <p class="mt-2 text-sm text-white/70">Event-driven pipelines · Vector search (RAG) · Policy engine · Eval harness · Analytics · Admin console.</p>
+            </div>
+            <div class="reveal rounded-2xl bg-white/5 border border-white/10 p-6">
+              <div class="text-xl font-semibold">Getting Started</div>
+              <ol class="mt-2 list-decimal list-inside text-sm text-white/70 space-y-1">
+                <li>Pick a high-leverage workflow</li>
+                <li>Ship a PoV in 10–15 days</li>
+                <li>Scale with governance & SSO</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 
   <!-- Footer -->
-  <footer class="border-t border-white/10 bg-slate-950 text-slate-400">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 grid md:grid-cols-3 gap-8 text-sm">
+  <footer class="border-t border-white/10">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 grid md:grid-cols-3 gap-8 text-sm text-white/70">
       <div>
-        <div class="flex items-center gap-2 text-sky-400">
-          <img src="logo.png" alt="AssignInc" class="h-8 w-auto"/>
-          <span class="font-semibold text-white">AssignInc</span>
+        <div class="flex items-center gap-2 text-white">
+          <img src="assets/assigninc-logo.png" alt="AssignInc" class="h-5 w-auto" />
+          <span class="font-semibold">AssignInc</span>
         </div>
-        <p class="mt-3 text-slate-400">Futuristic AI services for MSMEs & B2B innovators. Built with security, speed, and scale.</p>
+        <p class="mt-3">Futuristic AI services for MSMEs & B2B innovators. Built with security, speed, and scale.</p>
       </div>
       <div class="grid grid-cols-2 gap-8">
         <div>
-          <div class="text-white mb-2 font-medium">Solutions</div>
-          <ul class="space-y-1"><li>Automation</li><li>Whitelabel</li><li>Marketing</li><li>Feasibility</li></ul>
+          <div class="text-white mb-2">Solutions</div>
+          <ul class="space-y-1">
+            <li><a href="#services">Automation</a></li>
+            <li><a href="#services">Whitelabel</a></li>
+            <li><a href="#services">Marketing</a></li>
+            <li><a href="#services">Feasibility</a></li>
+          </ul>
         </div>
         <div>
-          <div class="text-white mb-2 font-medium">Company</div>
-          <ul class="space-y-1"><li>About</li><li>Careers</li><li>Security</li><li>Contact</li></ul>
+          <div class="text-white mb-2">Company</div>
+          <ul class="space-y-1">
+            <li><a href="#about">About</a></li>
+            <li><a href="#careers">Careers</a></li>
+            <li><a href="#security">Security</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
         </div>
       </div>
       <div class="md:text-right">
-        <div class="text-white font-medium">Ready to get started?</div>
-        <a href="#contact" class="mt-3 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-sky-400 to-teal-300 px-4 py-2 text-sm font-medium text-slate-900 shadow hover:scale-105 hover:shadow-sky-400/30 transition">Book a Strategy Call</a>
+        <div class="text-white">Ready to get started?</div>
+        <a href="#contact" class="mt-3 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-cyan-400 px-4 py-2 text-sm font-medium shadow-lg shadow-sky-700/30 hover:opacity-90">Book a Strategy Call</a>
         <p class="mt-4 text-xs">© <span id="year"></span> AssignInc. All rights reserved.</p>
       </div>
     </div>
   </footer>
 
   <script>
+    // Year
     document.getElementById('year').textContent = new Date().getFullYear();
-    const els = document.querySelectorAll('.reveal');
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }});
-    },{ threshold:.18 });
-    els.forEach(el=>io.observe(el));
+
+    // Reduced motion detection
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Reveal on intersection
+    if (!reduceMotion && 'IntersectionObserver' in window) {
+      const els = document.querySelectorAll('.reveal');
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.18 });
+      els.forEach(el => io.observe(el));
+    } else {
+      document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+    }
+
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (menuBtn && mobileMenu) {
+      menuBtn.addEventListener('click', () => {
+        const open = mobileMenu.classList.toggle('hidden') === false;
+        menuBtn.setAttribute('aria-expanded', String(open));
+        menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      });
+    }
+
+    // Basic form handling (client-only)
+    const leadForm = document.getElementById('leadForm');
+    const formNote = document.getElementById('formNote');
+    if (leadForm) {
+      leadForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const data = Object.fromEntries(new FormData(leadForm).entries());
+        if (!data.name || !data.email) {
+          formNote.textContent = 'Please provide your name and a valid email.';
+          return;
+        }
+        // TODO: send to your endpoint (e.g., fetch('/api/lead', { method:'POST', body: JSON.stringify(data) }))
+        formNote.textContent = 'Thanks! We’ll be in touch shortly.';
+        leadForm.reset();
+      });
+    }
   </script>
 </body>
 </html>
