@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -23,6 +23,9 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
+    /* Smooth scroll for all anchor jumps */
+    html { scroll-behavior: smooth; }
+
     /* Reveal (respects reduced motion) */
     .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -87,18 +90,18 @@
     <!-- Mobile panel -->
     <div id="mobileMenu" class="md:hidden hidden border-t border-white/10 bg-blue-950/70 backdrop-blur">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 grid gap-2 text-sm text-white/90">
-        <a href="#services" class="py-2">Services</a>
-        <a href="#process" class="py-2">Process</a>
-        <a href="#case" class="py-2">Case Studies</a>
-        <a href="#contact" class="py-2">Contact</a>
-        <a href="#contact" class="mt-2 inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-sky-500 to-cyan-400 px-4 py-2 font-medium shadow-lg shadow-sky-700/30 hover:opacity-90">Book a Strategy Call →</a>
+        <a href="#services" class="py-2 mobile-nav-link">Services</a>
+        <a href="#process" class="py-2 mobile-nav-link">Process</a>
+        <a href="#case" class="py-2 mobile-nav-link">Case Studies</a>
+        <a href="#contact" class="py-2 mobile-nav-link">Contact</a>
+        <a href="#contact" class="mt-2 inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-sky-500 to-cyan-400 px-4 py-2 font-medium shadow-lg shadow-sky-700/30 hover:opacity-90 mobile-nav-link">Book a Strategy Call →</a>
       </div>
     </div>
   </header>
 
   <main id="main">
     <!-- Hero -->
-    <section class="relative overflow-hidden">
+    <section class="relative overflow-hidden scroll-mt-36 md:scroll-mt-40">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
         <p class="reveal inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">
           <span aria-hidden="true" class="h-2 w-2 rounded-full bg-sky-400 animate-pulse"></span>
@@ -135,7 +138,7 @@
     </section>
 
     <!-- Logos -->
-    <section class="border-t border-white/10" aria-labelledby="logo-grid-title">
+    <section class="border-t border-white/10 scroll-mt-36 md:scroll-mt-40" aria-labelledby="logo-grid-title">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
         <h2 id="logo-grid-title" class="sr-only">Trusted by</h2>
         <p class="text-center text-xs uppercase tracking-widest text-white/50 mb-6">Trusted by forward-thinking teams</p>
@@ -151,13 +154,12 @@
     </section>
 
     <!-- Services -->
-    <section id="services" class="border-t border-white/10" aria-labelledby="services-title">
+    <section id="services" class="border-t border-white/10 scroll-mt-36 md:scroll-mt-40" aria-labelledby="services-title">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
         <h2 id="services-title" class="reveal text-3xl sm:text-4xl font-semibold tracking-tight">Services engineered for outcomes</h2>
         <p class="reveal mt-3 max-w-2xl text-white/70">Modular offerings to meet you where you are. Pick one track or combine for end-to-end transformation.</p>
 
         <div class="mt-10 grid md:grid-cols-2 xl:grid-cols-3 gap-6">
-          <!-- Cards (unchanged content, kept concise) -->
           <!-- 1 -->
           <div class="reveal rounded-2xl bg-gradient-to-b from-white/10 to-white/[0.03] border border-white/10 p-6">
             <div class="flex items-center justify-between"><div class="text-lg font-semibold">AI Automation</div><div aria-hidden="true" class="h-4 w-4 rounded-full bg-sky-400"></div></div>
@@ -229,7 +231,7 @@
     </section>
 
     <!-- Outcomes / Case Studies -->
-    <section id="case" class="border-t border-white/10" aria-labelledby="outcomes-title">
+    <section id="case" class="border-t border-white/10 scroll-mt-36 md:scroll-mt-40" aria-labelledby="outcomes-title">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
         <h2 id="outcomes-title" class="reveal text-3xl sm:text-4xl font-semibold tracking-tight">Outcomes that compound</h2>
         <p class="reveal mt-3 max-w-2xl text-white/70">A snapshot of how MSMEs and early-stage B2B teams use AssignInc to move faster with less.</p>
@@ -266,11 +268,10 @@
     </section>
 
     <!-- Process -->
-    <section id="process" class="border-t border-white/10" aria-labelledby="process-title">
+    <section id="process" class="border-t border-white/10 scroll-mt-36 md:scroll-mt-40" aria-labelledby="process-title">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
         <h2 id="process-title" class="reveal text-3xl sm:text-4xl font-semibold tracking-tight">From idea to impact — fast</h2>
         <div class="mt-10 grid md:grid-cols-2 xl:grid-cols-4 gap-6">
-          <!-- 01..04 cards (unchanged) -->
           <div class="reveal rounded-2xl bg-gradient-to-b from-white/10 to-white/[0.03] border border-white/10 p-6">
             <div class="text-sm text-white/50">01</div>
             <div class="text-xl font-semibold">Discovery Sprint</div>
@@ -296,11 +297,10 @@
     </section>
 
     <!-- Engagement models -->
-    <section class="border-t border-white/10" aria-labelledby="engagement-title">
+    <section class="border-t border-white/10 scroll-mt-36 md:scroll-mt-40" aria-labelledby="engagement-title">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
         <h2 id="engagement-title" class="reveal text-3xl sm:text-4xl font-semibold tracking-tight">Engagement models</h2>
         <div class="mt-8 grid md:grid-cols-3 gap-6">
-          <!-- three cards unchanged; added buttons have aria labels -->
           <div class="reveal rounded-2xl bg-white/5 border border-white/10 p-6">
             <div class="text-xl font-semibold">Jumpstart</div>
             <div class="text-sm text-white/60">Best for MSMEs</div>
@@ -336,7 +336,7 @@
     </section>
 
     <!-- Contact -->
-    <section id="contact" class="border-t border-white/10" aria-labelledby="contact-title">
+    <section id="contact" class="border-t border-white/10 scroll-mt-36 md:scroll-mt-40" aria-labelledby="contact-title">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
         <h2 id="contact-title" class="reveal text-3xl sm:text-4xl font-semibold tracking-tight">Let’s architect your AI advantage</h2>
         <div class="mt-8 grid lg:grid-cols-2 gap-8">
@@ -454,24 +454,36 @@
         menuBtn.setAttribute('aria-expanded', String(open));
         menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
       });
-    }
 
-    // Basic form handling (client-only)
-    const leadForm = document.getElementById('leadForm');
-    const formNote = document.getElementById('formNote');
-    if (leadForm) {
-      leadForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const data = Object.fromEntries(new FormData(leadForm).entries());
-        if (!data.name || !data.email) {
-          formNote.textContent = 'Please provide your name and a valid email.';
-          return;
-        }
-        // TODO: send to your endpoint (e.g., fetch('/api/lead', { method:'POST', body: JSON.stringify(data) }))
-        formNote.textContent = 'Thanks! We’ll be in touch shortly.';
-        leadForm.reset();
+      // Close mobile menu after clicking an in-page link and smooth-scroll
+      mobileMenu.querySelectorAll('.mobile-nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+          menuBtn.setAttribute('aria-expanded', 'false');
+          menuBtn.setAttribute('aria-label', 'Open menu');
+        });
       });
     }
+
+    // Enhance anchor clicks for smooth scrolling and accurate focus (desktop + footer links)
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', (e) => {
+        const id = anchor.getAttribute('href');
+        if (id.length > 1) {
+          const target = document.querySelector(id);
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Move focus for accessibility
+            const prevTabIndex = target.getAttribute('tabindex');
+            target.setAttribute('tabindex', '-1');
+            target.focus({ preventScroll: true });
+            if (prevTabIndex === null) target.removeAttribute('tabindex');
+            history.pushState(null, '', id);
+          }
+        }
+      });
+    });
   </script>
 </body>
 </html>
