@@ -17,15 +17,17 @@
     <div class="absolute -bottom-40 -right-40 h-[28rem] w-[28rem] rounded-full blur-3xl opacity-20 bg-gradient-to-tr from-indigo-500 via-sky-400 to-blue-600"></div>
   </div>
 
-  <!-- Header (Glassmorphism bluish-white, shorter) -->
-  <header class="sticky top-0 z-50 border-b border-sky-200/40 
-    bg-[rgba(255,255,255,0.7)] backdrop-blur-md shadow-md">
+  <!-- Header -->
+  <header class="sticky top-0 z-50 border-b border-sky-200/30 
+    bg-[rgba(255,255,255,0.75)] backdrop-blur-md shadow-md">
     <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-2 flex items-center justify-between">
+      
       <!-- Logo -->
       <div class="flex items-center gap-3">
-        <img src="logo.png" alt="AssignInc" class="h-10 md:h-12 w-auto object-contain drop-shadow-md"/>
+        <img src="logo.png" alt="AssignInc" class="h-10 sm:h-12 w-auto object-contain drop-shadow-md"/>
         <span class="sr-only">AssignInc</span>
       </div>
+
       <!-- Desktop Nav -->
       <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-800">
         <a href="#services" class="hover:text-sky-600">Services</a>
@@ -34,7 +36,33 @@
         <a href="#contact" class="hover:text-sky-600">Contact</a>
         <a href="#contact" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-cyan-400 px-4 py-2 text-white font-semibold shadow-md hover:opacity-90">Book a Strategy Call →</a>
       </div>
+
+      <!-- Mobile menu button -->
+      <button id="menuBtn" class="md:hidden inline-flex items-center justify-center rounded-lg border border-slate-300/50 bg-white/40 px-3 py-2 text-slate-700 hover:bg-white/60" aria-expanded="false" aria-controls="mobileMenu">
+        <span class="sr-only">Open menu</span>
+        ☰
+      </button>
     </nav>
+
+    <!-- Mobile breadcrumb/menu -->
+    <div id="mobileMenu" class="md:hidden hidden border-t border-slate-200/40 bg-[rgba(255,255,255,0.9)] backdrop-blur-md">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3">
+        <nav class="text-sm text-slate-700 overflow-x-auto whitespace-nowrap" aria-label="Breadcrumb">
+          <a href="#top" class="hover:text-sky-600">Home</a>
+          <span class="mx-2">/</span>
+          <a href="#services" class="hover:text-sky-600">Services</a>
+          <span class="mx-2">/</span>
+          <a href="#process" class="hover:text-sky-600">Process</a>
+          <span class="mx-2">/</span>
+          <a href="#case" class="hover:text-sky-600">Case Studies</a>
+          <span class="mx-2">/</span>
+          <a href="#contact" class="hover:text-sky-600">Contact</a>
+        </nav>
+        <div class="mt-3">
+          <a href="#contact" class="inline-flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-sky-500 to-cyan-400 px-4 py-2 text-white font-medium shadow-md hover:opacity-90">Book a Strategy Call</a>
+        </div>
+      </div>
+    </div>
   </header>
 
   <!-- Hero -->
@@ -44,22 +72,27 @@
         <span class="h-2 w-2 rounded-full bg-sky-400 animate-pulse"></span>
         Futuristic AI for MSMEs & Early Stage B2B
       </div>
+
       <h1 class="reveal mt-6 text-4xl sm:text-6xl font-semibold tracking-tight leading-[1.1]">
         Build tomorrow's <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-cyan-300">AI-first organisation</span> today
       </h1>
+
       <p class="reveal mt-6 max-w-2xl text-white/70">
         AssignInc partners with founders and operators to design, ship, and scale production AI. From automation to go-to-market, we deliver outcomes — securely and with enterprise rigor.
       </p>
+
       <div class="reveal mt-8 flex flex-wrap items-center gap-3">
         <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">MSME Ready</span>
         <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">B2B Native</span>
         <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">Secure by Design</span>
         <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">Global Scale</span>
       </div>
+
       <div class="reveal mt-10 flex gap-3">
         <a href="#contact" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-cyan-400 px-5 py-3 text-sm font-medium shadow-lg shadow-sky-700/30 hover:opacity-90">Start a Pilot</a>
         <a href="#contact" class="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/10 px-5 py-3 text-sm font-medium hover:bg-white/20">Download Capabilities Deck</a>
       </div>
+
       <div class="reveal mt-14 grid grid-cols-2 sm:grid-cols-4 gap-6">
         <div class="rounded-2xl bg-white/5 border border-white/10 p-4"><div class="text-xl sm:text-2xl font-semibold">&lt; 6 weeks</div><div class="text-xs text-white/60 mt-1">From pilot to production</div></div>
         <div class="rounded-2xl bg-white/5 border border-white/10 p-4"><div class="text-xl sm:text-2xl font-semibold">30–60%</div><div class="text-xs text-white/60 mt-1">Ops cost reduction</div></div>
@@ -69,15 +102,65 @@
     </div>
   </section>
 
-  <!-- ... (all other sections: Logos, Services, Case Studies, Process, Engagement Models, Contact, Footer remain unchanged from your last code) ... -->
+  <!-- All other sections remain unchanged (Logos, Services, Case Studies, Process, Engagement Models, Contact, Footer) -->
+
+  <!-- Footer -->
+  <footer class="border-t border-white/10">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 grid md:grid-cols-3 gap-8 text-sm text-white/70">
+      <div>
+        <div class="flex items-center gap-2 text-white">
+          <div class="h-5 w-5 rounded-full bg-gradient-to-tr from-sky-400 to-blue-500"></div>
+          <span class="font-semibold">AssignInc</span>
+        </div>
+        <p class="mt-3">Futuristic AI services for MSMEs & B2B innovators. Built with security, speed, and scale.</p>
+      </div>
+      <div class="grid grid-cols-2 gap-8">
+        <div>
+          <div class="text-white mb-2">Solutions</div>
+          <ul class="space-y-1">
+            <li>Automation</li>
+            <li>Whitelabel</li>
+            <li>Marketing</li>
+            <li>Feasibility</li>
+          </ul>
+        </div>
+        <div>
+          <div class="text-white mb-2">Company</div>
+          <ul class="space-y-1">
+            <li>About</li>
+            <li>Careers</li>
+            <li>Security</li>
+            <li>Contact</li>
+          </ul>
+        </div>
+      </div>
+      <div class="md:text-right">
+        <div class="text-white">Ready to get started?</div>
+        <a href="#contact" class="mt-3 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-cyan-400 px-4 py-2 text-sm font-medium shadow-lg shadow-sky-700/30 hover:opacity-90">Book a Strategy Call</a>
+        <p class="mt-4 text-xs">© <span id="year"></span> AssignInc. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
 
   <script>
+    // year
     document.getElementById('year').textContent = new Date().getFullYear();
+    // simple intersection observer for reveal
     const els = document.querySelectorAll('.reveal');
     const io = new IntersectionObserver((entries)=>{
       entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }});
     },{ threshold:.18 });
     els.forEach(el=>io.observe(el));
+    // mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (menuBtn && mobileMenu) {
+      menuBtn.addEventListener('click', ()=>{
+        const isOpen = !mobileMenu.classList.contains('hidden');
+        mobileMenu.classList.toggle('hidden');
+        menuBtn.setAttribute('aria-expanded', String(!isOpen));
+      });
+    }
   </script>
 </body>
 </html>
