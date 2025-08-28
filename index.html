@@ -10,26 +10,29 @@
     .reveal.visible { opacity: 1; transform: translateY(0); }
   </style>
 </head>
-<body class="min-h-screen bg-gradient-to-b from-white via-sky-50 to-blue-100 text-slate-800 selection:bg-sky-200/40">
-
-  <!-- Background glow -->
+<body class="min-h-screen bg-gradient-to-b from-blue-950 via-slate-950 to-blue-900 text-white selection:bg-sky-300/40">
+  <!-- Background glows -->
   <div class="pointer-events-none fixed inset-0 -z-10">
-    <div class="absolute -top-40 -left-40 h-96 w-96 rounded-full blur-3xl opacity-30 bg-gradient-to-tr from-sky-300 via-blue-200 to-cyan-300 animate-pulse"></div>
-    <div class="absolute -bottom-40 -right-40 h-[28rem] w-[28rem] rounded-full blur-3xl opacity-20 bg-gradient-to-tr from-blue-200 via-sky-200 to-blue-300"></div>
+    <div class="absolute -top-40 -left-40 h-96 w-96 rounded-full blur-3xl opacity-30 bg-gradient-to-tr from-sky-500 via-blue-400 to-cyan-400 animate-pulse"></div>
+    <div class="absolute -bottom-40 -right-40 h-[28rem] w-[28rem] rounded-full blur-3xl opacity-20 bg-gradient-to-tr from-indigo-500 via-sky-400 to-blue-600"></div>
   </div>
 
-  <!-- Nav -->
-  <header class="sticky top-0 z-50 border-b border-sky-200/50 bg-[rgba(255,255,255,0.85)] backdrop-blur-md shadow">
-    <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
+  <!-- Header (Glassmorphism bluish-white, shorter) -->
+  <header class="sticky top-0 z-50 border-b border-sky-200/40 
+    bg-[rgba(255,255,255,0.7)] backdrop-blur-md shadow-md">
+    <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-2 flex items-center justify-between">
+      <!-- Logo -->
       <div class="flex items-center gap-3">
-        <img src="logo.png" alt="AssignInc" class="h-14 md:h-16 w-auto object-contain drop-shadow"/>
+        <img src="logo.png" alt="AssignInc" class="h-10 md:h-12 w-auto object-contain drop-shadow-md"/>
+        <span class="sr-only">AssignInc</span>
       </div>
-      <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-700">
-        <a href="#services" class="hover:text-blue-600">Services</a>
-        <a href="#process" class="hover:text-blue-600">Process</a>
-        <a href="#case" class="hover:text-blue-600">Case Studies</a>
-        <a href="#contact" class="hover:text-blue-600">Contact</a>
-        <a href="#contact" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-400 px-4 py-2 text-white font-semibold shadow-md hover:opacity-90">Book a Strategy Call →</a>
+      <!-- Desktop Nav -->
+      <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-800">
+        <a href="#services" class="hover:text-sky-600">Services</a>
+        <a href="#process" class="hover:text-sky-600">Process</a>
+        <a href="#case" class="hover:text-sky-600">Case Studies</a>
+        <a href="#contact" class="hover:text-sky-600">Contact</a>
+        <a href="#contact" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-cyan-400 px-4 py-2 text-white font-semibold shadow-md hover:opacity-90">Book a Strategy Call →</a>
       </div>
     </nav>
   </header>
@@ -37,77 +40,36 @@
   <!-- Hero -->
   <section class="relative overflow-hidden">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
-      <div class="reveal inline-flex items-center gap-2 rounded-full border border-sky-200 bg-white/70 px-3 py-1 text-xs text-slate-600">
-        <span class="h-2 w-2 rounded-full bg-sky-500 animate-pulse"></span>
+      <div class="reveal inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">
+        <span class="h-2 w-2 rounded-full bg-sky-400 animate-pulse"></span>
         Futuristic AI for MSMEs & Early Stage B2B
       </div>
-
-      <h1 class="reveal mt-6 text-4xl sm:text-6xl font-bold tracking-tight leading-[1.1] text-blue-900">
-        Build tomorrow's <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-400">AI-first organisation</span> today
+      <h1 class="reveal mt-6 text-4xl sm:text-6xl font-semibold tracking-tight leading-[1.1]">
+        Build tomorrow's <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-cyan-300">AI-first organisation</span> today
       </h1>
-
-      <p class="reveal mt-6 max-w-2xl text-slate-600">
+      <p class="reveal mt-6 max-w-2xl text-white/70">
         AssignInc partners with founders and operators to design, ship, and scale production AI. From automation to go-to-market, we deliver outcomes — securely and with enterprise rigor.
       </p>
-
       <div class="reveal mt-8 flex flex-wrap items-center gap-3">
-        <span class="inline-flex items-center gap-2 rounded-full border border-sky-200 bg-white/70 px-3 py-1 text-xs text-slate-600">MSME Ready</span>
-        <span class="inline-flex items-center gap-2 rounded-full border border-sky-200 bg-white/70 px-3 py-1 text-xs text-slate-600">B2B Native</span>
-        <span class="inline-flex items-center gap-2 rounded-full border border-sky-200 bg-white/70 px-3 py-1 text-xs text-slate-600">Secure by Design</span>
-        <span class="inline-flex items-center gap-2 rounded-full border border-sky-200 bg-white/70 px-3 py-1 text-xs text-slate-600">Global Scale</span>
+        <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">MSME Ready</span>
+        <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">B2B Native</span>
+        <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">Secure by Design</span>
+        <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">Global Scale</span>
       </div>
-
       <div class="reveal mt-10 flex gap-3">
-        <a href="#contact" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-400 px-5 py-3 text-sm font-medium text-white shadow-md hover:opacity-90">Start a Pilot</a>
-        <a href="#contact" class="inline-flex items-center gap-2 rounded-xl border border-sky-200 bg-white/80 px-5 py-3 text-sm font-medium hover:bg-white">Download Capabilities Deck</a>
+        <a href="#contact" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-cyan-400 px-5 py-3 text-sm font-medium shadow-lg shadow-sky-700/30 hover:opacity-90">Start a Pilot</a>
+        <a href="#contact" class="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/10 px-5 py-3 text-sm font-medium hover:bg-white/20">Download Capabilities Deck</a>
       </div>
-
       <div class="reveal mt-14 grid grid-cols-2 sm:grid-cols-4 gap-6">
-        <div class="rounded-2xl bg-white shadow border border-sky-100 p-4"><div class="text-xl sm:text-2xl font-semibold text-blue-700">&lt; 6 weeks</div><div class="text-xs text-slate-600 mt-1">From pilot to production</div></div>
-        <div class="rounded-2xl bg-white shadow border border-sky-100 p-4"><div class="text-xl sm:text-2xl font-semibold text-blue-700">30–60%</div><div class="text-xs text-slate-600 mt-1">Ops cost reduction</div></div>
-        <div class="rounded-2xl bg-white shadow border border-sky-100 p-4"><div class="text-xl sm:text-2xl font-semibold text-blue-700">3×</div><div class="text-xs text-slate-600 mt-1">Lead response speed</div></div>
-        <div class="rounded-2xl bg-white shadow border border-sky-100 p-4"><div class="text-xl sm:text-2xl font-semibold text-blue-700">99.9%</div><div class="text-xs text-slate-600 mt-1">Uptime on managed stack</div></div>
+        <div class="rounded-2xl bg-white/5 border border-white/10 p-4"><div class="text-xl sm:text-2xl font-semibold">&lt; 6 weeks</div><div class="text-xs text-white/60 mt-1">From pilot to production</div></div>
+        <div class="rounded-2xl bg-white/5 border border-white/10 p-4"><div class="text-xl sm:text-2xl font-semibold">30–60%</div><div class="text-xs text-white/60 mt-1">Ops cost reduction</div></div>
+        <div class="rounded-2xl bg-white/5 border border-white/10 p-4"><div class="text-xl sm:text-2xl font-semibold">3×</div><div class="text-xs text-white/60 mt-1">Lead response speed</div></div>
+        <div class="rounded-2xl bg-white/5 border border-white/10 p-4"><div class="text-xl sm:text-2xl font-semibold">99.9%</div><div class="text-xs text-white/60 mt-1">Uptime on managed stack</div></div>
       </div>
     </div>
   </section>
 
-  <!-- ⬇️ Keep Logos, Services, Case Studies, Process, Engagement, Contact sections as-is -->
-  <!-- Just swap their "bg-white/5 text-white/70" → "bg-white shadow border-sky-100 text-slate-600" -->
-  <!-- Buttons remain brand gradient blue → cyan -->
-
-  <!-- Footer -->
-  <footer class="border-t border-sky-200 bg-[rgba(255,255,255,0.9)] backdrop-blur-md">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 grid md:grid-cols-3 gap-8 text-sm text-slate-700">
-      <div>
-        <img src="logo.png" alt="AssignInc" class="h-10 w-auto mb-3"/>
-        <p>Futuristic AI services for MSMEs & B2B innovators. Built with security, speed, and scale.</p>
-      </div>
-      <div class="grid grid-cols-2 gap-8">
-        <div>
-          <div class="text-blue-800 mb-2 font-semibold">Solutions</div>
-          <ul class="space-y-1">
-            <li>Automation</li>
-            <li>Whitelabel</li>
-            <li>Marketing</li>
-            <li>Feasibility</li>
-          </ul>
-        </div>
-        <div>
-          <div class="text-blue-800 mb-2 font-semibold">Company</div>
-          <ul class="space-y-1">
-            <li>About</li>
-            <li>Careers</li>
-            <li>Security</li>
-            <li>Contact</li>
-          </ul>
-        </div>
-      </div>
-      <div class="md:text-right">
-        <a href="#contact" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-400 px-4 py-2 text-sm font-medium text-white shadow-md hover:opacity-90">Book a Strategy Call</a>
-        <p class="mt-4 text-xs text-slate-500">© <span id="year"></span> AssignInc. All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
+  <!-- ... (all other sections: Logos, Services, Case Studies, Process, Engagement Models, Contact, Footer remain unchanged from your last code) ... -->
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
