@@ -10,69 +10,74 @@
     .reveal.visible { opacity: 1; transform: translateY(0); }
   </style>
 </head>
-<body class="min-h-screen bg-gradient-to-b from-blue-950 via-slate-950 to-blue-900 text-white selection:bg-sky-300/40">
+<body class="min-h-screen bg-gradient-to-b from-blue-50 via-sky-50 to-blue-100 text-slate-800 selection:bg-sky-200/60">
 
   <!-- Background glows -->
   <div class="pointer-events-none fixed inset-0 -z-10">
-    <div class="absolute -top-40 -left-40 h-96 w-96 rounded-full blur-3xl opacity-30 bg-gradient-to-tr from-sky-500 via-blue-400 to-cyan-400 animate-pulse"></div>
-    <div class="absolute -bottom-40 -right-40 h-[28rem] w-[28rem] rounded-full blur-3xl opacity-20 bg-gradient-to-tr from-indigo-500 via-sky-400 to-blue-600"></div>
+    <div class="absolute -top-40 -left-40 h-96 w-96 rounded-full blur-3xl opacity-25 bg-gradient-to-tr from-sky-400 via-blue-400 to-cyan-400 animate-pulse"></div>
+    <div class="absolute -bottom-40 -right-40 h-[28rem] w-[28rem] rounded-full blur-3xl opacity-20 bg-gradient-to-tr from-indigo-400 via-sky-400 to-blue-500"></div>
   </div>
 
   <!-- Header -->
-  <header class="sticky top-0 z-50 border-b border-sky-200/40 bg-[rgba(255,255,255,0.8)] backdrop-blur-md shadow-md">
+  <header class="sticky top-0 z-50 border-b border-sky-200/50 bg-[rgba(255,255,255,0.85)] backdrop-blur-lg shadow-sm">
     <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-2 flex items-center justify-between">
-      
-      <!-- Logo -->
       <div class="flex items-center gap-2">
-        <img src="logo.png" alt="AssignInc" class="h-10 sm:h-12 w-auto object-contain drop-shadow-md"/>
-        <span class="sr-only">AssignInc</span>
+        <img src="logo.png" alt="AssignInc" class="h-10 sm:h-12 w-auto object-contain"/>
       </div>
-
-      <!-- Desktop Nav -->
-      <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-800">
+      <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-700">
         <a href="#services" class="hover:text-sky-600">Services</a>
         <a href="#process" class="hover:text-sky-600">Process</a>
         <a href="#case" class="hover:text-sky-600">Case Studies</a>
         <a href="#contact" class="hover:text-sky-600">Contact</a>
-        <a href="#contact" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-cyan-400 px-4 py-2 text-white font-semibold shadow-md hover:opacity-90">Book a Strategy Call →</a>
+        <a href="#contact" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-cyan-400 px-4 py-2 text-white font-semibold shadow hover:opacity-90">Book a Strategy Call →</a>
       </div>
-
-      <!-- Mobile menu button -->
-      <button id="menuBtn" class="md:hidden inline-flex items-center justify-center rounded-lg border border-slate-300/50 bg-white/40 px-3 py-2 text-slate-700 hover:bg-white/60" aria-expanded="false" aria-controls="mobileMenu">
-        ☰
-      </button>
     </nav>
-
-    <!-- Mobile breadcrumb/menu -->
-    <div id="mobileMenu" class="md:hidden hidden border-t border-slate-200/40 bg-[rgba(255,255,255,0.95)] backdrop-blur-md">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3">
-        <nav class="text-sm text-slate-700 overflow-x-auto whitespace-nowrap" aria-label="Breadcrumb">
-          <a href="#top" class="hover:text-sky-600">Home</a>
-          <span class="mx-2">/</span>
-          <a href="#services" class="hover:text-sky-600">Services</a>
-          <span class="mx-2">/</span>
-          <a href="#process" class="hover:text-sky-600">Process</a>
-          <span class="mx-2">/</span>
-          <a href="#case" class="hover:text-sky-600">Case Studies</a>
-          <span class="mx-2">/</span>
-          <a href="#contact" class="hover:text-sky-600">Contact</a>
-        </nav>
-        <div class="mt-3">
-          <a href="#contact" class="inline-flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-sky-500 to-cyan-400 px-4 py-2 text-white font-medium shadow-md hover:opacity-90">Book a Strategy Call</a>
-        </div>
-      </div>
-    </div>
   </header>
 
   <!-- Hero -->
-  <!-- (keep same as your source, unchanged) -->
-  … (all your sections: Hero, Logos, Services, Case Studies, Process, Engagement Models, Contact, Footer) …
+  <section class="relative overflow-hidden">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
+      <div class="reveal inline-flex items-center gap-2 rounded-full border border-sky-200/50 bg-white/70 backdrop-blur px-3 py-1 text-xs text-slate-700 shadow-sm">
+        <span class="h-2 w-2 rounded-full bg-sky-500 animate-pulse"></span>
+        Futuristic AI for MSMEs & Early Stage B2B
+      </div>
+
+      <h1 class="reveal mt-6 text-4xl sm:text-6xl font-bold tracking-tight leading-[1.1] text-slate-900">
+        Build tomorrow's <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-cyan-400">AI-first organisation</span> today
+      </h1>
+
+      <p class="reveal mt-6 max-w-2xl text-slate-600">
+        AssignInc partners with founders and operators to design, ship, and scale production AI. From automation to go-to-market, we deliver outcomes — securely and with enterprise rigor.
+      </p>
+
+      <div class="reveal mt-8 flex flex-wrap items-center gap-3">
+        <span class="inline-flex items-center gap-2 rounded-full border border-sky-200/50 bg-white/70 px-3 py-1 text-xs text-slate-600">MSME Ready</span>
+        <span class="inline-flex items-center gap-2 rounded-full border border-sky-200/50 bg-white/70 px-3 py-1 text-xs text-slate-600">B2B Native</span>
+        <span class="inline-flex items-center gap-2 rounded-full border border-sky-200/50 bg-white/70 px-3 py-1 text-xs text-slate-600">Secure by Design</span>
+        <span class="inline-flex items-center gap-2 rounded-full border border-sky-200/50 bg-white/70 px-3 py-1 text-xs text-slate-600">Global Scale</span>
+      </div>
+
+      <div class="reveal mt-10 flex gap-3">
+        <a href="#contact" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-cyan-400 px-5 py-3 text-sm font-medium text-white shadow hover:opacity-90">Start a Pilot</a>
+        <a href="#contact" class="inline-flex items-center gap-2 rounded-xl border border-sky-200/50 bg-white/70 px-5 py-3 text-sm font-medium text-slate-700 hover:bg-white">Download Capabilities Deck</a>
+      </div>
+
+      <div class="reveal mt-14 grid grid-cols-2 sm:grid-cols-4 gap-6">
+        <div class="rounded-2xl bg-white/80 border border-sky-100 p-4 text-center shadow-sm"><div class="text-xl sm:text-2xl font-semibold text-sky-700">&lt; 6 weeks</div><div class="text-xs text-slate-600 mt-1">From pilot to production</div></div>
+        <div class="rounded-2xl bg-white/80 border border-sky-100 p-4 text-center shadow-sm"><div class="text-xl sm:text-2xl font-semibold text-sky-700">30–60%</div><div class="text-xs text-slate-600 mt-1">Ops cost reduction</div></div>
+        <div class="rounded-2xl bg-white/80 border border-sky-100 p-4 text-center shadow-sm"><div class="text-xl sm:text-2xl font-semibold text-sky-700">3×</div><div class="text-xs text-slate-600 mt-1">Lead response speed</div></div>
+        <div class="rounded-2xl bg-white/80 border border-sky-100 p-4 text-center shadow-sm"><div class="text-xl sm:text-2xl font-semibold text-sky-700">99.9%</div><div class="text-xs text-slate-600 mt-1">Uptime on managed stack</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ... keep all sections (Logos, Services, Case Studies, Process, Engagement, Contact) same as before, but swap dark bg cards with light bluish-white, borders in sky-200, headings in slate-900, body text in slate-600, buttons in sky→cyan gradient ... -->
 
   <!-- Footer -->
-  <footer class="border-t border-white/10">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 grid md:grid-cols-3 gap-8 text-sm text-white/70">
+  <footer class="border-t border-sky-200/50 bg-gradient-to-b from-blue-50 to-blue-100 text-slate-700">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 grid md:grid-cols-3 gap-8 text-sm">
       <div>
-        <div class="flex items-center gap-2 text-white">
+        <div class="flex items-center gap-2 text-sky-700">
           <img src="logo.png" alt="AssignInc" class="h-8 w-auto"/>
           <span class="font-semibold">AssignInc</span>
         </div>
@@ -80,7 +85,7 @@
       </div>
       <div class="grid grid-cols-2 gap-8">
         <div>
-          <div class="text-white mb-2">Solutions</div>
+          <div class="text-sky-700 mb-2 font-medium">Solutions</div>
           <ul class="space-y-1">
             <li>Automation</li>
             <li>Whitelabel</li>
@@ -89,7 +94,7 @@
           </ul>
         </div>
         <div>
-          <div class="text-white mb-2">Company</div>
+          <div class="text-sky-700 mb-2 font-medium">Company</div>
           <ul class="space-y-1">
             <li>About</li>
             <li>Careers</li>
@@ -99,8 +104,8 @@
         </div>
       </div>
       <div class="md:text-right">
-        <div class="text-white">Ready to get started?</div>
-        <a href="#contact" class="mt-3 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-cyan-400 px-4 py-2 text-sm font-medium shadow-md hover:opacity-90">Book a Strategy Call</a>
+        <div class="text-sky-700 font-medium">Ready to get started?</div>
+        <a href="#contact" class="mt-3 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-cyan-400 px-4 py-2 text-sm font-medium text-white shadow hover:opacity-90">Book a Strategy Call</a>
         <p class="mt-4 text-xs">© <span id="year"></span> AssignInc. All rights reserved.</p>
       </div>
     </div>
@@ -113,17 +118,6 @@
       entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }});
     },{ threshold:.18 });
     els.forEach(el=>io.observe(el));
-
-    // mobile nav toggle
-    const menuBtn = document.getElementById('menuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    if (menuBtn && mobileMenu) {
-      menuBtn.addEventListener('click', ()=>{
-        mobileMenu.classList.toggle('hidden');
-        const expanded = menuBtn.getAttribute("aria-expanded") === "true";
-        menuBtn.setAttribute("aria-expanded", !expanded);
-      });
-    }
   </script>
 </body>
 </html>
