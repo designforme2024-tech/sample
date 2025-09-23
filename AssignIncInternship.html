@@ -88,21 +88,55 @@
     </section>
 
     <!-- Testimonials -->
-    <section id="testimonials" class="border-t border-white/10 py-16">
-      <div class="max-w-7xl mx-auto px-6 text-center">
-        <h2 class="text-3xl font-semibold mb-6">What Our Interns Say</h2>
-        <div class="grid md:grid-cols-2 gap-6">
-          <blockquote class="rounded-2xl bg-white/5 border border-white/10 p-6 text-left">
-            <p class="text-sm text-white/70">“The AssignInc internship gave me the confidence to build AI projects independently. The mentorship was world-class.”</p>
-            <footer class="mt-3 text-sm font-semibold text-sky-300">— Priya, 2024 Cohort</footer>
-          </blockquote>
-          <blockquote class="rounded-2xl bg-white/5 border border-white/10 p-6 text-left">
-            <p class="text-sm text-white/70">“I shipped a real AI feature that went into production. This was the highlight of my early career.”</p>
-            <footer class="mt-3 text-sm font-semibold text-sky-300">— Daniel, 2024 Cohort</footer>
-          </blockquote>
-        </div>
+   <!-- Testimonials -->
+<section id="testimonials" class="border-t border-white/10 py-16">
+  <div class="max-w-7xl mx-auto px-6 text-center">
+    <h2 class="text-3xl font-semibold mb-6">What Our Interns Say</h2>
+    <div class="grid md:grid-cols-2 gap-6">
+
+      <!-- Video testimonial 1 -->
+      <div class="group relative rounded-2xl overflow-hidden bg-white/5 border border-white/10">
+        <video class="w-full h-full object-cover hidden" controls></video>
+        <img src="/intern1-thumb.jpg" alt="Intern testimonial 1" class="w-full h-full object-cover group-hover:opacity-60 transition duration-300">
+        <button class="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition duration-300">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-14 w-14 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <footer class="absolute bottom-3 left-3 text-sm font-semibold text-sky-300">— Priya, 2024 Cohort</footer>
       </div>
-    </section>
+
+      <!-- Video testimonial 2 -->
+      <div class="group relative rounded-2xl overflow-hidden bg-white/5 border border-white/10">
+        <video class="w-full h-full object-cover hidden" controls></video>
+        <img src="/intern2-thumb.jpg" alt="Intern testimonial 2" class="w-full h-full object-cover group-hover:opacity-60 transition duration-300">
+        <button class="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition duration-300">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-14 w-14 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <footer class="absolute bottom-3 left-3 text-sm font-semibold text-sky-300">— Daniel, 2024 Cohort</footer>
+      </div>
+
+      <!-- Video testimonial 3 -->
+      <div class="group relative rounded-2xl overflow-hidden bg-white/5 border border-white/10">
+        <video class="w-full h-full object-cover hidden" controls></video>
+        <img src="/intern3-thumb.jpg" alt="Intern testimonial 3" class="w-full h-full object-cover group-hover:opacity-60 transition duration-300">
+        <button class="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition duration-300">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-14 w-14 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <footer class="absolute bottom-3 left-3 text-sm font-semibold text-sky-300">— Aisha, 2025 Cohort</footer>
+      </div>
+
+      <!-- Video testimonial 4 -->
+      <div class="group relative rounded-2xl overflow-hidden bg-white/5 border border-white/10">
+        <video class="w-full h-full object-cover hidden" controls></video>
+        <img src="/intern4-thumb.jpg" alt="Intern testimonial 4" class="w-full h-full object-cover group-hover:opacity-60 transition duration-300">
+        <button class="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition duration-300">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-14 w-14 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <footer class="absolute bottom-3 left-3 text-sm font-semibold text-sky-300">— Miguel, 2025 Cohort</footer>
+      </div>
+
+    </div>
+  </div>
+</section>
 
     <!-- Apply -->
     <section id="apply" class="border-t border-white/10 py-16 text-center">
@@ -116,6 +150,54 @@
   <footer class="border-t border-white/10 py-10 text-center text-sm text-white/70">
     <p>© <span id="year"></span> AssignInc. All rights reserved.</p>
   </footer>
+
+
+  <script>
+  const videoSources = [
+    "/intern1-video.mp4",
+    "/intern2-video.mp4",
+    "/intern3-video.mp4",
+    "/intern4-video.mp4"
+  ];
+
+  const cards = document.querySelectorAll('#testimonials .group');
+
+  cards.forEach((card, index) => {
+    const video = card.querySelector('video');
+    const img = card.querySelector('img');
+    const button = card.querySelector('button');
+
+    button.addEventListener('click', () => {
+      // Pause all other videos
+      cards.forEach(c => {
+        const v = c.querySelector('video');
+        const i = c.querySelector('img');
+        const b = c.querySelector('button');
+        if (v && !v.classList.contains('hidden')) {
+          v.pause();
+          v.currentTime = 0;
+          v.classList.add('hidden');
+          i.classList.remove('hidden');
+          b.classList.remove('hidden');
+        }
+      });
+
+      // Load and play selected video
+      video.src = videoSources[index];
+      video.classList.remove('hidden');
+      img.classList.add('hidden');
+      button.classList.add('hidden');
+      video.play();
+
+      // Reset card when video ends
+      video.addEventListener('ended', () => {
+        video.classList.add('hidden');
+        img.classList.remove('hidden');
+        button.classList.remove('hidden');
+      });
+    });
+  });
+</script>
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
