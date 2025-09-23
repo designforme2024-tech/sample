@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AssignInc Micro-Internship Program</title>
+  <meta name="description" content="Hands-on AI micro-internships with AssignInc — real projects, mentorship, and portfolio-ready outcomes." />
+  <link rel="canonical" href="https://www.assigninc.example/micro-internships" />
+
+  <!-- Social -->
+  <meta property="og:title" content="AssignInc Micro-Internship Program" />
+  <meta property="og:description" content="Learn, build, and showcase real AI projects with AssignInc." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://www.assigninc.example/og-internship.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AssignInc Micro-Internship Program" />
+  <meta name="twitter:description" content="Hands-on AI experience with portfolio-ready outcomes." />
+
+  <link rel="icon" href="/Logo.png" sizes="any">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-blue-950 via-slate-950 to-blue-900 text-white">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 backdrop-blur bg-blue-950/40">
+    <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2">
+        <img src="/Logo.png" alt="AssignInc" class="h-12" />
+      </a>
+      <div class="hidden md:flex items-center gap-6 text-sm text-white/80">
+        <a href="#about" class="hover:text-white">About</a>
+        <a href="#areas" class="hover:text-white">Key Areas</a>
+        <a href="#projects" class="hover:text-white">Projects</a>
+        <a href="#testimonials" class="hover:text-white">Testimonials</a>
+        <a href="#apply" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-cyan-400 px-4 py-2 text-sm font-medium shadow-lg hover:opacity-90">Apply Now →</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <!-- Hero -->
+    <section class="py-20 text-center">
+      <h1 class="text-4xl sm:text-6xl font-semibold">AssignInc <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-cyan-300">Micro-Internship Program</span></h1>
+      <p class="mt-6 max-w-2xl mx-auto text-white/70">Work on real-world AI projects, gain mentorship, and graduate with portfolio-ready case studies that make you stand out.</p>
+      <a href="#apply" class="mt-8 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-cyan-400 px-6 py-3 text-lg font-medium shadow-lg hover:opacity-90">Apply for the Next Cohort</a>
+    </section>
+
+    <!-- Key Areas -->
+    <section id="areas" class="border-t border-white/10 py-16">
+      <div class="max-w-7xl mx-auto px-6">
+        <h2 class="text-3xl font-semibold mb-6">Key Areas of Learning</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="rounded-2xl bg-white/5 border border-white/10 p-6">
+            <h3 class="font-semibold text-lg">AI Product Development</h3>
+            <p class="text-sm text-white/70 mt-2">Hands-on exposure to designing, testing, and deploying AI-driven solutions with measurable impact.</p>
+          </div>
+          <div class="rounded-2xl bg-white/5 border border-white/10 p-6">
+            <h3 class="font-semibold text-lg">Data & Infrastructure</h3>
+            <p class="text-sm text-white/70 mt-2">Learn how to build data pipelines, work with APIs, and manage ML workflows with real-world rigor.</p>
+          </div>
+          <div class="rounded-2xl bg-white/5 border border-white/10 p-6">
+            <h3 class="font-semibold text-lg">Growth & Marketing</h3>
+            <p class="text-sm text-white/70 mt-2">Understand AI in business contexts — from predictive segmentation to generative campaigns.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="border-t border-white/10 py-16">
+      <div class="max-w-7xl mx-auto px-6">
+        <h2 class="text-3xl font-semibold mb-6">Project Showcases</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="rounded-2xl bg-white/5 border border-white/10 p-6">
+            <h3 class="text-lg font-semibold">AI Lead Gen Tool</h3>
+            <p class="mt-2 text-sm text-white/70">Built by interns to automate lead responses with context-aware workflows, boosting pipeline velocity by 20%.</p>
+          </div>
+          <div class="rounded-2xl bg-white/5 border border-white/10 p-6">
+            <h3 class="text-lg font-semibold">Ops Automation Dashboard</h3>
+            <p class="mt-2 text-sm text-white/70">A dashboard integrating invoices, ticket routing, and workflows — reducing manual ops by 35%.</p>
+          </div>
+          <div class="rounded-2xl bg-white/5 border border-white/10 p-6">
+            <h3 class="text-lg font-semibold">Secure RAG Assistant</h3>
+            <p class="mt-2 text-sm text-white/70">Knowledge assistant over policy docs with built-in governance and redaction controls.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="border-t border-white/10 py-16">
+      <div class="max-w-7xl mx-auto px-6 text-center">
+        <h2 class="text-3xl font-semibold mb-6">What Our Interns Say</h2>
+        <div class="grid md:grid-cols-2 gap-6">
+          <blockquote class="rounded-2xl bg-white/5 border border-white/10 p-6 text-left">
+            <p class="text-sm text-white/70">“The AssignInc internship gave me the confidence to build AI projects independently. The mentorship was world-class.”</p>
+            <footer class="mt-3 text-sm font-semibold text-sky-300">— Priya, 2024 Cohort</footer>
+          </blockquote>
+          <blockquote class="rounded-2xl bg-white/5 border border-white/10 p-6 text-left">
+            <p class="text-sm text-white/70">“I shipped a real AI feature that went into production. This was the highlight of my early career.”</p>
+            <footer class="mt-3 text-sm font-semibold text-sky-300">— Daniel, 2024 Cohort</footer>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- Apply -->
+    <section id="apply" class="border-t border-white/10 py-16 text-center">
+      <h2 class="text-3xl font-semibold">Apply for the Next Cohort</h2>
+      <p class="mt-3 max-w-2xl mx-auto text-white/70">We run multiple cohorts a year. Limited spots. Fill out the form and start your journey with AssignInc.</p>
+      <a href="/apply-form" class="mt-6 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-cyan-400 px-6 py-3 text-lg font-medium shadow-lg hover:opacity-90">Apply Now</a>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/10 py-10 text-center text-sm text-white/70">
+    <p>© <span id="year"></span> AssignInc. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
