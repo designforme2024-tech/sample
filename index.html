@@ -23,6 +23,16 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
+    #formNote {
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  display: block;
+  color: #f87171; /* red for error */
+}
+#formNote.success {
+  color: #34d399; /* green for success */
+}
+
     /* Reveal (respects reduced motion) */
     .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -345,32 +355,44 @@
         <div class="mt-8 grid lg:grid-cols-2 gap-6 sm:gap-8">
           <div class="reveal rounded-2xl bg-white/5 border border-white/10 p-5 sm:p-6">
             <h3 class="text-xl font-semibold mb-3">Share your goals</h3>
-            <form class="space-y-4" id="leadForm" novalidate>
-              <div class="grid sm:grid-cols-2 gap-4">
-                <label class="block">
-                  <span class="sr-only">Full name</span>
-                  <input name="name" placeholder="Full name" required class="h-11 w-full rounded-xl bg-white/10 border border-white/10 px-3 outline-none focus:ring-2 focus:ring-sky-400" />
-                </label>
-                <label class="block">
-                  <span class="sr-only">Work email</span>
-                  <input name="email" type="email" placeholder="Work email" required class="h-11 w-full rounded-xl bg-white/10 border border-white/10 px-3 outline-none focus:ring-2 focus:ring-sky-400" />
-                </label>
-              </div>
-              <label class="block">
-                <span class="sr-only">Company</span>
-                <input name="company" placeholder="Company" class="h-11 w-full rounded-xl bg-white/10 border border-white/10 px-3 outline-none focus:ring-2 focus:ring-sky-400" />
-              </label>
-              <label class="block">
-                <span class="sr-only">Website / LinkedIn</span>
-                <input name="site" placeholder="Website / LinkedIn" class="h-11 w-full rounded-xl bg-white/10 border border-white/10 px-3 outline-none focus:ring-2 focus:ring-sky-400" />
-              </label>
-              <label class="block">
-                <span class="sr-only">What would success look like in 90 days?</span>
-                <textarea name="message" placeholder="What would success look like in 90 days?" class="min-h-[120px] w-full rounded-xl bg-white/10 border border-white/10 p-3 outline-none focus:ring-2 focus:ring-sky-400"></textarea>
-              </label>
-              <button type="submit" class="w-full rounded-xl bg-gradient-to-r from-sky-500 to-cyan-400 px-5 py-3 text-sm font-medium shadow-lg shadow-sky-700/30 hover:opacity-90">Submit →</button>
-              <p id="formNote" class="mt-2 text-xs text-white/70" aria-live="polite"></p>
-            </form>
+         <form action="https://usebasin.com/f/56be3a2fe5c9" method="POST" enctype="multipart/form-data" id="leadForm" novalidate>
+  <div class="grid sm:grid-cols-2 gap-4">
+    <label class="block">
+      <span class="sr-only">Full name</span>
+      <input name="name" placeholder="Full name" required 
+        class="h-11 w-full rounded-xl bg-white/10 border border-white/10 px-3 text-sm focus:ring-2 focus:ring-sky-400" />
+    </label>
+    <label class="block">
+      <span class="sr-only">Work email</span>
+      <input name="email" type="email" placeholder="Work email" required 
+        class="h-11 w-full rounded-xl bg-white/10 border border-white/10 px-3 text-sm focus:ring-2 focus:ring-sky-400" />
+    </label>
+  </div>
+
+  <label class="block">
+    <input name="company" placeholder="Company" 
+      class="mt-3 h-11 w-full rounded-xl bg-white/10 border border-white/10 px-3 text-sm focus:ring-2 focus:ring-sky-400" />
+  </label>
+
+  <label class="block">
+    <input name="site" placeholder="Website / LinkedIn" 
+      class="mt-3 h-11 w-full rounded-xl bg-white/10 border border-white/10 px-3 text-sm focus:ring-2 focus:ring-sky-400" />
+  </label>
+
+  <label class="block">
+    <textarea name="message" placeholder="What would success look like in 90 days?" 
+      class="mt-3 min-h-[120px] w-full rounded-xl bg-white/10 border border-white/10 p-3 text-sm focus:ring-2 focus:ring-sky-400"></textarea>
+  </label>
+
+  <button type="submit" 
+    class="mt-4 w-full rounded-xl bg-gradient-to-r from-sky-500 to-cyan-400 px-5 py-3 text-sm font-medium shadow-lg shadow-sky-700/30 hover:opacity-90">
+    Submit →
+  </button>
+  
+  <p id="formNote" class="mt-2 text-xs text-white/70" aria-live="polite"></p>
+</form>
+
+
           </div>
           <div class="space-y-6">
             <div class="reveal rounded-2xl bg-gradient-to-b from-white/10 to-white/[0.03] border border-white/10 p-5 sm:p-6">
@@ -423,7 +445,7 @@
       <div class="md:text-right">
         <div class="text-white">Ready to get started?</div>
         <a href="#contact" class="mt-3 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-cyan-400 px-4 py-2 text-sm font-medium shadow-lg shadow-sky-700/30 hover:opacity-90">Book a Strategy Call</a>
-        <p class="mt-4 text-xs">© <span id="year"></span> AssignInc. All rights reserved.</p>
+        <p class="mt-4 text-xs">©️ <span id="year"></span> AssignInc. All rights reserved.</p>
       </div>
     </div>
   </footer>
@@ -448,6 +470,36 @@
       document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
     }
 
+     const leadForm = document.getElementById('leadForm');
+  const formNote = document.getElementById('formNote');
+
+  if (leadForm) {
+    leadForm.addEventListener('submit', function (e) {
+      e.preventDefault(); // stop normal form submission
+
+      const formData = new FormData(leadForm);
+
+      fetch(leadForm.action, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      })
+      .then(response => {
+        if (response.ok) {
+          formNote.textContent = "✅ Your form has been submitted successfully!";
+          formNote.classList.add("success");
+          leadForm.reset();
+        } else {
+          formNote.textContent = "⚠️ Something went wrong. Please try again.";
+          formNote.classList.remove("success");
+        }
+      })
+      .catch(() => {
+        formNote.textContent = "⚠️ Network error. Please try again.";
+        formNote.classList.remove("success");
+      });
+    });
+  }
     // Mobile menu toggle
     const menuBtn = document.getElementById('menuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
