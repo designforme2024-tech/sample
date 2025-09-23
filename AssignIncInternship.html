@@ -88,49 +88,42 @@
     </section>
 
     <!-- Testimonials -->
-   <!-- Testimonials -->
+<!-- Testimonials -->
 <section id="testimonials" class="border-t border-white/10 py-16">
   <div class="max-w-7xl mx-auto px-6 text-center">
     <h2 class="text-3xl font-semibold mb-6">What Our Interns Say</h2>
     <div class="grid md:grid-cols-2 gap-6">
 
-      <!-- Video testimonial 1 -->
-      <div class="group relative rounded-2xl overflow-hidden bg-white/5 border border-white/10">
-        <video class="w-full h-full object-cover hidden" controls></video>
+      <!-- Video testimonial card -->
+      <div class="group relative rounded-2xl overflow-hidden bg-white/5 border border-white/10 cursor-pointer" data-video="/intern1-video.mp4">
         <img src="/intern1-thumb.jpg" alt="Intern testimonial 1" class="w-full h-full object-cover group-hover:opacity-60 transition duration-300">
-        <button class="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition duration-300">
+        <div class="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition duration-300">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-14 w-14 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-        </button>
+        </div>
         <footer class="absolute bottom-3 left-3 text-sm font-semibold text-sky-300">— Priya, 2024 Cohort</footer>
       </div>
 
-      <!-- Video testimonial 2 -->
-      <div class="group relative rounded-2xl overflow-hidden bg-white/5 border border-white/10">
-        <video class="w-full h-full object-cover hidden" controls></video>
+      <div class="group relative rounded-2xl overflow-hidden bg-white/5 border border-white/10 cursor-pointer" data-video="/intern2-video.mp4">
         <img src="/intern2-thumb.jpg" alt="Intern testimonial 2" class="w-full h-full object-cover group-hover:opacity-60 transition duration-300">
-        <button class="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition duration-300">
+        <div class="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition duration-300">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-14 w-14 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-        </button>
+        </div>
         <footer class="absolute bottom-3 left-3 text-sm font-semibold text-sky-300">— Daniel, 2024 Cohort</footer>
       </div>
 
-      <!-- Video testimonial 3 -->
-      <div class="group relative rounded-2xl overflow-hidden bg-white/5 border border-white/10">
-        <video class="w-full h-full object-cover hidden" controls></video>
+      <div class="group relative rounded-2xl overflow-hidden bg-white/5 border border-white/10 cursor-pointer" data-video="/intern3-video.mp4">
         <img src="/intern3-thumb.jpg" alt="Intern testimonial 3" class="w-full h-full object-cover group-hover:opacity-60 transition duration-300">
-        <button class="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition duration-300">
+        <div class="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition duration-300">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-14 w-14 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-        </button>
+        </div>
         <footer class="absolute bottom-3 left-3 text-sm font-semibold text-sky-300">— Aisha, 2025 Cohort</footer>
       </div>
 
-      <!-- Video testimonial 4 -->
-      <div class="group relative rounded-2xl overflow-hidden bg-white/5 border border-white/10">
-        <video class="w-full h-full object-cover hidden" controls></video>
+      <div class="group relative rounded-2xl overflow-hidden bg-white/5 border border-white/10 cursor-pointer" data-video="/intern4-video.mp4">
         <img src="/intern4-thumb.jpg" alt="Intern testimonial 4" class="w-full h-full object-cover group-hover:opacity-60 transition duration-300">
-        <button class="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition duration-300">
+        <div class="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition duration-300">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-14 w-14 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-        </button>
+        </div>
         <footer class="absolute bottom-3 left-3 text-sm font-semibold text-sky-300">— Miguel, 2025 Cohort</footer>
       </div>
 
@@ -152,50 +145,42 @@
   </footer>
 
 
-  <script>
-  const videoSources = [
-    "/intern1-video.mp4",
-    "/intern2-video.mp4",
-    "/intern3-video.mp4",
-    "/intern4-video.mp4"
-  ];
+<div id="videoModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur">
+  <div class="relative w-full max-w-3xl mx-auto px-4">
+    <button id="closeModal" class="absolute -top-10 right-0 text-white text-3xl font-bold">&times;</button>
+    <video id="modalVideo" class="w-full rounded-2xl shadow-lg" controls></video>
+  </div>
+</div>
 
-  const cards = document.querySelectorAll('#testimonials .group');
+<script>
+  const modal = document.getElementById('videoModal');
+  const modalVideo = document.getElementById('modalVideo');
+  const closeModal = document.getElementById('closeModal');
 
-  cards.forEach((card, index) => {
-    const video = card.querySelector('video');
-    const img = card.querySelector('img');
-    const button = card.querySelector('button');
-
-    button.addEventListener('click', () => {
-      // Pause all other videos
-      cards.forEach(c => {
-        const v = c.querySelector('video');
-        const i = c.querySelector('img');
-        const b = c.querySelector('button');
-        if (v && !v.classList.contains('hidden')) {
-          v.pause();
-          v.currentTime = 0;
-          v.classList.add('hidden');
-          i.classList.remove('hidden');
-          b.classList.remove('hidden');
-        }
-      });
-
-      // Load and play selected video
-      video.src = videoSources[index];
-      video.classList.remove('hidden');
-      img.classList.add('hidden');
-      button.classList.add('hidden');
-      video.play();
-
-      // Reset card when video ends
-      video.addEventListener('ended', () => {
-        video.classList.add('hidden');
-        img.classList.remove('hidden');
-        button.classList.remove('hidden');
-      });
+  document.querySelectorAll('#testimonials .group').forEach(card => {
+    card.addEventListener('click', () => {
+      const src = card.getAttribute('data-video');
+      modalVideo.src = src;
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      modalVideo.play();
     });
+  });
+
+  function hideModal() {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    modalVideo.pause();
+    modalVideo.currentTime = 0;
+    modalVideo.removeAttribute('src'); // release memory
+  }
+
+  closeModal.addEventListener('click', hideModal);
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) hideModal(); // click outside closes
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !modal.classList.contains('hidden')) hideModal();
   });
 </script>
 
