@@ -1,0 +1,95 @@
+/* ═══════════════════════════════════════════
+   Strip — Infinite Marquee
+   Each card auto-sizes to its logo naturally.
+   Images are tall enough to be clearly visible.
+═══════════════════════════════════════════ */
+
+.sp-section {
+  background: transparent;
+  padding: 40px 0;
+  width: 100%;
+}
+
+/* Centre the strip with side padding = breathing room like reference */
+.sp-outer {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 48px 48px;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+/* Running track */
+.sp-track {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  width: max-content;
+  animation: sp-scroll 30s linear infinite;
+  will-change: transform;
+}
+
+.sp-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes sp-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-33.333%); }
+}
+
+/* Card: auto width, fixed height, image fills it */
+.sp-card {
+  background: #ffffff;
+  border-radius: 14px;
+  height: 90px;
+  padding: 0 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.07);
+}
+
+/* Base image rule */
+.sp-img {
+  display: block;
+  object-fit: contain;
+  max-height: 58px;   /* tall enough to read clearly */
+}
+
+/* Per-logo widths — tuned to match reference proportions */
+.sp-img--ads {
+  width: 200px;
+}
+
+.sp-img--ga {
+  width: 200px;
+}
+
+.sp-img--gp {
+  width: 170px;
+}
+
+.sp-img--meta {
+  width: 240px;
+}
+
+.sp-img--shopify {
+  width: 190px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .sp-outer { padding: 0 24px; }
+  .sp-card  { height: 76px; padding: 0 20px; }
+  .sp-img   { max-height: 46px; }
+  .sp-img--ads, .sp-img--ga  { width: 160px; }
+  .sp-img--gp                { width: 140px; }
+  .sp-img--meta              { width: 190px; }
+  .sp-img--shopify           { width: 150px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sp-track { animation: none; }
+}

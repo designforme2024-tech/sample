@@ -1,0 +1,500 @@
+/* ============================================================
+
+/* ── Section shell ── */
+.section {
+  position: relative;
+  background: #ffffff;
+  padding: 56px 0 64px;
+  overflow: hidden;
+  font-family: 'Satoshi', sans-serif;
+  /* FIX: use 100% not 100vw */
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Subtle top/bottom rule lines */
+.section::before,
+.section::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(46, 139, 173, 0.18) 30%,
+    rgba(46, 139, 173, 0.18) 70%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+.section::before { top: 0; }
+.section::after  { bottom: 0; }
+
+/* ── Inner container — mobile: single col ── */
+.inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* ── LEFT column ── */
+.leftCol {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: static;
+  /* FIX: prevent leftCol from overflowing on small screens */
+  width: 100%;
+  min-width: 0;
+}
+
+/* Eyebrow pill */
+.eyebrow {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #2E8BAD;
+  background: rgba(46, 139, 173, 0.08);
+  border: 1px solid rgba(46, 139, 173, 0.2);
+  padding: 5px 14px;
+  border-radius: 20px;
+  width: fit-content;
+  /* FIX: prevent from overflowing narrow containers */
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Main heading */
+.heading {
+  font-family: 'Satoshi', sans-serif;
+  font-size: clamp(1.7rem, 6vw, 2.6rem);
+  font-weight: 600;
+  color: #1A3040;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin: 0;
+  /* FIX: prevent heading from overflowing */
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.headingAccent { color: #2E8BAD; }
+
+/* Sub-copy */
+.headingSub {
+  font-size: 0.88rem;
+  font-weight: 400;
+  color: #607D8B;
+  line-height: 1.75;
+  margin: 0;
+  max-width: 100%;
+}
+
+/* ── Navigation ── */
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.navBtn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(46, 139, 173, 0.28);
+  background: rgba(46, 139, 173, 0.06);
+  color: #2E8BAD;
+  cursor: pointer;
+  font-size: 22px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background 0.22s ease,
+    border-color 0.22s ease,
+    color 0.22s ease,
+    transform 0.18s ease;
+  padding: 0;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  flex-shrink: 0;
+}
+
+.navBtn:hover:not(:disabled) {
+  background: rgba(46, 139, 173, 0.14);
+  border-color: rgba(46, 139, 173, 0.5);
+  color: #1A6A88;
+  transform: scale(1.08);
+}
+
+.navBtn:disabled {
+  opacity: 0.28;
+  cursor: default;
+}
+
+/* Dot indicators */
+.dots {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(46, 139, 173, 0.2);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  flex-shrink: 0;
+}
+
+.dot:hover {
+  background: rgba(46, 139, 173, 0.42);
+}
+
+.dotActive {
+  background: #2E8BAD;
+  width: 22px;
+  border-radius: 4px;
+}
+
+/* ── RIGHT: carousel wrapper ── */
+.carouselRoot {
+  overflow: hidden;
+  /* FIX: was margin-right: -20px which created a 20px overflow bleed.
+     Instead, use padding-right on the track so the last card has breathing
+     room without expanding the document width. */
+  width: 100%;
+  min-width: 0;
+}
+
+/* Track wrapper */
+.trackWrap {
+  overflow-x: auto;
+  overflow-y: hidden;
+  /* padding: 14px 0 20px; */
+
+  padding-left:4px;
+  padding-right:4px;
+
+  cursor: grab;
+  user-select: none;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  /* scroll-snap-type: x mandatory; */
+  scroll-snap-type: none;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  overscroll-behavior-x: contain;
+  /* FIX: explicit max-width prevents track from wider-than-viewport paint */
+  width: 100%;
+  max-width: 100%;
+}
+
+.trackWrap::-webkit-scrollbar { display: none; }
+.trackWrap:active { cursor: grabbing; }
+
+/* Scrolling track */
+.track {
+  display: flex;
+  gap: 14px;
+  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+  /* FIX: add right padding so last card doesn't butt against edge,
+     without using margin-right on the wrapper */
+  padding-right: 40px;
+  /* FIX: width: max-content lets flex items lay out without wrapping
+     but only inside the scrollable trackWrap, not the document */
+  width: max-content;
+}
+
+/* ── Individual card ── */
+.card {
+  /* FIX: was flex: 0 0 74vw — use min() to guard 320px screens */
+  /* flex: 0 0 min(74vw, 220px); */
+  flex:0 0 min(68vw,220px);
+  max-width: 220px;
+  height: 295px;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(56, 130, 170, 0.13);
+  background: #cde4ef;
+  box-shadow: 0 2px 10px rgba(30, 60, 80, 0.06);
+  transition:
+    transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.32s ease,
+    border-color 0.32s ease;
+  cursor: pointer;
+  scroll-snap-align: start;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.card:hover,
+.cardHovered {
+  transform: translateY(-10px) scale(1.025) translateZ(0);
+  box-shadow:
+    0 20px 50px rgba(30, 60, 80, 0.15),
+    0 0 0 1.5px rgba(46, 139, 173, 0.28);
+  border-color: rgba(46, 139, 173, 0.36);
+  z-index: 2;
+}
+
+/* Card image */
+.cardImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  /* FIX: max-width guard */
+  max-width: 100%;
+  filter: brightness(0.72) saturate(0.85);
+  transition: transform 0.5s ease, filter 0.35s ease;
+  pointer-events: none;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.card:hover .cardImg,
+.cardHovered .cardImg {
+  transform: scale(1.07) translateZ(0);
+  filter: brightness(0.52) saturate(0.72);
+}
+
+/* Gradient overlay */
+.cardOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(12, 28, 44, 0.93) 0%,
+    rgba(12, 28, 44, 0.36) 52%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+/* Tag chip */
+.cardTop {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+}
+
+.cardTag {
+  display: inline-block;
+  font-family: 'Satoshi', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 20px;
+  color: #ADE3F5;
+  background: rgba(10, 28, 44, 0.52);
+  border: 1px solid rgba(120, 200, 230, 0.32);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  /* FIX: prevent tag overflow */
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Card bottom content */
+.cardBottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0 16px 18px;
+}
+
+.cardLabel {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #EAF5FA;
+  margin: 0;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  word-break: break-word;
+}
+
+.cardDesc {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: rgba(180, 218, 232, 0.88);
+  line-height: 1.6;
+  margin: 6px 0 0;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition:
+    max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.3s ease 0.06s;
+}
+
+.card:hover .cardDesc,
+.cardHovered .cardDesc {
+  max-height: 90px;
+  opacity: 1;
+}
+
+/* Animated bottom accent line */
+.cardLine {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 0;
+  background: linear-gradient(90deg, #2E8BAD 0%, #5AB3CC 60%, #3CB8A8 100%);
+  transition: width 0.42s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: width;
+}
+
+.card:hover .cardLine,
+.cardHovered .cardLine {
+  width: 100%;
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .card, .cardImg, .cardLine, .cardDesc {
+    transition: none;
+  }
+  .card:hover { transform: none; }
+}
+
+/* ── Tablet ── */
+@media (min-width: 540px) {
+  .inner { padding: 0 28px; }
+
+  .card {
+    flex: 0 0 min(55vw, 240px);
+    max-width: 240px;
+    height: 315px;
+  }
+}
+
+/* ── Tablet landscape ── */
+@media (min-width: 768px) {
+  .card {
+    flex: 0 0 min(40vw, 220px);
+    max-width: 220px;
+    height: 295px;
+  }
+}
+
+/* ── Desktop: switch to 2-col layout ── */
+@media (min-width: 860px) {
+  .inner {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 36px;
+    align-items: center;
+    padding: 0 28px;
+  }
+
+  .leftCol {
+    position: sticky;
+    top: 100px;
+    align-self: start;
+  }
+
+  .headingSub { max-width: 270px; }
+
+  /* FIX: Remove the negative margin-right hack; use width: 100% instead */
+  .carouselRoot {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .card {
+    flex: 0 0 210px;
+    max-width: unset;
+    height: 295px;
+  }
+
+  .trackWrap {
+    /* FIX: on desktop we control scroll via JS translateX, so disable native scroll */
+    scroll-snap-type: none;
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+
+  .track {
+    display: flex;
+    gap: 18px;
+
+    width:auto !important;
+    padding-right:0 !important;
+
+}
+    /* padding-right: 0; */
+    /* FIX: reset width from max-content so grid layout works correctly */
+    /* width: auto; */
+  }
+
+
+/* ── Large desktop ── */
+@media (min-width: 1100px) {
+  .inner {
+    grid-template-columns: 300px 1fr;
+    gap: 56px;
+    padding: 0 40px;
+  }
+
+  .card {
+    flex: 0 0 232px;
+    height: 330px;
+    border-radius: 18px;
+  }
+
+  .section { padding: 72px 0 80px; }
+}
+
+
+@media (max-width: 859px) {
+
+  .trackWrap{
+    overflow-x:auto;
+    overflow-y:hidden;
+    -webkit-overflow-scrolling:touch;
+  }
+
+  .track{
+    width:max-content;
+    padding-right:60px;
+  }
+
+  .card{
+    flex:0 0 72vw;
+    max-width:none;
+  }
+
+}

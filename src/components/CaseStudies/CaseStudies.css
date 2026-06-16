@@ -1,0 +1,370 @@
+/* =============================================
+   CaseStudies.css  —  all classes prefixed cs-
+   ============================================= */
+
+:root {
+    --cs-bg-main:       #FFFFFF;
+    --cs-bg-card:       #F4F8FF;
+    --cs-text-main:     #14375B;
+    --cs-text-muted:    #5F7C99;
+    --cs-accent-teal:   #2A9D8F;
+    --cs-accent-storm:  #3A6EA5;
+    --cs-accent-steel:  #5B7D9A;
+    --cs-accent-navy:   #14375B;
+    --cs-easing:        cubic-bezier(0.16, 1, 0.3, 1);
+    --cs-slow:          1s   var(--cs-easing);
+    --cs-fast:          0.5s var(--cs-easing);
+}
+
+/* ── Hero ── */
+.cs-hero {
+    position: relative;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 6rem 0 3rem;   /* top gap from navbar, bottom breathing room */
+    background: var(--cs-bg-main);
+}
+
+.cs-hero-ticker {
+    position: absolute;
+    top: 10%; left: 6%; right: -10%;
+    pointer-events: none;
+    white-space: nowrap;
+    font-weight: 900;
+    color: rgba(20, 55, 91, 0.04);
+    font-size: clamp(6rem, 18vw, 18rem);
+    animation: cs-ticker 60s linear infinite;
+}
+@keyframes cs-ticker {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-40%); }
+}
+
+.cs-container     { width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 2rem; }
+.cs-text-center   { text-align: center; }
+.cs-mt-4          { margin-top: 1.5rem; }
+
+.cs-outline-text {
+    font-size: clamp(5rem, 10vw, 9rem);
+    font-weight: 900;
+    line-height: 0.92;
+    text-transform: uppercase;
+    color: var(--cs-accent-navy);
+    text-shadow: 0 18px 40px rgba(20, 55, 91, 0.08);
+    margin: 0;
+}
+
+/* ── Mask reveal ── */
+.cs-mask-text { display: inline-block; overflow: hidden; position: relative; }
+.cs-mask-text .cs-mask-inner {
+    transform: translateX(-110%);
+    transition: transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cs-project-info-block.active .cs-mask-text .cs-mask-inner { transform: translateX(0); }
+
+/* ── Sticky track ── */
+.cs-sticky-track-container {
+    background: var(--cs-bg-main);
+    padding: 1rem 0;
+    border-top: 1px solid rgba(86, 124, 219, 0.1);
+}
+.cs-sticky-layout-wrapper { display: flex; width: 100%; }
+
+.cs-sticky-left-panel {
+    position: sticky;
+    top: 0;
+    width: 45%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-left: 8%;
+    padding-right: 4%;
+    z-index: 10;
+    gap: 3rem;
+    will-change: transform;
+    /* -webkit-backface-visibility: hidden; */
+}
+
+.cs-sticky-placeholder{
+    display:block;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    visibility:hidden;
+}
+
+/* Timeline */
+.cs-timeline-tracker { display: flex; align-items: center; height: 600px; position: relative; }
+.cs-timeline-line    { width: 2px; height: 100%; background: rgba(86, 124, 219, 0.15); position: relative; }
+.cs-timeline-progress {
+    width: 100%; height: 0%;
+    background: #567CDB;
+    position: absolute; top: 0; left: 0;
+    transition: height 0.4s var(--cs-easing);
+}
+.cs-timeline-dots {
+    display: flex; flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    position: absolute; top: 0; left: -14px;
+}
+.cs-t-dot {
+    width: 30px; height: 30px;
+    background: #F4F8FF;
+    border: 2px solid rgba(86, 124, 219, 0.3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; font-weight: 700;
+    color: var(--cs-text-muted);
+    transition: all 0.4s var(--cs-easing);
+    cursor: pointer;
+}
+.cs-t-dot.active { border-color: #567CDB; background: #567CDB; color: #fff; }
+
+/* Content stack */
+.cs-content-stack { position: relative; width: 100%; height: 600px; }
+.cs-project-info-block {
+    position: absolute; top: 0; left: 0; width: 100%;
+    opacity: 0; transform: translateY(30px);
+    pointer-events: none;
+    transition: opacity var(--cs-fast), transform var(--cs-fast);
+    max-height: 76vh; overflow: auto; padding-right: 1rem;
+}
+.cs-project-info-block.active {
+    opacity: 1; transform: translateY(0); pointer-events: all;
+}
+.cs-project-info-block::-webkit-scrollbar       { width: 8px; }
+.cs-project-info-block::-webkit-scrollbar-thumb { background: rgba(86,124,219,0.12); border-radius: 6px; }
+
+.cs-project-num {
+    display: block; font-size: 0.8rem; font-weight: 700;
+    color: var(--cs-text-muted); margin-bottom: 0.8rem; letter-spacing: 0.1em;
+}
+.cs-project-category {
+    font-size: 0.75rem; font-weight: 800; letter-spacing: 0.15em;
+    color: var(--cs-accent-storm); text-transform: uppercase;
+    margin-bottom: 0.8rem; display: block;
+}
+.cs-project-info-block h2 {
+    font-size: clamp(1.8rem, 3.5vw, 3.5rem);
+    font-weight: 900; letter-spacing: -0.04em;
+    margin-bottom: 1.2rem; color: var(--cs-text-main); line-height: 1.08;
+}
+.cs-project-tags { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+.cs-project-tags span {
+    font-size: 0.8rem; font-weight: 700; color: var(--cs-accent-navy);
+    background: rgba(86, 124, 219, 0.14);
+    padding: 0.55rem 1.1rem; border-radius: 999px;
+    border: 1px solid rgba(86, 124, 219, 0.35);
+    letter-spacing: 0.08em; text-transform: uppercase;
+    box-shadow: 0 10px 30px rgba(86, 124, 219, 0.06);
+}
+.cs-project-details .cs-label {
+    font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 0.1em; color: var(--cs-text-muted); margin-bottom: 0.8rem;
+}
+.cs-project-details .cs-text {
+    font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+    line-height: 1.55; color: var(--cs-text-main);
+    font-weight: 400; word-break: break-word; hyphens: auto;
+}
+
+/* ── Right gallery ── */
+.cs-scroll-right-gallery { width: 55%; display: flex; flex-direction: column; position: relative; }
+.cs-visual-trigger-zone  { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 3rem 2rem; }
+
+.cs-gallery-nav {
+    position: absolute; top: 50%; right: 1.25rem;
+    transform: translateY(-50%);
+    display: flex; flex-direction: column; gap: 0.6rem; z-index: 30;
+}
+.cs-nav {
+    background: rgba(20, 55, 91, 0.9); color: #fff; border: none;
+    width: 44px; height: 44px; border-radius: 999px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 1.25rem; cursor: pointer;
+    box-shadow: 0 8px 22px rgba(20, 55, 91, 0.18);
+    transition: transform 0.2s;
+}
+.cs-nav:hover { transform: translateY(-2px); }
+
+.cs-solid-card {
+    background: var(--cs-bg-card);
+    width: 100%; max-width: 400px;   /* narrower to complement tall portrait video */
+    height: auto;
+    border-radius: 28px; padding: 2rem;
+    display: flex; flex-direction: column; justify-content: space-between;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(15, 20, 25, 0.09);
+    border: 1px solid rgba(86, 124, 219, 0.12);
+    transition: all 0.4s var(--cs-easing);
+}
+.cs-solid-card.cs-glass {
+    background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(244,248,255,0.65));
+    /* backdrop-filter: blur(6px); */
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: 0 20px 60px rgba(20, 55, 91, 0.08);
+}
+.cs-visual-trigger-zone:hover .cs-solid-card {
+    transform: scale(1.015);
+    box-shadow: 0 32px 84px rgba(86, 124, 219, 0.18);
+}
+
+.cs-card-image {
+    margin-top: 1.5rem; margin-bottom: 0;
+    overflow: hidden; border-radius: 18px;
+    /* Portrait 9:16 */
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    background: #000;
+}
+.cs-card-video {
+    width: 100%; height: 100%;
+    display: block; object-fit: cover;
+    border-radius: 18px;
+}
+
+.cs-card-top-stats { display: flex; flex-wrap: wrap; gap: 1.5rem; margin-top: 1.5rem; }
+.cs-card-top-stats h3 {
+    font-size: 2.4rem; font-weight: 600;
+    color: var(--cs-text-main); margin-bottom: 0.2rem; line-height: 1.05;
+}
+.cs-card-top-stats p {
+    font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.12em; color: var(--cs-text-muted); text-transform: uppercase;
+}
+
+/* ── Stats strip ── */
+.cs-big-stats-section {
+    padding: 5rem 0 4rem;
+    margin-top: 3rem;
+    background: var(--cs-bg-main);
+    border-top: 1px solid rgba(86, 124, 219, 0.1);
+}
+.cs-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem; text-align: center;
+}
+.cs-big-stat h2 {
+    font-size: clamp(3rem, 6vw, 5rem); font-weight: 900;
+    color: var(--cs-text-main); margin-bottom: 0.5rem; letter-spacing: -0.02em;
+}
+.cs-big-stat p { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; color: var(--cs-text-muted); }
+
+/* ── Reveal ── */
+.cs-reveal   { opacity: 0; will-change: transform, opacity; }
+.cs-fade-up  { transform: translateY(30px); transition: opacity var(--cs-slow), transform var(--cs-slow); }
+.cs-reveal.cs-is-visible { opacity: 1; transform: translate(0); }
+
+/* ── Responsive ── */
+@media (max-width: 1400px) {
+    .cs-project-info-block h2 { font-size: clamp(1.6rem, 3.8vw, 3rem); }
+    .cs-project-details .cs-text { font-size: clamp(0.92rem, 1.1vw, 1rem); }
+    .cs-project-tags span { padding: 0.45rem 0.9rem; font-size: 0.75rem; }
+}
+
+@media (max-width: 1023px) {
+    .cs-sticky-layout-wrapper { flex-direction: column; }
+    .cs-sticky-left-panel     { width: 100%; height: auto; padding: 4rem 2rem; position: relative; }
+    .cs-timeline-tracker      { display: none; }
+    .cs-content-stack         { height: auto; }
+    /* keep project info accessible in mobile flows; mobile uses .cs-mobile-section primarily */
+    .cs-project-info-block    { position: relative; opacity: 1; transform: none; display: block; pointer-events: all; max-height: none; overflow: visible; }
+    .cs-project-info-block.active { display: block; }
+    .cs-scroll-right-gallery  { width: 100%; }
+    .cs-visual-trigger-zone   { height: auto; padding: 2rem; margin-bottom: 2rem; }
+    .cs-gallery-nav           { display: none; }
+    .cs-solid-card            { height: auto; min-height: 360px; padding: 1.5rem; }
+
+    /* ── Stats: match desktop 4-column layout on tablet/mobile ── */
+    .cs-stats-grid            { grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+}
+
+@media (max-width: 480px) {
+    .cs-outline-text   { font-size: clamp(3rem, 15vw, 5rem); }
+    /* Drop to 2-col only on very small phones so numbers don't get crushed */
+    .cs-stats-grid     { grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .cs-card-image     { aspect-ratio: 9 / 16; }
+    .cs-solid-card     { padding: 1.25rem; max-width: 100%; }
+}
+
+/* Mobile stacked layout styles for Case Studies (safe for <= 1023px) */
+@media (max-width: 1023px) {
+    .cs-mobile-section {
+        display: block;
+        padding: 2rem 0;
+        border-bottom: 1px solid rgba(86,124,219,0.06);
+        background: var(--cs-bg-main);
+    }
+    .cs-mobile-section .cs-container { padding: 0 1rem; }
+    .cs-mobile-content { padding-bottom: 1rem; }
+    .cs-mobile-media { margin-top: 12px; }
+    .cs-mobile-media video { width: 100%; height: auto; display: block; border-radius: 14px; border: 1px solid rgba(86,124,219,0.08); object-fit: contain; max-height: 60vh; }
+    .cs-mobile-content h2 { font-size: 1.6rem; margin-bottom: 0.75rem; }
+    .cs-mobile-content .cs-project-tags span { padding: 0.45rem 0.9rem; font-size: 0.75rem; }
+    .cs-project-details .cs-text { font-size: 1rem; line-height: 1.6; }
+    /* Ensure sticky elements are not displayed / do not interfere */
+    .cs-timeline-tracker, .cs-gallery-nav, .cs-sticky-left-panel { display: none !important; }
+    /* mobile safety: make sure content isn't clipped */
+    .cs-mobile-section { overflow: visible !important; }
+    .cs-mobile-section .cs-project-details { max-height: none !important; overflow: visible !important; }
+    .cs-mobile-section .cs-project-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+    .cs-mobile-section .cs-project-tags span { white-space: normal; }
+    
+    /* Force mobile to ignore JS placeholder and enforce left-panel relative layout */
+    .cs-sticky-placeholder { display: none !important; }
+    .cs-sticky-left-panel { position: relative !important; top: auto !important; left: auto !important; width: 100% !important; height: auto !important; transform: none !important; }
+    
+    /* Mobile-only: ensure section heading labels have visible spacing */
+    .cs-mobile-section .cs-project-details .cs-label,
+    .cs-mobile-section .cs-project-details h4.cs-label {
+        display: block;
+        margin: 0.9rem 0 0.6rem;
+        font-size: 0.85rem;
+        letter-spacing: 0.12em;
+    }
+
+    /* ── Stats section: always visible, always 4-col, no animation ── */
+    .cs-big-stats-section {
+        display: block !important;
+        padding: 2.5rem 0 2rem;
+        margin-top: 1.5rem;
+        background: var(--cs-bg-main);
+        border-top: 1px solid rgba(86,124,219,0.06);
+    }
+    /* Override the reveal animation so stats are never hidden on mobile */
+    .cs-big-stats-section.cs-reveal,
+    .cs-big-stats-section.cs-fade-up {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+
+    /* Increase top padding of hero to give more space for the ticker on mobile */
+    .cs-hero {
+        padding-top: 8rem;
+    }
+
+    /* Slightly lower/scale the hero ticker on small screens so it doesn't overlap */
+    .cs-hero-ticker {
+        top: 50%;
+        left: 6%;
+        font-size: clamp(4rem, 14vw, 12rem);
+    }
+}
+
+@media (min-width: 1024px) {
+    /* ensure mobile-only classes do not appear on desktop */
+    .cs-mobile-section { display: none; }
+    /* Desktop safety: ensure track/container don't clip sticky children */
+    .cs-sticky-track-container, .cs-sticky-layout-wrapper { overflow: visible; }
+    /* top-align children so sticky left panel isn't stretched vertically */
+    .cs-sticky-layout-wrapper { align-items: flex-start; }
+}

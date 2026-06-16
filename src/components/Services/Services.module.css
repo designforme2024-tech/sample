@@ -1,0 +1,476 @@
+/* ═══════════════════════════════════════════════════════
+   SERVICES — Photo-card Horizontal Carousel
+   Palette: Navy #2F4156 | Teal #567C8D | Sky #C8D9E6
+            Frost #8BA3C5 | Moonlight #F0ECDD
+═══════════════════════════════════════════════════════ */
+
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700&display=swap');
+
+/* ── Section ─────────────────────────────────────────── */
+.section {
+  background:  #ffffff;
+  padding:     0 0 80px;
+  overflow:    visible;
+  user-select: none;
+  position:    relative;
+}
+
+/* ── Heading Bar ─────────────────────────────────────── */
+.headingBar {
+  background:    #2F4156;
+  padding:       56px 5vw 60px;
+  text-align:    center;
+  position:      relative;
+  overflow:      hidden;
+  margin-bottom: 56px;
+}
+
+.headingBar::before {
+  content:    '';
+  position:   absolute;
+  inset:      0;
+  background: repeating-linear-gradient(
+    -55deg,
+    rgba(255,255,255,0.015) 0px,
+    rgba(255,255,255,0.015) 1px,
+    transparent 1px,
+    transparent 18px
+  );
+  pointer-events: none;
+}
+
+.headingBar::after {
+  content:       '';
+  position:      absolute;
+  top:           50%;
+  left:          50%;
+  transform:     translate(-50%, -50%);
+  width:         600px;
+  height:        220px;
+  border-radius: 50%;
+  background:    radial-gradient(ellipse, rgba(86,124,141,0.28) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.eyebrow {
+  font-family:    'Satoshi', sans-serif;
+  font-size:      0.68rem;
+  font-weight:    700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color:          #C8D9E6;
+  margin:         0 0 0.9rem;
+  position:       relative;
+  z-index:        1;
+}
+
+.heading {
+  font-family:    'Satoshi', sans-serif;
+  font-size:      clamp(2.6rem, 5.5vw, 4.2rem);
+  font-weight:    700;
+  color:          #ffffff;
+  letter-spacing: -0.03em;
+  line-height:    1.05;
+  margin:         0 0 1rem;
+  position:       relative;
+  z-index:        1;
+}
+
+.headingSub {
+  font-family:  'Satoshi', sans-serif;
+  font-size:    clamp(0.88rem, 1.6vw, 1rem);
+  font-weight:  400;
+  color:        rgba(200, 217, 230, 0.80);
+  line-height:  1.65;
+  max-width:    520px;
+  margin:       0 auto;
+  position:     relative;
+  z-index:      1;
+}
+
+.headingRule {
+  display:       block;
+  width:         48px;
+  height:        3px;
+  background:    #567C8D;
+  border-radius: 2px;
+  margin:        1.1rem auto 0;
+  position:      relative;
+  z-index:       1;
+}
+
+/* ── Carousel wrapper ────────────────────────────────── */
+.carouselWrap {
+  max-width: 1200px;
+  margin:    0 auto;
+  padding:   0 5vw;
+  cursor:    grab;
+}
+.carouselWrap:active { cursor: grabbing; }
+
+/* ── Track ───────────────────────────────────────────── */
+.track {
+  display:               grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap:                   16px;
+  align-items:           stretch;
+}
+
+/* ── Card ────────────────────────────────────────────── */
+.card {
+  position:      relative;
+  border-radius: 20px;
+  overflow:      visible;
+  height:        360px;
+  cursor:        pointer;
+  outline:       none;
+  box-shadow:    0 4px 20px rgba(47,65,86,0.12);
+  transition:    box-shadow 0.3s ease, transform 0.28s ease;
+}
+
+/* clip only the image layers, not the dropdown */
+.cardInner {
+  position:      absolute;
+  inset:         0;
+  border-radius: 20px;
+  overflow:      hidden;
+}
+
+.card:hover {
+  box-shadow: 0 20px 56px rgba(47,65,86,0.22);
+  transform:  translateY(-6px);
+}
+
+.card:focus-visible {
+  box-shadow: 0 0 0 3px #567C8D, 0 4px 20px rgba(47,65,86,0.12);
+}
+
+/* Background image */
+.cardBg {
+  position:            absolute;
+  inset:               0;
+  background-size:     cover;
+  background-position: center center;
+  transition:          transform 0.55s ease;
+}
+
+.card:hover .cardBg {
+  transform: scale(1.05);
+}
+
+/* Gradient overlay */
+.overlay {
+  position:   absolute;
+  inset:      0;
+  background: linear-gradient(
+    to top,
+    rgba(8,12,18,0.92) 0%,
+    rgba(8,12,18,0.50) 38%,
+    rgba(8,12,18,0.06) 72%,
+    transparent 100%
+  );
+  transition: background 0.35s ease;
+}
+
+.card:hover .overlay {
+  background: linear-gradient(
+    to top,
+    rgba(8,12,18,0.97) 0%,
+    rgba(8,12,18,0.65) 50%,
+    rgba(8,12,18,0.12) 80%,
+    transparent 100%
+  );
+}
+
+/* ── Bottom content ──────────────────────────────────── */
+.cardContent {
+  position:       absolute;
+  bottom:         0;
+  left:           0;
+  right:          0;
+  padding:        1.4rem;
+  display:        flex;
+  flex-direction: column;
+  gap:            0.4rem;
+}
+
+.nameRow {
+  display:     flex;
+  align-items: flex-end;
+  gap:         0.75rem;
+}
+
+.cardName {
+  font-family:    'Satoshi', sans-serif;
+  font-size:      1.15rem;
+  font-weight:    700;
+  color:          #ffffff;
+  letter-spacing: -0.01em;
+  line-height:    1.25;
+  margin:         0;
+  flex:           1;
+  min-width:      0;
+  text-shadow:    0 1px 6px rgba(0,0,0,0.35);
+}
+
+/* Arrow circle */
+.arrowIcon {
+  flex-shrink:     0;
+  width:           36px;
+  height:          36px;
+  border-radius:   50%;
+  border:          1.5px solid rgba(255,255,255,0.55);
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  color:           #ffffff;
+  background:      rgba(255,255,255,0.10);
+  transition:      background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+  position:        relative;
+  z-index:         20;
+  cursor:          pointer;
+}
+
+.card:hover .arrowIcon {
+  background:   rgba(255,255,255,0.22);
+  border-color: rgba(255,255,255,0.9);
+  transform:    scale(1.1);
+}
+
+.arrowIconActive {
+  background:   rgba(255,255,255,0.30) !important;
+  border-color: #ffffff !important;
+}
+
+.arrowIcon svg {
+  width:  15px;
+  height: 15px;
+}
+
+.cardTags {
+  font-family:    'Satoshi', sans-serif;
+  font-size:      0.71rem;
+  font-weight:    500;
+  color:          rgba(255,255,255,0.70);
+  letter-spacing: 0.01em;
+  margin:         0;
+  line-height:    1.4;
+  text-shadow:    0 1px 4px rgba(0,0,0,0.5);
+}
+
+/* ═══════════════════════════════════════════════════════
+   MEGA DROPDOWN  — matches Image 2 exactly
+   4 columns: Brand Solutions | Tech Solutions |
+              Media Solutions | Film & Photography
+═══════════════════════════════════════════════════════ */
+
+/* Backdrop (semi-transparent) */
+.megaBackdrop {
+  position:   fixed;
+  inset:      0;
+  z-index:    200;
+  background: rgba(0,0,0,0.18);
+  animation:  backdropIn 0.18s ease;
+}
+
+@keyframes backdropIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Panel — full-width bar below trigger */
+.megaDropdown {
+  position:      absolute;
+  left:          50%;
+  transform:     translateX(-50%);
+  width:         min(96vw, 1140px);
+  background:    #ffffff;
+  border-radius: 16px;
+  box-shadow:    0 24px 80px rgba(47,65,86,0.20), 0 4px 16px rgba(47,65,86,0.08);
+  z-index:       300;
+  padding:       40px 40px 44px;
+  animation:     megaIn 0.22s cubic-bezier(0.22,1,0.36,1);
+  /* position relative to .ctaWrap or card — set via inline style in JS */
+}
+
+@keyframes megaIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(10px) scale(0.98); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0)    scale(1); }
+}
+
+/* Close button top-right */
+.megaClose {
+  position:    absolute;
+  top:         14px;
+  right:       16px;
+  background:  none;
+  border:      none;
+  cursor:      pointer;
+  color:       #8BA3C5;
+  font-size:   1.3rem;
+  line-height: 1;
+  padding:     4px 8px;
+  border-radius: 6px;
+  transition:  background 0.15s ease, color 0.15s ease;
+}
+.megaClose:hover {
+  background: #F0ECDD;
+  color:      #2F4156;
+}
+
+/* Grid of 4 columns */
+.megaGrid {
+  display:               grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap:                   0;
+}
+
+/* Dividers between columns */
+.megaCol {
+  padding:      0 28px;
+  border-right: 1px solid rgba(47,65,86,0.10);
+}
+.megaCol:first-child { padding-left: 0; }
+.megaCol:last-child  { padding-right: 0; border-right: none; }
+
+/* Column title */
+.megaColTitle {
+  font-family:    'Satoshi', sans-serif;
+  font-size:      1rem;
+  font-weight:    800;
+  color:          #2F4156;
+  letter-spacing: 0.01em;
+  margin:         0 0 14px;
+  padding-bottom: 12px;
+  border-bottom:  2px solid #2F4156;
+}
+
+/* Each link */
+.megaLink {
+  display:         block;
+  font-family:     'Satoshi', sans-serif;
+  font-size:       0.90rem;
+  font-weight:     500;
+  color:           #567C8D;
+  text-decoration: none;
+  padding:         6px 0;
+  line-height:     1.45;
+  transition:      color 0.15s ease, padding-left 0.15s ease;
+  cursor:          pointer;
+}
+.megaLink:hover {
+  color:        #2F4156;
+  padding-left: 6px;
+}
+
+/* ── Dots ────────────────────────────────────────────── */
+.dots {
+  display:         flex;
+  justify-content: center;
+  align-items:     center;
+  gap:             8px;
+  margin-top:      32px;
+}
+
+.dot {
+  width:         9px;
+  height:        9px;
+  border-radius: 50%;
+  border:        none;
+  padding:       0;
+  cursor:        pointer;
+  background:    #C8D9E6;
+  transition:    background 0.25s ease, transform 0.25s ease;
+}
+
+.dotActive {
+  background: #2F4156;
+  transform:  scale(1.35);
+}
+
+.dot:hover:not(.dotActive) {
+  background: #8BA3C5;
+}
+
+/* ── CTA wrapper — needs relative for dropdown anchor ── */
+.ctaWrap {
+  display:         flex;
+  justify-content: center;
+  margin-top:      48px;
+  position:        relative;
+}
+
+.ctaBtn {
+  display:         inline-flex;
+  align-items:     center;
+  gap:             0.6rem;
+  background:      #2F4156;
+  color:           #F0ECDD;
+  border:          none;
+  border-radius:   6px;
+  padding:         0.9rem 2.2rem;
+  font-family:     'Satoshi', sans-serif;
+  font-size:       0.88rem;
+  font-weight:     700;
+  letter-spacing:  0.08em;
+  text-transform:  uppercase;
+  cursor:          pointer;
+  box-shadow:      0 6px 24px rgba(47,65,86,0.18);
+  transition:      background 0.22s ease, box-shadow 0.22s ease, transform 0.22s ease;
+  text-decoration: none;
+}
+
+.ctaBtn:hover {
+  background: #567C8D;
+  box-shadow: 0 10px 32px rgba(86,124,141,0.32);
+  transform:  translateY(-2px);
+}
+
+.ctaBtnActive {
+  background: #567C8D !important;
+}
+
+.arrow {
+  width:       18px;
+  height:      18px;
+  flex-shrink: 0;
+  transition:  transform 0.22s ease;
+}
+
+.ctaBtn:hover .arrow {
+  transform: translateX(4px);
+}
+
+/* ── Responsive ──────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .track { grid-template-columns: repeat(3, 1fr); }
+  .card  { height: 320px; }
+  .megaGrid { grid-template-columns: repeat(2, 1fr); gap: 28px 0; }
+  .megaCol  { border-right: none; border-bottom: 1px solid rgba(47,65,86,0.08); padding: 0 0 20px; }
+  .megaCol:nth-child(2n) { padding-left: 24px; border-left: 1px solid rgba(47,65,86,0.08); }
+  .megaCol:last-child    { border-bottom: none; }
+  .megaCol:nth-child(3)  { border-bottom: none; }
+}
+
+@media (max-width: 720px) {
+  .headingBar   { padding: 44px 5vw 48px; margin-bottom: 40px; }
+  .carouselWrap { padding: 0 4vw; touch-action: pan-x;}
+  .track        { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .card         { height: 280px; }
+  .cardName     { font-size: 1rem; }
+  .section      { padding-bottom: 64px; }
+  .megaDropdown { padding: 28px 20px 32px; }
+  .megaGrid     { grid-template-columns: 1fr 1fr; gap: 20px 0; }
+  .megaCol      { padding: 0 12px 0 0; border-right: none; }
+}
+
+@media (max-width: 420px) {
+  .headingBar { padding: 36px 5vw 40px; margin-bottom: 32px; }
+  .track      { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .card       { height: 230px; }
+  .cardName   { font-size: 0.9rem; }
+  .cardTags   { font-size: 0.62rem; }
+  .arrowIcon  { width: 30px; height: 30px; }
+  .megaGrid   { grid-template-columns: 1fr; }
+  .megaDropdown { padding: 24px 16px 28px; }
+}

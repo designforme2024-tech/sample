@@ -1,0 +1,681 @@
+:root {
+  --navy:  #2F4156;
+  --teal:  #567C8D;
+  --sky:   #C8D9E6;
+  --beige: #F5EFEB;
+}
+
+/* ══════════════════════════════
+   SECTION — white background
+══════════════════════════════ */
+
+.section {
+  overflow: visible;
+  position: relative;
+  background: #ffffff;
+  padding-bottom: 80px;
+}
+
+/* ══════════════════════════════
+   HEADING BLOCK — white bg, dark text
+══════════════════════════════ */
+
+.headingWrap {
+  text-align: center;
+  padding: 100px 20px 40px;
+  position: relative;
+  z-index: 1;
+  background: #ffffff;
+}
+
+.eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #567C8D;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.heading {
+  font-family: 'Satoshi', sans-serif;
+  font-size: clamp(2.8rem, 6vw, 4.8rem);
+  font-weight: 500;
+  color: #2F4156;
+  letter-spacing: -0.02em;
+  margin: 0;
+  line-height: 1.05;
+}
+
+.headingSubline {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  color: #567C8D;
+  font-weight: 400;
+  margin-top: 14px;
+  letter-spacing: 0.01em;
+}
+
+/* ══════════════════════════════
+   BLUE STRIP — the scrollable track band
+══════════════════════════════ */
+
+.trackBand {
+  background: #E8F1F6;
+  padding: 48px 0 52px;
+  margin-top: 0;
+  position: relative;
+}
+
+/* ══════════════════════════════
+   TIMELINE TRACK CONTAINER
+══════════════════════════════ */
+
+.trackScroll {
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding: 8px 60px 16px;
+  scrollbar-width: none;
+  cursor: grab;
+  position: relative;
+  z-index: 2;
+  /*
+   * FIX: touch-action: pan-x allows horizontal scrolling via touch
+   * while still letting click/tap events fire correctly.
+   * Without this, the browser may consume touch events for scrolling
+   * and suppress the click, OR pass through a misaligned click target
+   * after scroll-snap repositions the container.
+   */
+  touch-action: pan-x;
+}
+
+.trackScroll:active {
+  cursor: grabbing;
+}
+
+.trackScroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* ══════════════════════════════
+   MILESTONE CARD WRAPPER
+══════════════════════════════ */
+
+.milestoneWrap {
+  flex-shrink: 0;
+  scroll-snap-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+  padding: 0 12px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ══════════════════════════════
+   CARD — light
+══════════════════════════════ */
+
+.card {
+  width: 276px;
+  background: #ffffff;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1.5px solid #C8D9E6;
+  position: relative;
+  cursor: pointer;
+  transition:
+    transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    border-color 0.3s ease,
+    box-shadow 0.4s ease;
+  box-shadow: 0 4px 20px rgba(47, 65, 86, 0.08);
+  /*
+   * FIX: Ensure card itself handles touch correctly.
+   * touch-action: manipulation removes the 300ms click delay on mobile
+   * without disabling scroll on the parent container.
+   */
+  touch-action: manipulation;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  border-color: #567C8D;
+  box-shadow: 0 14px 40px rgba(47, 65, 86, 0.14);
+}
+
+.card.active {
+  transform: translateY(-8px);
+  border-color: #2F4156;
+  box-shadow: 0 18px 48px rgba(47, 65, 86, 0.18);
+}
+
+/* ── Image area ── */
+.imgWrap {
+  position: relative;
+  width: 100%;
+  height: 260px;
+  overflow: hidden;
+  background: #E8F1F6;
+  cursor: pointer;
+  /*
+   * FIX: touch-action: manipulation here too — prevents the 300ms
+   * delay and prevents browser from treating this area as a scroll
+   * initiation point, which was causing the wrong element to receive
+   * the synthetic click on mobile.
+   */
+  touch-action: manipulation;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center center;
+  display: block;
+  transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  background: #f0f5f8;
+  /* Prevent image drag interfering with touch events */
+  -webkit-user-drag: none;
+  /* user-drag: none; */
+  pointer-events: none;
+}
+
+.card:hover .image,
+.card.active .image {
+  transform: scale(1.03);
+}
+
+/* Year badge on image */
+.yearBadge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: #2F4156;
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: 6px;
+  pointer-events: none;
+}
+
+/* ── Expand hint on milestone image ── */
+.imgExpandHint {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 36px;
+  height: 36px;
+  background: rgba(47, 65, 86, 0.65);
+  backdrop-filter: blur(4px);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.imgWrap:hover .imgExpandHint {
+  opacity: 1;
+  transform: scale(1.06);
+}
+
+/* ── Footer bar ── */
+.cardFooter {
+  padding: 16px 18px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  background: #ffffff;
+}
+
+.titleGroup {
+  flex: 1;
+}
+
+.cardTitle {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #2F4156;
+  line-height: 1.3;
+  margin: 0 0 4px;
+  letter-spacing: -0.01em;
+}
+
+.cardTag {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #567C8D;
+  letter-spacing: 0.03em;
+}
+
+/* Expand trigger button */
+.expandBtn {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #E8F1F6;
+  border: 1.5px solid #C8D9E6;
+  color: #2F4156;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.35s ease;
+  margin-top: 2px;
+  line-height: 1;
+  /* FIX: Remove the 300ms tap delay on this button too */
+  touch-action: manipulation;
+}
+
+.expandBtn:hover {
+  background: #C8D9E6;
+  border-color: #567C8D;
+}
+
+.card.active .expandBtn {
+  transform: rotate(180deg);
+  background: #2F4156;
+  color: #fff;
+  border-color: #2F4156;
+}
+
+/* ══════════════════════════════
+   DETAIL PANEL — below band, white bg
+══════════════════════════════ */
+
+.detailPanel {
+  background: #ffffff;
+  overflow: hidden;
+  transition:
+    max-height 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    opacity 0.4s ease;
+  max-height: 0;
+  opacity: 0;
+  padding: 0 40px;
+}
+
+.detailPanel.open {
+  max-height: 300px;
+  opacity: 1;
+  padding: 28px 40px;
+}
+
+.detailInner {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 28px 32px;
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+  background: #F4F8FB;
+  border: 1.5px solid #C8D9E6;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(47, 65, 86, 0.06);
+}
+
+.detailYear {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 3rem;
+  font-weight: 900;
+  color: #C8D9E6;
+  line-height: 1;
+  flex-shrink: 0;
+  letter-spacing: -0.04em;
+  margin-top: -4px;
+}
+
+.detailContent {
+  flex: 1;
+}
+
+.detailTitle {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #2F4156;
+  margin: 0 0 6px;
+  letter-spacing: -0.01em;
+}
+
+.detailTagRow {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 10px;
+}
+
+.detailDot {
+  width: 6px;
+  height: 6px;
+  background: #567C8D;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.detailTag {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #567C8D;
+  letter-spacing: 0.04em;
+}
+
+.detailDesc {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: #4a6070;
+  line-height: 1.75;
+  margin: 0;
+}
+
+/* ══════════════════════════════
+   DOT NAV
+══════════════════════════════ */
+
+.dotNav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px 0 0;
+  background: #E8F1F6;
+}
+
+.navDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(47, 65, 86, 0.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  /* FIX: Remove tap delay on dots */
+  touch-action: manipulation;
+}
+
+.navDot.activeDot {
+  background: #2F4156;
+  width: 20px;
+  border-radius: 3px;
+}
+
+/* ══════════════════════════════
+   WORK SAMPLES HEADING
+══════════════════════════════ */
+
+.workSamplesWrap {
+  text-align: center;
+  padding: 72px 20px 20px;
+  background: #ffffff;
+}
+
+.workSamplesHeading {
+  font-family: 'Satoshi', sans-serif;
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  font-weight: 900;
+  color: #2F4156;
+  letter-spacing: -0.02em;
+  margin: 0;
+  line-height: 1.05;
+}
+
+/* ══════════════════════════════
+   PHOTO GALLERY
+══════════════════════════════ */
+
+.gallerySection {
+  width: 100%;
+  padding: 40px 0 0;
+  background: #ffffff;
+}
+
+.galleryInner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 64px;
+}
+
+.galleryGrid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.galleryItem {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  height: 420px;
+  cursor: pointer;
+  border: 2px solid #C8D9E6;
+  box-shadow:
+    0 0 0 1px rgba(47, 65, 86, 0.06),
+    0 8px 32px rgba(0, 0, 0, 0.08);
+  transition:
+    box-shadow 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* FIX: tap behavior on gallery items */
+  touch-action: manipulation;
+}
+
+.galleryItem:hover {
+  transform: translateY(-4px) scale(1.02);
+  border-color: #567C8D;
+  box-shadow:
+    0 0 0 1px rgba(86, 124, 141, 0.2),
+    0 16px 40px rgba(47, 65, 86, 0.14);
+}
+
+.galleryImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition:
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.8s ease;
+  /* Prevent image drag from interfering with touch */
+  -webkit-user-drag: none;
+  pointer-events: none;
+}
+
+.galleryItem:hover .galleryImage {
+  transform: scale(1.08);
+  filter: brightness(1.06);
+}
+
+.galleryItem::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(47, 65, 86, 0.10),
+    transparent 50%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.galleryItem:hover::after {
+  opacity: 1;
+}
+
+/* ── Expand hint on gallery image ── */
+.galleryExpandHint {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  width: 40px;
+  height: 40px;
+  background: rgba(47, 65, 86, 0.65);
+  backdrop-filter: blur(4px);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+  z-index: 2;
+}
+
+.galleryItem:hover .galleryExpandHint {
+  opacity: 1;
+  transform: scale(1.06);
+}
+
+/* ══════════════════════════════
+   LIGHTBOX
+══════════════════════════════ */
+
+.lightboxOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 25, 35, 0.88);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  cursor: zoom-out;
+}
+
+.lightboxContent {
+  position: relative;
+  max-width: min(90vw, 1100px);
+  max-height: 90vh;
+  cursor: default;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(200, 217, 230, 0.18),
+    0 32px 80px rgba(0, 0, 0, 0.5);
+}
+
+.lightboxImage {
+  display: block;
+  max-width: 100%;
+  max-height: 90vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 16px;
+  user-select: none;
+}
+
+.lightboxClose {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(47, 65, 86, 0.75);
+  backdrop-filter: blur(4px);
+  border: 1.5px solid rgba(200, 217, 230, 0.3);
+  color: #ffffff;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+  line-height: 1;
+  z-index: 1;
+  touch-action: manipulation;
+}
+
+.lightboxClose:hover {
+  background: rgba(47, 65, 86, 0.95);
+  transform: scale(1.1);
+}
+
+/* ══════════════════════════════
+   RESPONSIVE
+══════════════════════════════ */
+
+@media (max-width: 1200px) {
+  .galleryGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .galleryInner {
+    padding: 0 40px;
+  }
+}
+
+@media (max-width: 700px) {
+  .heading { font-size: 2.4rem; }
+  .headingWrap { padding: 120px 20px 32px; }
+
+  .trackBand { padding: 36px 0 40px; }
+  .trackScroll { padding: 6px 32px 14px; }
+
+  .milestoneWrap { width: 260px; padding: 0 8px; }
+  .card { width: 244px; }
+  .imgWrap { height: 220px; }
+
+  .detailInner { flex-direction: column; gap: 10px; padding: 20px 24px; }
+  .detailYear { font-size: 2rem; }
+
+  .workSamplesWrap { padding: 52px 20px 16px; }
+
+  .galleryGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .galleryItem {
+    height: 350px;
+  }
+
+  .galleryInner {
+    padding: 0 20px;
+  }
+
+  .lightboxOverlay {
+    padding: 16px;
+  }
+
+  /*
+   * FIX: On mobile, show the expand hint on gallery items always visible
+   * (not just on hover, since mobile has no hover state).
+   * This makes it obvious the image is tappable.
+   */
+  .galleryExpandHint {
+    opacity: 0.75;
+  }
+
+  /*
+   * FIX: Show the milestone image expand hint on mobile too.
+   */
+  .imgExpandHint {
+    opacity: 0.75;
+  }
+}

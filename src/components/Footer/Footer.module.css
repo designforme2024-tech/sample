@@ -1,0 +1,450 @@
+/* ════════════════════════════════════════════════════════
+   FOOTER — Mobile-first responsive rewrite
+   Palette: Navy #2F4156 | Teal #567C8D | Sky #C8D9E6
+
+   FIXES APPLIED:
+   - footerLogo: removed transform: scale(2.5) — this was a MAJOR
+     overflow source. The logo was visually scaled 2.5x but still
+     occupied its original layout box, causing painted content to
+     extend far beyond the right edge.
+   - Marquee: the marqueeTrack must never initiate layout overflow.
+     It now lives inside position: relative marqueeOuter with overflow: hidden.
+     transform: translateX(-50%) is correct since the track is 2× its
+     visible width (doubled for seamless loop), so -50% = one full repeat.
+   - clientCard min-width replaced with responsive values
+   - marqueeOuter width changed from 84% (desktop only) to 100% on mobile
+   - grid uses auto-fit on intermediate sizes instead of fixed column counts
+   - All fixed pixel values replaced with clamp() or % where appropriate
+════════════════════════════════════════════════════════ */
+
+.footer {
+  border-top: 1px solid rgba(79, 130, 190, 0.15);
+  overflow: hidden;
+  /* FIX: 100% not 100vw */
+  width: 100%;
+  max-width: 100%;
+}
+
+/* ── Footer Logo ─────────────────────────────────────── */
+/*
+  FIX — PRIMARY OVERFLOW SOURCE:
+  The Navbar had `transform: scale(2.5); transform-origin: left center`
+  which visually made the logo 2.5× bigger but its layout box remained
+  the original small size. The painted area extended ~1.5 logo-widths to
+  the right, causing the horizontal overflow. Use height: auto with an
+  explicit height instead of transform: scale().
+*/
+.footerLogo {
+  height: 44px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+  max-width: 100%;
+  /* Removed: transform: scale(1.4) */
+}
+
+/* ════════════════════════════════════════════════════════
+   CLIENT MARQUEE STRIP
+════════════════════════════════════════════════════════ */
+
+.marqueeSection {
+  padding: 36px 0 32px;
+  border-bottom: 1px solid rgba(79, 130, 190, 0.13);
+  /* FIX: overflow: hidden is critical — without it the marquee track
+     (which is 2× viewport width) will expand the page */
+  overflow: hidden;
+  width: 100%;
+}
+
+.marqueLabel {
+  text-align: center;
+  font-family: 'Satoshi', 'DM Sans', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #567C8D;
+  margin: 0 0 22px;
+}
+
+.marqueeOuter {
+  position: relative;
+  /* FIX: overflow: hidden is the gate that prevents the track from painting outside */
+  overflow: hidden;
+  width: 100%;
+  padding: 0;
+}
+
+.marqueeTrack {
+  display: flex;
+  gap: 16px;
+  /* FIX: width: max-content ensures flex items don't wrap, and combined with
+     the parent overflow: hidden, the track scrolls without affecting layout */
+  width: max-content;
+  animation: marqueeScroll 50s linear infinite;
+  will-change: transform;
+  transform: translateZ(0);
+  padding: 4px 0 8px;
+}
+
+.marqueeTrack:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marqueeScroll {
+  from { transform: translateX(0) translateZ(0); }
+  to   { transform: translateX(-50%) translateZ(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marqueeTrack { animation: none; }
+}
+
+/* ── Marquee Card ── */
+.clientCard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #ffffff;
+  border: 1px solid rgba(79, 130, 190, 0.13);
+  border-radius: 14px;
+  padding: 10px 18px 10px 10px;
+  white-space: nowrap;
+  box-shadow: 0 2px 12px rgba(47, 65, 86, 0.07);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+  cursor: default;
+  flex-shrink: 0;
+  /* FIX: was min-width: 170px fixed — use clamp for responsiveness */
+  min-width: clamp(150px, 20vw, 220px);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.clientCard:hover {
+  box-shadow: 0 6px 22px rgba(47, 65, 86, 0.13);
+  transform: translateY(-2px);
+}
+
+/* Logo box */
+.clientLogoWrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: transparent;
+}
+
+.clientLogoImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 2px;
+  /* FIX: max-width guard */
+  max-width: 100%;
+}
+
+/* Brand name */
+.clientName {
+  font-family: 'Syne', 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #2F4156;
+  /* FIX: was max-width: 150px; use a fluid value */
+  max-width: min(150px, 40vw);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  white-space: normal;
+}
+
+/* ════════════════════════════════════════════════════════
+   FOOTER BODY
+════════════════════════════════════════════════════════ */
+
+.top { padding: 2.5rem 0 2rem; }
+
+/* Mobile: single column */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  padding: 0 16px;
+  max-width: 1300px;
+  margin: 0 auto;
+  /* FIX: explicit width */
+  width: 100%;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  /* FIX: brand section must not exceed grid column */
+  min-width: 0;
+  overflow: hidden;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.logoMark {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, #4F82BE, #6A9BD4);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1rem;
+  color: white;
+  flex-shrink: 0;
+}
+
+.logoText {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.2rem;
+  color: #1a2e3b;
+  /* FIX: prevent overflow */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tagline {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: #334155;
+  line-height: 1.7;
+  /* FIX: was fixed 320px — use min() */
+  max-width: min(320px, 100%);
+}
+
+.govBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.badge {
+  background: rgba(79, 130, 190, 0.1);
+  border: 1px solid rgba(79, 130, 190, 0.2);
+  border-radius: 100px;
+  padding: 0.3rem 0.85rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  color: #4F82BE;
+  /* FIX: prevent badges from overflowing on smallest screens */
+  white-space: nowrap;
+}
+
+.socials {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.socials a {
+  width: 40px;
+  height: 40px;
+  background: rgba(79, 130, 190, 0.08);
+  border: 1px solid rgba(79, 130, 190, 0.2);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #4F82BE;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+  flex-shrink: 0;
+}
+
+.socials a:hover { background: #4F82BE; color: white; border-color: #4F82BE; }
+
+/* Link columns */
+.linkCol {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.linkCol h4 {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 0.80rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #0f172a;
+  margin-bottom: 0.9rem;
+}
+
+.linkCol ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0;
+  margin: 0;
+}
+
+.linkCol ul a,
+.linkCol ul span {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.90rem;
+  color: #334155;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  display: inline-block;
+  padding: 2px 0;
+}
+
+.linkCol ul a:hover { color: #0f172a; }
+
+.contactItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.contactLabel {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #567C8D;
+  margin-bottom: 0.1rem;
+}
+
+.addressBlock {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: #334155;
+  line-height: 1.7;
+  /* FIX: long addresses can cause overflow on narrow screens */
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.mapsLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.35rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  color: #4F82BE;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.mapsLink:hover { color: #2F4156; }
+.mapsIcon { font-size: 0.75rem; opacity: 0.8; }
+
+.divider {
+  border: none;
+  border-top: 1px solid rgba(79, 130, 190, 0.12);
+  margin: 0.6rem 0;
+}
+
+.bottom {
+  padding: 1.1rem 0;
+  border-top: 1px solid rgba(79, 130, 190, 0.12);
+}
+
+.bottomInner {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: center;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #334155;
+  width: 100%;
+}
+
+/* ── Tablet: 2×2 grid ── */
+@media (min-width: 560px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    padding: 0 24px;
+  }
+  .brand { grid-column: 1 / -1; }
+
+  .marqueeSection { padding: 40px 0 36px; }
+  .clientCard { min-width: clamp(170px, 20vw, 200px); gap: 14px; }
+  .clientLogoWrap { width: 52px; height: 52px; }
+  .clientName { font-size: 0.98rem; }
+
+  .bottomInner {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+    padding: 0 24px;
+  }
+}
+
+/* ── Large tablet / small desktop ── */
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 2rem;
+    padding: 0 32px;
+  }
+  .brand { grid-column: auto; }
+
+  .bottomInner { padding: 0 32px; }
+
+  /* FIX: use explicit height, not transform: scale() */
+  .footerLogo { height: 52px; }
+
+  /* FIX: was width: 84% which cut off the marquee edges on small desktops.
+     Use max-width with auto margins instead. */
+  .marqueeOuter {
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    overflow: hidden;
+  }
+}
+
+/* ── Desktop ── */
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: 1.6fr 1fr 1.4fr 1.6fr;
+    gap: 3rem;
+    padding: 0 40px;
+  }
+
+  .top { padding: 3rem 0 2.5rem; }
+
+  .marqueeSection { padding: 52px 0 48px; }
+  .clientCard { min-width: clamp(200px, 18vw, 240px); gap: 16px; padding: 12px 26px 12px 12px; }
+  .clientLogoWrap { width: 60px; height: 60px; }
+  .clientName { font-size: 1.05rem; max-width: min(180px, 30vw); }
+
+  .bottomInner {
+    padding: 0 40px;
+    font-size: 0.9rem;
+  }
+
+  /* FIX: use explicit height, not transform: scale() */
+  .footerLogo { height: 60px; }
+}

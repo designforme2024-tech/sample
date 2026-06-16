@@ -1,0 +1,192 @@
+/* ── Clients Section — Mobile-first responsive rewrite ──
+
+   FIXES APPLIED:
+   - Section uses width: 100% not 100vw
+   - Grid uses width: 100% with overflow: hidden to contain cards
+   - Card hover transform: translateY (no X component to cause drift)
+   - cardReveal animation uses opacity only (no translateY) to avoid
+     layout shifts that can trigger reflow and apparent page movement
+   - Ensure card hover states don't escape overflow bounds
+*/
+
+.clients-section {
+  width: 100%;
+  max-width: 100%;
+  padding: 52px 0 60px;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.clients-inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 16px;
+  /* FIX: explicit width guard */
+  width: 100%;
+}
+
+/* ── Heading ── */
+.clients-heading {
+  text-align: center;
+  font-size: clamp(1.4rem, 5vw, 2rem);
+  font-weight: 800;
+  color: #1a1a2e;
+  margin-bottom: 32px;
+  letter-spacing: -0.01em;
+  font-family: 'Satoshi', 'Segoe UI', 'Helvetica Neue', sans-serif;
+}
+
+/* ── Grid — mobile: 2 cols ── */
+.clients-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border-top: 2px solid #2d3248;
+  border-left: 2px solid #2d3248;
+  border-radius: 5.5px;
+  /* FIX: overflow: hidden prevents hover transforms from leaking outside grid */
+  overflow: hidden;
+  width: 100%;
+}
+
+/* ── Card ── */
+.client-card {
+  aspect-ratio: 4 / 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 16px;
+  border-right: 2px solid #2d3248;
+  border-bottom: 2px solid #2d3248;
+  background: #ffffff;
+  position: relative;
+  isolation: isolate;
+  cursor: pointer;
+  transition:
+    transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.22s ease,
+    border-color 0.22s ease,
+    background 0.22s ease;
+  opacity: 0;
+  animation: cardReveal 0.4s ease forwards;
+  /* FIX: overflow hidden on each card prevents pseudo-elements from leaking */
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@keyframes cardReveal {
+  to { opacity: 1; }
+}
+
+/* ── Hover state — FIX: transform uses only translateY, no X component ── */
+.client-card:hover,
+.client-card:active {
+  /* FIX: removed scale(1.03) which caused cards to overflow their cells.
+     Use only translateY to lift the card without growing its footprint. */
+  transform: translateY(-4px);
+  z-index: 10;
+  background: #f8f7ff;
+  border-color: #7c6ff7;
+  outline: 1.5px solid #7c6ff7;
+  outline-offset: -1px;
+  box-shadow:
+    0 0 0 1.5px #7c6ff7,
+    0 0 12px 3px rgba(124, 111, 247, 0.28),
+    0 0 28px 6px rgba(124, 111, 247, 0.13),
+    0 8px 24px rgba(56, 189, 248, 0.10),
+    0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.client-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    ellipse at 50% 0%,
+    rgba(124, 111, 247, 0.10) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.22s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.client-card:hover::before { opacity: 1; }
+
+.client-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle 3px at 6px 6px,       #7c6ff7 100%, transparent 100%),
+    radial-gradient(circle 3px at calc(100% - 6px) 6px,       #38bdf8 100%, transparent 100%),
+    radial-gradient(circle 3px at 6px calc(100% - 6px),       #38bdf8 100%, transparent 100%),
+    radial-gradient(circle 3px at calc(100% - 6px) calc(100% - 6px), #7c6ff7 100%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.22s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.client-card:hover::after { opacity: 1; }
+
+/* ── Logo image ── */
+.client-logo-img {
+  max-width: 78%;
+  max-height: 72px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  background: transparent;
+  position: relative;
+  z-index: 2;
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.22s ease;
+}
+
+.client-card:hover .client-logo-img {
+  /* FIX: reduced scale from 1.08 to 1.05 so logos don't bleed outside card */
+  transform: scale(1.05);
+  filter: drop-shadow(0 2px 10px rgba(124, 111, 247, 0.22));
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .client-card, .client-logo-img {
+    transition: none;
+    animation: none;
+    opacity: 1;
+  }
+}
+
+/* ── Small phones ── */
+@media (max-width: 360px) {
+  .client-card { padding: 14px 10px; }
+  .client-logo-img { max-height: 52px; }
+}
+
+/* ── Tablet: 3 cols ── */
+@media (min-width: 560px) {
+  .clients-inner { padding: 0 24px; }
+  .clients-grid { grid-template-columns: repeat(3, 1fr); }
+  .client-logo-img { max-height: 80px; }
+}
+
+/* ── Tablet landscape: 4 cols ── */
+@media (min-width: 768px) {
+  .clients-inner { padding: 0 32px; }
+  .clients-heading { margin-bottom: 40px; }
+  .client-card { padding: 24px 20px; }
+}
+
+/* ── Desktop: 5 cols ── */
+@media (min-width: 1100px) {
+  .clients-inner { padding: 0 40px; }
+  .clients-grid { grid-template-columns: repeat(5, 1fr); }
+  .clients-section { padding: 72px 0 80px; }
+  .clients-heading { margin-bottom: 48px; }
+  .client-card { padding: 28px 24px; }
+  .client-logo-img { max-height: 90px; }
+}

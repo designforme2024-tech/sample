@@ -1,0 +1,413 @@
+/*
+  Palette
+  ───────────────────────────────────
+  Section bg      #F7FAFF   near-white frost
+  Left card bg    #EFF6FF   Frost Blue (light tint — palette pick)
+  Left card top   #2563EB   Steel Blue accent border
+  Right outer     #EBF3FF   soft frost container
+  Right inner     #FFFFFF   pure white
+  Brand blue      #2563EB   Steel Blue
+  Deep navy       #0F2850   Storm Blue (headings)
+  Sky accent      #38BDF8
+  Teal accent     #14B8A6
+  ───────────────────────────────────
+*/
+
+/* ─── Section ─── */
+.section {
+  position: relative;
+  padding: var(--section-pad, 5rem) 0;
+  background: #FFFFFF;
+  overflow: hidden;
+}
+
+/* ─── Two-column grid — 38% / 62% matching reference proportions ─── */
+/* .grid {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  gap: 2rem;
+  align-items: stretch;
+} */
+.grid {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* ═══════════════════════════════════
+   LEFT CARD
+   Light Frost Blue (#EFF6FF) tint —
+   the requested "little bit light"
+   from palette, not white.
+═══════════════════════════════════ */
+.leftCard {
+  background: #FFFFFF;                    
+  border: 1.5px solid rgba(37, 99, 235, 0.14);
+  border-top: 4px solid #2563EB;          
+  border-radius: 20px;
+  padding: 2.75rem 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 32px rgba(15, 40, 80, 0.07);
+}
+
+.leftTop { margin-bottom: 0; }
+
+.eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #2563EB;
+  margin: 0 0 1rem;
+}
+
+.heading {
+  font-family: 'Satoshi', sans-serif;
+  font-size: clamp(1.9rem, 3vw, 2.65rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: #0F2850;
+  margin: 0 0 1.1rem;
+}
+
+.sub {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #475569;
+  margin: 0;
+}
+
+/* Divider */
+.divider {
+  width: 100%;
+  height: 1.5px;
+  background: linear-gradient(90deg, rgba(37,99,235,0.25) 0%, transparent 80%);
+  margin: 1.75rem 0;
+  flex-shrink: 0;
+}
+
+/* ── Contact rows ── */
+.contactList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.contactList li {
+  border-bottom: 1px solid rgba(37, 99, 235, 0.09);
+}
+.contactList li:last-child {
+  border-bottom: none;
+}
+
+.contactRow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0.5rem 1rem 0;
+  text-decoration: none;
+  border-radius: 10px;
+  transition: background 0.2s ease, transform 0.2s ease, padding-left 0.2s ease;
+}
+.contactRow:hover {
+  background: rgba(37, 99, 235, 0.05);
+  padding-left: 0.5rem;
+}
+
+.contactIconWrap {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: #DBEAFE;
+  border: 1px solid rgba(37, 99, 235, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2563EB;
+  font-size: 1rem;
+  transition: background 0.2s ease;
+}
+.contactRow:hover .contactIconWrap {
+  background: #BFDBFE;
+}
+
+.contactBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.contactLabel {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.69rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #2563EB;
+}
+
+.contactValue {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #0F2850;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.contactArrow {
+  color: rgba(37, 99, 235, 0.35);
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  transition: color 0.2s ease;
+}
+.contactRow:hover .contactArrow {
+  color: #2563EB;
+}
+
+/* ── Google Map ── */
+.mapWrap {
+  margin-top: 1.5rem;
+  background: #FFFFFF;
+  border: 1px solid rgba(37, 99, 235, 0.12);
+  border-radius: 16px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.mapHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.1rem;
+  border-bottom: 1px solid rgba(37, 99, 235, 0.1);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #334155;
+  background: #F8FBFF;
+}
+
+.mapHeaderIcon {
+  color: #2563EB;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.mapFrame {
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+}
+
+.mapFrame iframe {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border: 0;
+}
+
+.mapLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.65rem 1rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #2563EB;
+  text-decoration: none;
+  border-top: 1px solid rgba(37, 99, 235, 0.1);
+  background: #F8FBFF;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.mapLink:hover {
+  background: #EFF6FF;
+  color: #1D4ED8;
+}
+
+/* ═══════════════════════════════════
+   RIGHT OUTER CARD
+═══════════════════════════════════ */
+
+.rightOuter {
+  background: #495B7D;
+  border-radius: 20px;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+
+  height: fit-content;
+  align-self: start;
+}
+
+/* Inner white nested card */
+.innerCard {
+  background: #FFFFFF;
+  border-radius: 14px;
+  padding: 2.5rem 2.25rem;
+  box-shadow: 0 4px 24px rgba(15, 40, 80, 0.08);
+  position: relative;
+  z-index: 1;
+  align-self: flex-start;
+  width: 100%;
+}
+
+.innerCardIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #EFF6FF;
+  border: 1px solid rgba(37, 99, 235, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2563EB;
+  font-size: 1.1rem;
+  margin-bottom: 1.25rem;
+}
+
+.innerCardTitle {
+  font-family: 'Satoshi', sans-serif;
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: #0F2850;
+  margin: 0 0 0.75rem;
+}
+
+.innerCardSub {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: #64748B;
+  margin: 0 0 2rem;
+  max-width: 380px;
+}
+
+/* CTA button */
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.8rem 1.75rem;
+  border-radius: 10px;
+  border: none;
+  background:#495B7D;
+  color: #FFFFFF;
+  font-family: 'Satoshi', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+.ctaBtn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -90%;
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+  transition: left 0.55s ease;
+}
+.ctaBtn:hover {
+  background: #1D4ED8;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(37, 99, 235, 0.35);
+}
+.ctaBtn:hover::before { left: 150%; }
+.ctaBtn:active        { transform: translateY(0); }
+
+.ctaBtnArrow {
+  transition: transform 0.25s ease;
+}
+.ctaBtn:hover .ctaBtnArrow {
+  transform: translateX(3px);
+}
+
+/* Trust badges */
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 1.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(37, 99, 235, 0.08);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: #475569;
+  background: #F0F7FF;
+  border: 1px solid rgba(37, 99, 235, 0.12);
+  border-radius: 100px;
+  padding: 0.28rem 0.7rem;
+}
+
+
+/* ═══════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════ */
+
+@media (max-width: 960px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .rightOuter {
+    min-height: 340px;
+  }
+  .watermark {
+    font-size: 11rem;
+    bottom: -1.5rem;
+    right: -0.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .leftCard {
+    padding: 1.75rem 1.5rem 1.5rem;
+  }
+  .heading {
+    font-size: 1.85rem;
+  }
+  .mapFrame {
+    height: 170px;
+  }
+  .rightOuter {
+    padding: 1.25rem;
+  }
+  .innerCard {
+    padding: 1.75rem 1.5rem;
+  }
+  .innerCardTitle {
+    font-size: 1.4rem;
+  }
+  .watermark {
+    font-size: 8rem;
+  }
+  .badges {
+    display: none;
+  }
+}
