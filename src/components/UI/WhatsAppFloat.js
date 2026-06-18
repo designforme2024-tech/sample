@@ -8,6 +8,15 @@ export default function WhatsAppFloat() {
   const phone = '916378549221'; // Replace with actual number
   const message = encodeURIComponent('Hi AssignInc! I found you online and would like to know more about your services.');
 
+  const trackWhatsAppClick = () => {
+  if (window.gtag) {
+    window.gtag('event', 'whatsapp_click', {
+      event_category: 'Contact',
+      event_label: 'Floating WhatsApp Button'
+    });
+  }
+};
+
   return (
     <div className={styles.wrap}>
       <AnimatePresence>
@@ -48,6 +57,7 @@ export default function WhatsAppFloat() {
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 2, type: 'spring', stiffness: 300 }}
         aria-label="Chat on WhatsApp"
+        onClick={trackWhatsAppClick}
       >
       
         <svg viewBox="0 0 24 24" fill="currentColor" width="26" height="26">

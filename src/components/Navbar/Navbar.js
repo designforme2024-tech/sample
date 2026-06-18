@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-// import logo from '../assets/CompanyLogo.jpeg';
-// import logo from '../../assets/CompanyLogo.jpeg';
 import logo from '../../assets/logo.png';
 import './Navbar.css';
 
@@ -105,132 +103,137 @@ export default function Navbar() {
   };
 
   return (
-    <nav className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
-      <div className="navbar__inner">
-        {/* Logo */}
-        <Link to="/" className="navbar__logo">
-          <img src={logo} alt="AssignInc" className="navbar__logo-img" />
-        </Link>
+    <>
+      <nav className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
+        <div className="navbar__inner">
+          {/* Logo */}
+          <Link to="/" className="navbar__logo">
+            <img src={logo} alt="AssignInc" className="navbar__logo-img" />
+          </Link>
 
-        {/* Desktop Links */}
-        <ul className="navbar__links">
+          {/* Desktop Links */}
+          <ul className="navbar__links">
 
-          {/* 1. Home */}
-          <li><Link to="/" className="navbar__link navbar__link--animated">Home</Link></li>
+            {/* 1. Home */}
+            <li><Link to="/" className="navbar__link navbar__link--animated">Home</Link></li>
 
-          {/* 2. Services — mega dropdown */}
-          <li className="navbar__dropdown-wrapper" ref={dropdownRef}>
+            {/* 2. Services — mega dropdown */}
+            <li className="navbar__dropdown-wrapper" ref={dropdownRef}>
+              <button
+                className="navbar__link navbar__link--services"
+                onClick={handleServicesClick}
+                onMouseEnter={() => setDropdownOpen(true)}
+                onMouseLeave={() => setDropdownOpen(false)}
+                aria-expanded={dropdownOpen}
+              >
+                Services
+                <svg className={`navbar__chevron ${dropdownOpen ? 'navbar__chevron--open' : ''}`} width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
+
+              <div
+                className={`navbar__mega ${dropdownOpen ? 'navbar__mega--open' : ''}`}
+                onMouseEnter={() => setDropdownOpen(true)}
+                onMouseLeave={() => setDropdownOpen(false)}
+              >
+                <div className="navbar__mega-inner">
+                  {serviceCategories.map((cat) => (
+                    <div className="navbar__mega-col" key={cat.label}>
+                      <Link
+                        to={cat.path}
+                        className="navbar__mega-heading"
+                        onClick={() => setDropdownOpen(false)}
+                      >
+                        {cat.label}
+                      </Link>
+                      <ul className="navbar__mega-list">
+                        {cat.items.map((item) => (
+                          <li key={item}>
+                            <Link
+                              to={cat.path}
+                              className="navbar__mega-item"
+                              onClick={() => setDropdownOpen(false)}
+                            >
+                              <span className="navbar__mega-item-dot" />
+                              {item}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </li>
+
+            {/* 3. Journey */}
+            <li><Link to="/journey" className="navbar__link navbar__link--animated">Events</Link></li>
+
+            {/* 4. Case Studies */}
+            <li><Link to="/case-studies" className="navbar__link navbar__link--animated">Case Studies</Link></li>
+
+            {/* 5. About Us */}
+            <li><Link to="/about" className="navbar__link navbar__link--animated">About Us</Link></li>
+
+          </ul>
+
+          {/* CTA */}
+          <Link to="/contact" className="navbar__cta">Get Started</Link>
+
+          {/* Hamburger */}
+          <button
+            className={`navbar__hamburger ${mobileOpen ? 'navbar__hamburger--open' : ''}`}
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Toggle menu"
+          >
+            <span /><span /><span />
+          </button>
+        </div>
+      </nav>
+
+      {/*
+        Mobile Menu is rendered OUTSIDE the <nav> as a sibling element.
+        This is the key fix — it's no longer a child of the fixed navbar,
+        so it can't be clipped by the navbar's bounds. It's its own fixed
+        panel that sits flush below the navbar bar.
+      */}
+      <div className={`navbar__mobile ${mobileOpen ? 'navbar__mobile--open' : ''}`}>
+        <div className="navbar__mobile-inner">
+          <Link to="/" className="navbar__mobile-link">Home</Link>
+
+          <div className="navbar__mobile-services">
             <button
-              className="navbar__link navbar__link--services"
-              onClick={handleServicesClick}
-              onMouseEnter={() => setDropdownOpen(true)}
-              onMouseLeave={() => setDropdownOpen(false)}
-              aria-expanded={dropdownOpen}
+              className="navbar__mobile-link navbar__mobile-services-toggle"
+              onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
             >
               Services
-              <svg className={`navbar__chevron ${dropdownOpen ? 'navbar__chevron--open' : ''}`} width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <svg className={`navbar__chevron ${mobileServicesOpen ? 'navbar__chevron--open' : ''}`} width="12" height="12" viewBox="0 0 12 12" fill="none">
                 <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </button>
-
-            <div
-              className={`navbar__mega ${dropdownOpen ? 'navbar__mega--open' : ''}`}
-              onMouseEnter={() => setDropdownOpen(true)}
-              onMouseLeave={() => setDropdownOpen(false)}
-            >
-              <div className="navbar__mega-inner">
+            {mobileServicesOpen && (
+              <div className="navbar__mobile-services-list">
                 {serviceCategories.map((cat) => (
-                  <div className="navbar__mega-col" key={cat.label}>
-                    <Link
-                      to={cat.path}
-                      className="navbar__mega-heading"
-                      onClick={() => setDropdownOpen(false)}
-                    >
-                      {cat.label}
-                    </Link>
-                    <ul className="navbar__mega-list">
-                      {cat.items.map((item) => (
-                        <li key={item}>
-                          <Link
-                            to={cat.path}
-                            className="navbar__mega-item"
-                            onClick={() => setDropdownOpen(false)}
-                          >
-                            <span className="navbar__mega-item-dot" />
-                            {item}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  <Link
+                    key={cat.label}
+                    to={cat.path}
+                    className="navbar__mobile-service-cat"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    {cat.label}
+                  </Link>
                 ))}
               </div>
-            </div>
-          </li>
+            )}
+          </div>
 
-          {/* 3. Domains */}
-          {/* <li><Link to="/domains" className="navbar__link navbar__link--animated">Domains</Link></li> */}
-
-          {/* 4. Journey */}
-          <li><Link to="/journey" className="navbar__link navbar__link--animated">Events</Link></li>
-
-          {/* 5. Case Studies */}
-          <li><Link to="/case-studies" className="navbar__link navbar__link--animated">Case Studies</Link></li>
-
-          {/* 6. About Us */}
-          <li><Link to="/about" className="navbar__link navbar__link--animated">About Us</Link></li>
-
-        </ul>
-
-        {/* CTA */}
-        <Link to="/contact" className="navbar__cta">Get Started</Link>
-
-        {/* Hamburger */}
-        <button
-          className={`navbar__hamburger ${mobileOpen ? 'navbar__hamburger--open' : ''}`}
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle menu"
-        >
-          <span /><span /><span />
-        </button>
-      </div>
-
-      {/* Mobile Menu */}
-      <div className={`navbar__mobile ${mobileOpen ? 'navbar__mobile--open' : ''}`}>
-        <Link to="/" className="navbar__mobile-link">Home</Link>
-
-        <div className="navbar__mobile-services">
-          <button
-            className="navbar__mobile-link navbar__mobile-services-toggle"
-            onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
-          >
-            Services
-            <svg className={`navbar__chevron ${mobileServicesOpen ? 'navbar__chevron--open' : ''}`} width="12" height="12" viewBox="0 0 12 12" fill="none">
-              <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </button>
-          {mobileServicesOpen && (
-            <div className="navbar__mobile-services-list">
-              {serviceCategories.map((cat) => (
-                <Link
-                  key={cat.label}
-                  to={cat.path}
-                  className="navbar__mobile-service-cat"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  {cat.label}
-                </Link>
-              ))}
-            </div>
-          )}
+          <Link to="/journey" className="navbar__mobile-link">Events</Link>
+          <Link to="/case-studies" className="navbar__mobile-link">Case Studies</Link>
+          <Link to="/about" className="navbar__mobile-link">About Us</Link>
+          <Link to="/contact" className="navbar__mobile-cta">Get Started</Link>
         </div>
-
-        {/* <Link to="/domains" className="navbar__mobile-link">Domains</Link> */}
-        <Link to="/journey" className="navbar__mobile-link">Events</Link>
-        <Link to="/case-studies" className="navbar__mobile-link">Case Studies</Link>
-        <Link to="/about" className="navbar__mobile-link">About Us</Link>
-        <Link to="/contact" className="navbar__mobile-cta">Get Started</Link>
       </div>
-    </nav>
+    </>
   );
 }

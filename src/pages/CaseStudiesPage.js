@@ -4,30 +4,30 @@ import Footer from '../components/Footer/Footer';
 import WhatsAppFloat from '../components/UI/WhatsAppFloat';
 import '../components/CaseStudies/CaseStudies.css';
 
-import vidFashion    from '../assets/CaseStudiesVid/Phabna(2).mp4';
-import vidRealEstate from '../assets/CaseStudiesVid/houzz mood case study.mp4';
-import vidSalon      from '../assets/CaseStudiesVid/salon.mp4';
-import vidCafe       from '../assets/CaseStudiesVid/Chai_Kaapi.mp4';
-import vidPersonal   from '../assets/CaseStudiesVid/personal branding case study.mp4';
-import vidNews       from '../assets/CaseStudiesVid/Raftar news case study.mp4';
+// import vidFashion    from '../assets/CaseStudiesVid/Phabna(2).mp4';
+// import vidRealEstate from '../assets/CaseStudiesVid/houzz mood case study.mp4';
+// import vidSalon      from '../assets/CaseStudiesVid/salon.mp4';
+// import vidCafe       from '../assets/CaseStudiesVid/Chai_Kaapi.mp4';
+// import vidPersonal   from '../assets/CaseStudiesVid/personal branding case study.mp4';
+// import vidNews       from '../assets/CaseStudiesVid/Raftar news case study.mp4';
 
-// const vidFashion =
-// "https://cdn.jsdelivr.net/gh/Navyakhandelwal07/Assign-Website@main/Phabna(2).mp4";
+const vidFashion =
+"https://cdn.jsdelivr.net/gh/Navyakhandelwal07/Assign-Website@main/Phabna(2).mp4";
 
-// const vidRealEstate =
-// "https://cdn.jsdelivr.net/gh/Navyakhandelwal07/Assign-Website@main/houzz%20mood%20case%20study.mp4";
+const vidRealEstate =
+"https://cdn.jsdelivr.net/gh/Navyakhandelwal07/Assign-Website@main/houzz%20mood%20case%20study.mp4";
 
-// const vidSalon =
-// "https://cdn.jsdelivr.net/gh/Navyakhandelwal07/Assign-Website@main/salon.mp4";
+const vidSalon =
+"https://cdn.jsdelivr.net/gh/Navyakhandelwal07/Assign-Website@main/salon.mp4";
 
-// const vidCafe =
-// "https://cdn.jsdelivr.net/gh/Navyakhandelwal07/Assign-Website@main/Chai_Kaapi.mp4";
+const vidCafe =
+"https://cdn.jsdelivr.net/gh/Navyakhandelwal07/Assign-Website@main/Chai_Kaapi.mp4";
 
-// const vidPersonal =
-// "https://cdn.jsdelivr.net/gh/Navyakhandelwal07/Assign-Website@main/personal%20branding%20case%20study.mp4";
+const vidPersonal =
+"https://cdn.jsdelivr.net/gh/Navyakhandelwal07/Assign-Website@main/personal%20branding%20case%20study.mp4";
 
-// const vidNews =
-// "https://cdn.jsdelivr.net/gh/Navyakhandelwal07/Assign-Website@main/Raftar%20news%20case%20study.mp4";
+const vidNews =
+"https://cdn.jsdelivr.net/gh/Navyakhandelwal07/Assign-Website@main/Raftar%20news%20case%20study.mp4";
 
 /* ─────────────────────────────────────────────────────────────
    Pure-JS renderer – no external script tag, no public/ files
@@ -162,7 +162,7 @@ function initCaseStudies(videos) {
               '</div>'+
             '</div>'+
             '<div class="cs-mobile-media">'+
-              '<video class="cs-card-video" src="'+p.video+'" muted autoplay loop playsinline preload="auto" aria-label="Case study video"></video>'+
+              '<video class="cs-card-video" src="'+p.video+'" muted autoplay loop playsinline preload="metadata" aria-label="Case study video"></video>'+
             '</div>'+
           '</div>'+
         '</section>'
@@ -222,7 +222,7 @@ function initCaseStudies(videos) {
       '<div class="cs-visual-trigger-zone" data-target="'+p.id+'">'+
         '<div class="cs-solid-card cs-glass" data-index="'+i+'">'+
           '<div class="cs-card-image">'+
-            '<video class="cs-card-video" src="'+p.video+'" muted loop playsinline preload="auto"></video>'+
+            '<video class="cs-card-video" src="'+p.video+'" muted loop playsinline preload="metadata"></video>'+
           '</div>'+
           '<div class="cs-card-top-stats">'+st+'</div>'+
         '</div>'+

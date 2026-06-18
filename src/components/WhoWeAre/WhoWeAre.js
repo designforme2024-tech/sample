@@ -2,10 +2,10 @@ import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './WhoWeAre.module.css';
 
-import v1 from '../../assets/videos/vid-6.mp4';
+// import v1 from '../../assets/videos/vid-6.mp4';
 
-// const v1 =
-// 'https://cdn.jsdelivr.net/gh/Navyakhandelwal07/Assign-Website@main/vid-6.mp4';
+const v1 =
+'https://cdn.jsdelivr.net/gh/Navyakhandelwal07/Assign-Website@main/vid-6.mp4';
 
 export default function WhoWeAre() {
   const navigate  = useNavigate();

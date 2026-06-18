@@ -33,12 +33,6 @@
   align-items: center;
 }
 
-/* .navbar__logo-img {
-  height: 60px;
-  width: auto;
-  display: block;
-  object-fit: contain;
-} */
 .navbar__logo-img {
   height: 60px;
   width: auto;
@@ -187,12 +181,11 @@
   gap: 3rem;
 }
 
-/* Category heading — bolder and larger */
+/* Category heading */
 .navbar__mega-heading {
   display: block;
   font-family: 'Satoshi', sans-serif;
   font-size: 1rem;
-  /* font-weight: 800; */
   color: #0a0a0a;
   text-decoration: none;
   margin-bottom: 1rem;
@@ -215,7 +208,6 @@
   gap: 0rem;
 }
 
-/* Service items — bolder, with pop-on-hover */
 .navbar__mega-item {
   display: flex;
   align-items: center;
@@ -237,7 +229,6 @@
   transform: translateX(4px);
 }
 
-/* Dot accent on each item */
 .navbar__mega-item-dot {
   display: inline-block;
   width: 5px;
@@ -276,85 +267,123 @@
 .navbar__hamburger--open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 /* ─── Mobile Menu ───────────────────────────────────────── */
+/*
+  KEY FIX: The mobile menu is rendered as a separate fixed panel
+  that sits directly below the navbar bar (not inside it).
+  This prevents the "Home" link from being clipped by the
+  navbar's own bounding box and stops the menu from overlapping
+  page content in an uncontrolled way.
+*/
 .navbar__mobile {
   display: none;
-  flex-direction: column;
-  gap: 0.25rem;
-  padding: 1rem 1.5rem 1.5rem;
-  background: #ffffff;
-  border-top: 1px solid #f0f0f0;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease;
-}
-.navbar__mobile--open {
-  max-height: 600px;
-}
-
-.navbar__mobile-link {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.75rem 0;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.95rem;
-  font-weight: 400;
-  color: #1a1a1a;
-  text-decoration: none;
-  background: none;
-  border: none;
-  border-bottom: 1px solid #f0f0f0;
-  cursor: pointer;
-  width: 100%;
-  text-align: left;
-}
-
-.navbar__mobile-services-toggle { font-weight: 500; }
-
-.navbar__mobile-services-list {
-  display: flex;
-  flex-direction: column;
-  padding: 0.5rem 0 0.5rem 1rem;
-  gap: 0.15rem;
-}
-.navbar__mobile-service-cat {
-  display: block;
-  padding: 0.5rem 0;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: #6b7280;
-  text-decoration: none;
-  transition: color 0.2s;
-}
-.navbar__mobile-service-cat:hover {
-  color: #0a0a0a;
-}
-
-.navbar__mobile-cta {
-  display: block;
-  margin-top: 1rem;
-  padding: 0.75rem;
-  text-align: center;
-  background: #0a0a0a;
-  color: #ffffff;
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 500;
-  border-radius: 999px;
-  text-decoration: none;
-  transition: background 0.2s;
-}
-.navbar__mobile-cta:hover {
-  background: #2F4156;
 }
 
 /* ─── Responsive ────────────────────────────────────────── */
 @media (max-width: 900px) {
-  .navbar { padding: 1rem 1.5rem; }
+  .navbar {
+    padding: 1rem 1.5rem;
+    /* No overflow:hidden — let the mobile panel sit outside */
+  }
   .navbar--scrolled { padding: 0.75rem 1.5rem; }
+
   .navbar__links,
   .navbar__cta { display: none; }
+
   .navbar__hamburger { display: flex; }
-  .navbar__mobile { display: flex; }
+
   .navbar__mega { display: none !important; }
+
+  /* Mobile menu: fixed panel anchored just below the navbar bar */
+  .navbar__mobile {
+    display: block;
+    position: fixed;
+    top: 73px; /* matches navbar bar height on mobile (~1rem padding × 2 + ~40px logo) */
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border-bottom: 1px solid #f0f0f0;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    z-index: 999;
+
+    /* Slide-down animation via max-height */
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+
+  .navbar__mobile--open {
+    max-height: 600px;
+  }
+
+  /* Inner padding wrapper so content isn't flush against the edge */
+  .navbar__mobile-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.75rem 1.5rem 1.5rem;
+  }
+
+  .navbar__mobile-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: #1a1a1a;
+    text-decoration: none;
+    background: none;
+    border: none;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+  }
+
+  .navbar__mobile-services-toggle { font-weight: 500; }
+
+  .navbar__mobile-services-list {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 0 0.5rem 1rem;
+    gap: 0.15rem;
+  }
+
+  .navbar__mobile-service-cat {
+    display: block;
+    padding: 0.5rem 0;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #6b7280;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .navbar__mobile-service-cat:hover {
+    color: #0a0a0a;
+  }
+
+  .navbar__mobile-cta {
+    display: block;
+    margin-top: 1rem;
+    padding: 0.75rem;
+    text-align: center;
+    background: #0a0a0a;
+    color: #ffffff;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .navbar__mobile-cta:hover {
+    background: #2F4156;
+  }
+
+  /* Scrolled state: navbar shrinks, adjust panel top */
+  .navbar--scrolled ~ * .navbar__mobile,
+  .navbar--scrolled .navbar__mobile {
+    top: 57px;
+  }
 }

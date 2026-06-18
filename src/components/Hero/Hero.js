@@ -2,18 +2,18 @@ import React, { useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Hero.module.css';
 
-import v1 from '../../assets/videos/vid-1.mp4';
-import v3 from '../../assets/videos/vid-3.mp4';
-import v4 from '../../assets/videos/vid-4.mp4';
+// import v1 from '../../assets/videos/vid-1.mp4';
+// import v3 from '../../assets/videos/vid-3.mp4';
+// import v4 from '../../assets/videos/vid-4.mp4';
 
-// const v1 =
-// 'https://cdn.jsdelivr.net/gh/Navyakhandelwal07/Assign-Website@main/vid-1.mp4';
+const v1 =
+'https://cdn.jsdelivr.net/gh/Navyakhandelwal07/Assign-Website@main/vid-1.mp4';
 
-// const v3 =
-// 'https://cdn.jsdelivr.net/gh/Navyakhandelwal07/Assign-Website@main/vid-3.mp4';
+const v3 =
+'https://cdn.jsdelivr.net/gh/Navyakhandelwal07/Assign-Website@main/vid-3.mp4';
 
-// const v4 =
-// 'https://cdn.jsdelivr.net/gh/Navyakhandelwal07/Assign-Website@main/vid-4.mp4';
+const v4 =
+'https://cdn.jsdelivr.net/gh/Navyakhandelwal07/Assign-Website@main/vid-4.mp4';
 
 
 const CYCLE_WORDS = ['Website', 'Campaigns', 'Socials', 'Branding', 'Content', 'Much More'];
@@ -116,7 +116,7 @@ export default function Hero() {
                     muted
                     loop
                     playsInline
-                    // preload="metadata"
+                    preload="metadata"
                     className={styles.tileVid}
                   />
                 </div>
