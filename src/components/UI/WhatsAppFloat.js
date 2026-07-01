@@ -4,7 +4,7 @@ import styles from './WhatsAppFloat.module.css';
 import { FaWhatsapp, FaPhoneAlt } from 'react-icons/fa';
 
 export default function WhatsAppFloat() {
-  const [showTip, setShowTip] = useState(false);
+  // const [showTip, setShowTip] = useState(false);
   const phone = '916378549221'; // Replace with actual number
   const message = encodeURIComponent('Hi AssignInc! I found you online and would like to know more about your services.');
 
@@ -19,7 +19,7 @@ export default function WhatsAppFloat() {
 
   return (
     <div className={styles.wrap}>
-      <AnimatePresence>
+      {/* <AnimatePresence>
         {showTip && (
           <motion.div
             className={styles.tip}
@@ -28,10 +28,9 @@ export default function WhatsAppFloat() {
             exit={{ opacity: 0, x: 10, scale: 0.9 }}
             transition={{ duration: 0.2 }}
           >
-            Chat on WhatsApp 👋
           </motion.div>
         )}
-      </AnimatePresence>
+      </AnimatePresence> */}
       <motion.a
           href="tel:+916378549221"
           className={styles.callBtn}
@@ -49,8 +48,8 @@ export default function WhatsAppFloat() {
         target="_blank"
         rel="noopener noreferrer"
         className={styles.btn}
-        onMouseEnter={() => setShowTip(true)}
-        onMouseLeave={() => setShowTip(false)}
+        // onMouseEnter={() => setShowTip(true)}
+        // onMouseLeave={() => setShowTip(false)}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         initial={{ scale: 0, opacity: 0 }}

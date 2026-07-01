@@ -1,27 +1,55 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState, lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import Navbar from './components/Navbar/Navbar';
 import Hero from './components/Hero/Hero';
-import WhoWeAre from './components/WhoWeAre/WhoWeAre';
-import Services from './components/Services/Services';
-import Domains from './components/Domains/Domains';
-import Stats from './components/Stats/stats';
-import Client from './components/Client/Client';
-import Events from './components/Events/Events';
-import ContactSection from './components/ContactSection/ContactSection';
-import Strip from './components/Strip/Strip';
-import Footer from './components/Footer/Footer';
 import WhatsAppFloat from './components/UI/WhatsAppFloat';
 
-import CaseStudiesPage from './pages/CaseStudiesPage';
-import JourneyPage from './pages/JourneyPage';
-import AboutPage from './pages/AboutPage';
-import ContactPage from './pages/ContactPage';
-import BrandSolutions from './pages/BrandSolutions';
-import TechSolutions from './pages/TechSolutions';
-import MediaSolutions from './pages/MediaSolutions';
-import FilmPhotography from './pages/FilmPhotography';
+const WhoWeAre = lazy(() => import('./components/WhoWeAre/WhoWeAre'));
+const Services = lazy(() => import('./components/Services/Services'));
+const Domains = lazy(() => import('./components/Domains/Domains'));
+const Stats = lazy(() => import('./components/Stats/stats'));
+const Client = lazy(() => import('./components/Client/Client'));
+const Events = lazy(() => import('./components/Events/Events'));
+const ContactSection = lazy(() => import('./components/ContactSection/ContactSection'));
+const Strip = lazy(() => import('./components/Strip/Strip'));
+const VideoTestimonial = lazy(() => import('./components/VideoTestimonial/VideoTestimonial'));
+const Footer = lazy(() => import('./components/Footer/Footer'));
+
+const CaseStudiesPage = lazy(() => import('./pages/CaseStudiesPage'));
+const JourneyPage = lazy(() => import('./pages/JourneyPage'));
+const AboutPage = lazy(() => import('./pages/AboutPage'));
+const ContactPage = lazy(() => import('./pages/ContactPage'));
+const BrandSolutions = lazy(() => import('./pages/BrandSolutions'));
+const TechSolutions = lazy(() => import('./pages/TechSolutions'));
+const MediaSolutions = lazy(() => import('./pages/MediaSolutions'));
+const FilmPhotography = lazy(() => import('./pages/FilmPhotography'));
+const BlogPage = lazy(() => import('./pages/BlogPage'));
+const ArticlePage = lazy(() => import('./pages/ArticlePage'));
+
+function LazyLoadOnView({ children, rootMargin = '320px 0px 160px 0px' }) {
+  const ref = useRef(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    if (mounted || !ref.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setMounted(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin, threshold: 0.01 }
+    );
+
+    observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [mounted, rootMargin]);
+
+  return <div ref={ref}>{mounted ? children : null}</div>;
+}
 
 function HomePage() {
   return (
@@ -30,16 +58,75 @@ function HomePage() {
       <WhatsAppFloat />
       <main>
         <section id="hero"><Hero /></section>
-        <section id="WhoWeAre"><WhoWeAre /></section>
-        <section id="services"><Services /></section>
-        <section id="domains"><Domains /></section>
-        <section id="stats"><Stats /></section>
-        <section id="clients"><Client /></section>
-        <section id="events"><Events /></section>
-        <section id="contact-home"><ContactSection /></section>
-        <section id="strip"><Strip /></section>
+        <section id="WhoWeAre">
+          <LazyLoadOnView>
+            <Suspense fallback={null}>
+              <WhoWeAre />
+            </Suspense>
+          </LazyLoadOnView>
+        </section>
+        <section id="services">
+          <LazyLoadOnView>
+            <Suspense fallback={null}>
+              <Services />
+            </Suspense>
+          </LazyLoadOnView>
+        </section>
+        <section id="domains">
+          <LazyLoadOnView>
+            <Suspense fallback={null}>
+              <Domains />
+            </Suspense>
+          </LazyLoadOnView>
+        </section>
+        <section id="stats">
+          <LazyLoadOnView>
+            <Suspense fallback={null}>
+              <Stats />
+            </Suspense>
+          </LazyLoadOnView>
+        </section>
+        <section id="clients">
+          <LazyLoadOnView>
+            <Suspense fallback={null}>
+              <Client />
+            </Suspense>
+          </LazyLoadOnView>
+        </section>
+        <section id="video-testimonial">
+          <LazyLoadOnView>
+            <Suspense fallback={null}>
+              <VideoTestimonial />
+            </Suspense>
+          </LazyLoadOnView>
+        </section>
+        <section id="events">
+          <LazyLoadOnView>
+            <Suspense fallback={null}>
+              <Events />
+            </Suspense>
+          </LazyLoadOnView>
+        </section>
+        <section id="contact-home">
+          <LazyLoadOnView>
+            <Suspense fallback={null}>
+              <ContactSection />
+            </Suspense>
+          </LazyLoadOnView>
+        </section>
+        <section id="strip">
+          <LazyLoadOnView>
+            <Suspense fallback={null}>
+              <Strip />
+            </Suspense>
+          </LazyLoadOnView>
+        </section>
       </main>
-      <Footer isHomepage={true} />
+      <LazyLoadOnView>
+        <Suspense fallback={null}>
+          <Footer isHomepage={true} />
+        </Suspense>
+      </LazyLoadOnView>
     </div>
   );
 }
@@ -61,17 +148,21 @@ function App() {
   }, []);
 
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/journey" element={<JourneyPage />} />
-      <Route path="/about" element={<AboutPage />} />
-      <Route path="/contact" element={<ContactPage />} />
-      <Route path="/brand-solutions" element={<ServicePageWrapper><BrandSolutions /></ServicePageWrapper>} />
-      <Route path="/tech-solutions" element={<ServicePageWrapper><TechSolutions /></ServicePageWrapper>} />
-      <Route path="/media-solutions" element={<ServicePageWrapper><MediaSolutions /></ServicePageWrapper>} />
-      <Route path="/film-photography" element={<ServicePageWrapper><FilmPhotography /></ServicePageWrapper>} />
-      <Route path="/case-studies" element={<CaseStudiesPage />} />
-    </Routes>
+    <Suspense fallback={null}>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/journey" element={<JourneyPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/brand-solutions" element={<ServicePageWrapper><BrandSolutions /></ServicePageWrapper>} />
+        <Route path="/tech-solutions" element={<ServicePageWrapper><TechSolutions /></ServicePageWrapper>} />
+        <Route path="/media-solutions" element={<ServicePageWrapper><MediaSolutions /></ServicePageWrapper>} />
+        <Route path="/film-photography" element={<ServicePageWrapper><FilmPhotography /></ServicePageWrapper>} />
+        <Route path="/case-studies" element={<CaseStudiesPage />} />
+        <Route path="/blog" element={<ServicePageWrapper><BlogPage /></ServicePageWrapper>} />
+        <Route path="/blog/:slug" element={<ServicePageWrapper><ArticlePage /></ServicePageWrapper>} />
+      </Routes>
+    </Suspense>
   );
 }
 

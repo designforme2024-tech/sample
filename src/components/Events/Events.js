@@ -1,24 +1,24 @@
-import React, { useRef } from 'react';
+import React, { memo, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import styles from './Events.module.css';
 
-import img1 from '../../assets/events/img-1.png';
-import img2 from '../../assets/events/img-2.png';
-import img3 from '../../assets/events/img-3.png';
-import img4 from '../../assets/events/img-4.png';
-import img5 from '../../assets/events/img-5.jpeg';
-import img6 from '../../assets/events/img-6.png';
-import img7 from '../../assets/events/img-7.png';
-import img8 from '../../assets/events/img-8.jpeg';
-import img9 from '../../assets/events/img-9.jpeg';
-import img10 from '../../assets/events/img-10.jpeg';
-import img11 from '../../assets/events/img-11.jpeg';
-import img12 from '../../assets/events/img-12.jpeg';
-import img13 from '../../assets/events/img-13.jpeg';
-import img14 from '../../assets/events/img-14.jpeg';
-import img15 from '../../assets/events/img-15.jpeg';
-// import img16 from '../../assets/events/img-16.jpeg';
-import img17 from '../../assets/events/img-17.jpeg';
+import img1 from '../../assets/events/img-1.webp';
+import img2 from '../../assets/events/img-2.webp';
+import img3 from '../../assets/events/img-3.webp';
+import img4 from '../../assets/events/img-4.webp';
+import img5 from '../../assets/events/img-5.webp';
+import img6 from '../../assets/events/img-6.webp';
+import img7 from '../../assets/events/img-7.webp';
+import img8 from '../../assets/events/img-8.webp';
+import img9 from '../../assets/events/img-9.webp';
+import img10 from '../../assets/events/img-10.webp';
+import img11 from '../../assets/events/img-11.webp';
+import img12 from '../../assets/events/img-12.webp';
+import img13 from '../../assets/events/img-13.webp';
+import img14 from '../../assets/events/img-14.webp';
+import img15 from '../../assets/events/img-15.webp';
+// import img16 from '../../assets/events/img-16.webp';
+import img17 from '../../assets/events/img-17.webp';
 
 const images = [
   img1, img2, img3, img4, img5, img6, img7,
@@ -33,7 +33,7 @@ const slideVariants = [
   { y: -100 },
 ];
 
-export default function Events() {
+function Events() {
   const sectionRef = useRef(null);
   const inView = useInView(sectionRef, { once: true, margin: '-100px' });
 
@@ -70,6 +70,8 @@ export default function Events() {
                 src={img}
                 alt={`Event ${index + 1}`}
                 className={styles.galleryImage}
+                loading="lazy"
+                decoding="async"
               />
             </motion.div>
           ))}
@@ -79,3 +81,5 @@ export default function Events() {
     </div>
   );
 }
+
+export default memo(Events);

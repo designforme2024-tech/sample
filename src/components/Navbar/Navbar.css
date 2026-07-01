@@ -282,7 +282,11 @@
 @media (max-width: 900px) {
   .navbar {
     padding: 1rem 1.5rem;
-    /* No overflow:hidden — let the mobile panel sit outside */
+    /* Keep the navbar fixed on mobile so the menu panel can appear underneath it */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
   }
   .navbar--scrolled { padding: 0.75rem 1.5rem; }
 
@@ -297,13 +301,13 @@
   .navbar__mobile {
     display: block;
     position: fixed;
-    top: 73px; /* matches navbar bar height on mobile (~1rem padding × 2 + ~40px logo) */
+    top: 72px;
     left: 0;
     right: 0;
     background: #ffffff;
     border-bottom: 1px solid #f0f0f0;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-    z-index: 999;
+    z-index: 1100;
 
     /* Slide-down animation via max-height */
     max-height: 0;
@@ -312,7 +316,11 @@
   }
 
   .navbar__mobile--open {
-    max-height: 600px;
+    max-height: calc(100vh - 72px);
+  }
+
+  .navbar--scrolled + .navbar__mobile {
+    top: 60px;
   }
 
   /* Inner padding wrapper so content isn't flush against the edge */

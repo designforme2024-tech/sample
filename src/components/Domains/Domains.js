@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useCallback } from 'react';
+import React, { memo, useRef, useState, useEffect, useCallback } from 'react';
 import { motion, useInView } from 'framer-motion';
 import styles from './Domains.module.css';
 
@@ -103,7 +103,7 @@ const cardVariants = {
   }),
 };
 
-export default function Domains() {
+function Domains() {
   const sectionRef = useRef(null);
   const trackRef   = useRef(null);
   const inView     = useInView(sectionRef, { once: true, margin: '-80px' });
@@ -279,3 +279,5 @@ export default function Domains() {
     </section>
   );
 }
+
+export default memo(Domains);

@@ -1,5 +1,5 @@
-import React, { useRef, useState, useEffect, useCallback } from 'react';
-import { motion, useInView, AnimatePresence } from 'framer-motion';
+import React, { useRef, useState, useEffect, useCallback, useMemo, memo } from 'react';
+import { LazyMotion, domAnimation, m, useInView } from 'framer-motion';
 import { useNavigate, Link } from 'react-router-dom';
 import styles from './Services.module.css';
 
@@ -16,16 +16,13 @@ const SERVICES = [
     key: 'branding',
     name: 'Branding',
     tags: ['Identity', 'Design Systems', 'Logo'],
-    // img: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&q=80&fit=crop',
     img:'https://miro.medium.com/v2/resize:fit:1400/1*JyjM1R5nULnhMO_gyXdsTQ.png',
-    // img:'https://www.entrepreneur.com/wp-content/uploads/sites/2/2017/04/20160210172912-branding-logos-companies-businesses-identity.jpeg?resize=800,450',
     
   },
   {
     key: 'social',
     name: 'Social Media Management',
     tags: ['Community', 'Calendars', 'Engagement'],
-    // img: 'https://plus.unsplash.com/premium_photo-1684979564941-dbf8664a68fc?w=600&auto=format&fit=crop&q=60',
     img: 'https://plus.unsplash.com/premium_photo-1683275025987-127a52d36593?q=80&w=1267&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     
   },
@@ -69,7 +66,6 @@ const SERVICES = [
     name: 'SEO / GEO / AEO',
     tags: ['Rankings', 'AI Search', 'Visibility'],
     img:'https://alreadysetup.com/wp-content/uploads/SEO-image1.jpg',
-    // img: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=600&auto=format&fit=crop&q=60',
     
   },
   {
@@ -95,8 +91,7 @@ const SERVICES = [
   },
 ];
 
-/* ── Mega-dropdown data — mirrors Image 2 exactly ─────── */
-/* All items within a column navigate to that column's page */
+/* ── Mega-dropdown data ───────────────────────────────── */
 const MEGA_COLS = [
   {
     title: 'Brand Solutions',
@@ -161,8 +156,6 @@ const TOTAL_PAGES = Math.ceil(SERVICES.length / PER_PAGE);
 /* ── Mega Dropdown component ──────────────────────────── */
 function MegaDropdown({ anchorRef, onClose }) {
   const panelRef = useRef(null);
-
-  // Position the panel below the anchor element
   const [top, setTop] = useState(0);
 
   useEffect(() => {
@@ -170,7 +163,6 @@ function MegaDropdown({ anchorRef, onClose }) {
       if (!anchorRef?.current || !panelRef.current) return;
       const rect = anchorRef.current.getBoundingClientRect();
       const sectionRect = anchorRef.current.closest('section')?.getBoundingClientRect();
-      // offset from section top
       const offsetTop = rect.bottom - (sectionRect?.top ?? 0) + 12;
       setTop(offsetTop);
     };
@@ -179,7 +171,6 @@ function MegaDropdown({ anchorRef, onClose }) {
     return () => window.removeEventListener('resize', recalc);
   }, [anchorRef]);
 
-  // Close on outside click
   useEffect(() => {
     const handler = (e) => {
       if (
@@ -189,12 +180,10 @@ function MegaDropdown({ anchorRef, onClose }) {
         onClose();
       }
     };
-    // slight delay so the opening click doesn't immediately close
     const t = setTimeout(() => document.addEventListener('mousedown', handler), 10);
     return () => { clearTimeout(t); document.removeEventListener('mousedown', handler); };
   }, [onClose, anchorRef]);
 
-  // Close on Escape
   useEffect(() => {
     const handler = (e) => e.key === 'Escape' && onClose();
     document.addEventListener('keydown', handler);
@@ -203,21 +192,16 @@ function MegaDropdown({ anchorRef, onClose }) {
 
   return (
     <>
-      {/* Backdrop */}
       <div className={styles.megaBackdrop} onMouseDown={onClose} />
-
-      {/* Panel */}
       <div
         ref={panelRef}
         className={styles.megaDropdown}
         style={{ top }}
       >
         <button className={styles.megaClose} onClick={onClose} aria-label="Close">✕</button>
-
         <div className={styles.megaGrid}>
           {MEGA_COLS.map((col) => (
             <div key={col.title} className={styles.megaCol}>
-              {/* Column title is itself a link to the page */}
               <Link
                 to={col.page}
                 className={styles.megaColTitle}
@@ -244,72 +228,130 @@ function MegaDropdown({ anchorRef, onClose }) {
   );
 }
 
+export default memo(ServicesPreview);
+
 /* ── Main component ───────────────────────────────────── */
-export default function ServicesPreview() {
+function ServicesPreview() {
   const navigate    = useNavigate();
   const sectionRef  = useRef(null);
-  const ctaRef      = useRef(null);   // anchor for CTA dropdown
+  const ctaRef      = useRef(null);
   const inView      = useInView(sectionRef, { once: true, margin: '-80px' });
 
   const [activePage,   setActivePage]   = useState(0);
-  const [isDragging,   setIsDragging]   = useState(false);
-  const [dragStart,    setDragStart]    = useState(0);
 
-  // Which trigger opened the mega: 'cta' | cardKey | null
-  const [megaOpen,     setMegaOpen]     = useState(null);
-  const [megaAnchor,   setMegaAnchor]   = useState(null); // ref to anchor element
+  // ── Drag state — track both axes to distinguish swipe from scroll ──
+  const dragState = useRef({
+    active:    false,
+    startX:    0,
+    startY:    0,
+    isHoriz:   null,   // null = undecided, true = horizontal, false = vertical
+  });
 
-  // Per-card arrow refs so we can anchor the dropdown to the clicked arrow
+  const [megaOpen,   setMegaOpen]   = useState(null);
+  const [megaAnchor, setMegaAnchor] = useState(null);
+
   const arrowRefs = useRef({});
-
   const closeMega = useCallback(() => setMegaOpen(null), []);
 
-  const openMega = (triggerKey, anchorRef) => {
+  const openMega = useCallback((triggerKey, anchorRef) => {
     setMegaAnchor(anchorRef);
     setMegaOpen(triggerKey);
+  }, []);
+
+  const goTo = useCallback((p) => setActivePage(p), []);
+
+  /* ── Pointer / mouse drag (desktop) ── unchanged behaviour ── */
+  const onMouseDown = (e) => {
+    dragState.current = { active: true, startX: e.clientX, startY: 0, isHoriz: true };
   };
 
-  const goTo = (p) => setActivePage(p);
+  const onMouseUp = (e) => {
+    if (!dragState.current.active) return;
+    dragState.current.active = false;
+    const delta = dragState.current.startX - e.clientX;
+    if (Math.abs(delta) > 30) {
+      const dir = delta > 0 ? 1 : -1;
+      goTo(Math.max(0, Math.min(TOTAL_PAGES - 1, activePage + dir)));
+    }
+  };
 
-  /* Drag / swipe */
-const onDragStart = (e) => {
-  setIsDragging(true);
-  setDragStart(
-    e.clientX ?? e.touches?.[0]?.clientX
-  );
-};
+  const onMouseLeave = (e) => {
+    if (!dragState.current.active) return;
+    dragState.current.active = false;
+    const delta = dragState.current.startX - e.clientX;
+    if (Math.abs(delta) > 30) {
+      const dir = delta > 0 ? 1 : -1;
+      goTo(Math.max(0, Math.min(TOTAL_PAGES - 1, activePage + dir)));
+    }
+  };
 
-const onDragEnd = (e) => {
-  if (!isDragging) return;
+  /* ── Touch handlers — vertical scroll ALWAYS wins ────────────
+     Strategy:
+       • On touchstart, record X and Y but do NOT call preventDefault.
+       • On touchmove, on the first move decide axis from whichever
+         delta is larger. If vertical → mark isHoriz=false and stop
+         tracking entirely (native scroll takes over unimpeded).
+       • On touchend, only change page if isHoriz was confirmed true
+         AND the horizontal delta is large enough.
+     The handlers are intentionally passive (no preventDefault) so
+     Chrome/Safari never blocks the native scroll thread.
+  ────────────────────────────────────────────────────────────── */
+  const onTouchStart = (e) => {
+    const t = e.touches[0];
+    dragState.current = {
+      active:  true,
+      startX:  t.clientX,
+      startY:  t.clientY,
+      isHoriz: null,
+    };
+  };
 
-  setIsDragging(false);
+  const onTouchMove = (e) => {
+    if (!dragState.current.active || dragState.current.isHoriz === false) return;
 
-  const end =
-    e.clientX ??
-    e.changedTouches?.[0]?.clientX ??
-    dragStart;
+    const t      = e.touches[0];
+    const dx     = Math.abs(t.clientX - dragState.current.startX);
+    const dy     = Math.abs(t.clientY - dragState.current.startY);
 
-  const delta = dragStart - end;
+    // Only decide once we have a meaningful movement
+    if (dx < 5 && dy < 5) return;
 
-  if (Math.abs(delta) > 30) {
-    const dir = delta > 0 ? 1 : -1;
+    if (dragState.current.isHoriz === null) {
+      // Vertical wins on a tie — be generous to scrolling
+      dragState.current.isHoriz = dx > dy * 1.5;
+    }
 
-    goTo(
-      Math.max(
-        0,
-        Math.min(TOTAL_PAGES - 1, activePage + dir)
-      )
-    );
-  }
-};
+    // If vertical, deactivate immediately so native scroll is untouched
+    if (!dragState.current.isHoriz) {
+      dragState.current.active = false;
+    }
+  };
 
-  const pageCards = SERVICES.slice(activePage * PER_PAGE, activePage * PER_PAGE + PER_PAGE);
+  const onTouchEnd = (e) => {
+    if (!dragState.current.active || !dragState.current.isHoriz) {
+      dragState.current.active = false;
+      return;
+    }
+    dragState.current.active = false;
+
+    const t     = e.changedTouches[0];
+    const delta = dragState.current.startX - t.clientX;
+    if (Math.abs(delta) > 30) {
+      const dir = delta > 0 ? 1 : -1;
+      goTo(Math.max(0, Math.min(TOTAL_PAGES - 1, activePage + dir)));
+    }
+  };
+
+  const pageCards = useMemo(() => (
+    SERVICES.slice(activePage * PER_PAGE, activePage * PER_PAGE + PER_PAGE)
+  ), [activePage]);
 
   return (
-    <section className={styles.section} ref={sectionRef}>
+    <LazyMotion features={domAnimation}>
+      <section className={styles.section} ref={sectionRef}>
 
       {/* ── Heading Bar ──────────────────────────────────── */}
-      <motion.div
+      <m.div
         className={styles.headingBar}
         initial={{ opacity: 0, y: -24 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -322,41 +364,44 @@ const onDragEnd = (e) => {
           business goals — backed by data, creativity, and proven strategies.
         </p>
         <span className={styles.headingRule} />
-      </motion.div>
+      </m.div>
 
       {/* ── Carousel ─────────────────────────────────────── */}
-        <div
+      <div
         className={styles.carouselWrap}
-        // style={{ touchAction: "pan-y" }}
-        onMouseDown={onDragStart}
-        onMouseUp={onDragEnd}
-        onMouseLeave={() => isDragging && onDragEnd({ clientX: dragStart })}
-        onTouchStart={onDragStart}
-        onTouchEnd={onDragEnd}
+        onMouseDown={onMouseDown}
+        onMouseUp={onMouseUp}
+        onMouseLeave={onMouseLeave}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
       >
         <div className={styles.track}>
           {pageCards.map((svc, idx) => {
-            // ensure a ref exists for this card's arrow
             if (!arrowRefs.current[svc.key]) {
               arrowRefs.current[svc.key] = React.createRef();
             }
             const isArrowActive = megaOpen === svc.key;
 
             return (
-              <motion.div
+              <m.div
                 key={svc.key}
                 className={styles.card}
                 initial={{ opacity: 0, y: 30 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.15 + idx * 0.08 }}
-                // aria-label={`${svc.name} — go to ${svc.page.replace('/', '')}`}
                 aria-label={svc.name}
               >
                 {/* Clip layer for image only */}
                 <div className={styles.cardInner}>
-                  <div
-                    className={styles.cardBg}
-                    style={{ backgroundImage: `url(${svc.img})` }}
+                  <img
+                    className={styles.cardImg}
+                    src={svc.img}
+                    alt={svc.name}
+                    loading="lazy"
+                    decoding="async"
+                    width="1"
+                    height="1"
                   />
                   <div className={styles.overlay} />
                 </div>
@@ -366,7 +411,6 @@ const onDragEnd = (e) => {
                   <div className={styles.nameRow}>
                     <h3 className={styles.cardName}>{svc.name}</h3>
 
-                    {/* Arrow — opens mega dropdown */}
                     <div
                       ref={arrowRefs.current[svc.key]}
                       className={`${styles.arrowIcon} ${isArrowActive ? styles.arrowIconActive : ''}`}
@@ -399,7 +443,7 @@ const onDragEnd = (e) => {
                     {svc.tags.join('\u00A0\u00A0|\u00A0\u00A0')}
                   </p>
                 </div>
-              </motion.div>
+              </m.div>
             );
           })}
         </div>
@@ -417,8 +461,8 @@ const onDragEnd = (e) => {
         ))}
       </div>
 
-      {/* ── CTA — opens same mega dropdown ───────────────── */}
-      <motion.div
+      {/* ── CTA ──────────────────────────────────────────── */}
+      <m.div
         className={styles.ctaWrap}
         initial={{ opacity: 0, y: 20 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -441,9 +485,9 @@ const onDragEnd = (e) => {
             <path d="M4 10h12M11 5l5 5-5 5"/>
           </svg>
         </button>
-      </motion.div>
+      </m.div>
 
-      {/* ── Mega Dropdown (shared, rendered once) ─────────── */}
+      {/* ── Mega Dropdown ────────────────────────────────── */}
       {megaOpen && (
         <MegaDropdown
           anchorRef={megaAnchor}
@@ -451,6 +495,7 @@ const onDragEnd = (e) => {
         />
       )}
 
-    </section>
+      </section>
+    </LazyMotion>
   );
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { FiInstagram, FiLinkedin, FiExternalLink } from 'react-icons/fi';
 import styles from './Footer.module.css';
-import logo from '../../assets/logo.png';
+import logo from '../../assets/logo.webp';
 
 const navLinks = [
   { label: 'Home',         href: '/' },
@@ -30,6 +30,8 @@ export default function Footer({ isHomepage = false }) {
                   src={logo}
                   alt="AssignInc"
                   className={styles.footerLogo}
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
               <p className={styles.tagline}>

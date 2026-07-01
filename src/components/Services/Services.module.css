@@ -11,7 +11,7 @@
   background:  #ffffff;
   padding:     0 0 80px;
   overflow:    visible;
-  user-select: none;
+  /* user-select: none; */
   position:    relative;
 }
 
@@ -29,13 +29,6 @@
   content:    '';
   position:   absolute;
   inset:      0;
-  background: repeating-linear-gradient(
-    -55deg,
-    rgba(255,255,255,0.015) 0px,
-    rgba(255,255,255,0.015) 1px,
-    transparent 1px,
-    transparent 18px
-  );
   pointer-events: none;
 }
 
@@ -101,10 +94,14 @@
 
 /* ── Carousel wrapper ────────────────────────────────── */
 .carouselWrap {
-  max-width: 1200px;
-  margin:    0 auto;
-  padding:   0 5vw;
-  cursor:    grab;
+  max-width:    1200px;
+  margin:       0 auto;
+  padding:      0 5vw;
+  cursor:       grab;
+  /* FIX: Tell the browser this element only wants horizontal gestures.
+     Vertical scrolling is returned to native immediately — no JS delay. */
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
 }
 .carouselWrap:active { cursor: grabbing; }
 
@@ -126,6 +123,9 @@
   outline:       none;
   box-shadow:    0 4px 20px rgba(47,65,86,0.12);
   transition:    box-shadow 0.3s ease, transform 0.28s ease;
+  /* FIX: Inherit the pan-y touch-action so every card passes vertical
+     scrolling to the browser without waiting for JS handlers. */
+  touch-action:  pan-y;
 }
 
 /* clip only the image layers, not the dropdown */
@@ -134,6 +134,9 @@
   inset:         0;
   border-radius: 20px;
   overflow:      hidden;
+  /* FIX: The clipped image container must never swallow touch events
+     meant for vertical scrolling. pan-y propagates correctly. */
+  touch-action:  pan-y;
 }
 
 .card:hover {
@@ -146,30 +149,38 @@
 }
 
 /* Background image */
-.cardBg {
+.cardImg {
   position:            absolute;
   inset:               0;
-  background-size:     cover;
-  background-position: center center;
+  width:               100%;
+  height:              100%;
+  object-fit:          cover;
+  display:             block;
   transition:          transform 0.55s ease;
+  /* Decorative image should not intercept pointer/touch gestures */
+  pointer-events:      none;
+  touch-action:        none;
 }
 
-.card:hover .cardBg {
+.card:hover .cardImg {
   transform: scale(1.05);
 }
 
 /* Gradient overlay */
 .overlay {
-  position:   absolute;
-  inset:      0;
-  background: linear-gradient(
+  position:       absolute;
+  inset:          0;
+  background:     linear-gradient(
     to top,
     rgba(8,12,18,0.92) 0%,
     rgba(8,12,18,0.50) 38%,
     rgba(8,12,18,0.06) 72%,
     transparent 100%
   );
-  transition: background 0.35s ease;
+  transition:     background 0.35s ease;
+  /* FIX: Also purely decorative — keep it out of the touch chain. */
+  pointer-events: none;
+  touch-action:   none;
 }
 
 .card:hover .overlay {
@@ -192,6 +203,8 @@
   display:        flex;
   flex-direction: column;
   gap:            0.4rem;
+  /* Content area IS interactive (arrow button lives here), so leave
+     touch-action as inherit (pan-y from the card ancestor). */
 }
 
 .nameRow {
@@ -229,6 +242,8 @@
   position:        relative;
   z-index:         20;
   cursor:          pointer;
+  /* The arrow is a tap target — auto lets the browser decide (tap = click). */
+  touch-action:    manipulation;
 }
 
 .card:hover .arrowIcon {
@@ -243,8 +258,9 @@
 }
 
 .arrowIcon svg {
-  width:  15px;
-  height: 15px;
+  width:          15px;
+  height:         15px;
+  pointer-events: none;
 }
 
 .cardTags {
@@ -259,12 +275,9 @@
 }
 
 /* ═══════════════════════════════════════════════════════
-   MEGA DROPDOWN  — matches Image 2 exactly
-   4 columns: Brand Solutions | Tech Solutions |
-              Media Solutions | Film & Photography
+   MEGA DROPDOWN
 ═══════════════════════════════════════════════════════ */
 
-/* Backdrop (semi-transparent) */
 .megaBackdrop {
   position:   fixed;
   inset:      0;
@@ -278,7 +291,6 @@
   to   { opacity: 1; }
 }
 
-/* Panel — full-width bar below trigger */
 .megaDropdown {
   position:      absolute;
   left:          50%;
@@ -290,7 +302,10 @@
   z-index:       300;
   padding:       40px 40px 44px;
   animation:     megaIn 0.22s cubic-bezier(0.22,1,0.36,1);
-  /* position relative to .ctaWrap or card — set via inline style in JS */
+  /* Dropdown is a scroll container in its own right — reset touch-action */
+  touch-action:  auto;
+  overflow-y:    auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 @keyframes megaIn {
@@ -298,7 +313,6 @@
   to   { opacity: 1; transform: translateX(-50%) translateY(0)    scale(1); }
 }
 
-/* Close button top-right */
 .megaClose {
   position:    absolute;
   top:         14px;
@@ -312,20 +326,19 @@
   padding:     4px 8px;
   border-radius: 6px;
   transition:  background 0.15s ease, color 0.15s ease;
+  touch-action: manipulation;
 }
 .megaClose:hover {
   background: #F0ECDD;
   color:      #2F4156;
 }
 
-/* Grid of 4 columns */
 .megaGrid {
   display:               grid;
   grid-template-columns: repeat(4, 1fr);
   gap:                   0;
 }
 
-/* Dividers between columns */
 .megaCol {
   padding:      0 28px;
   border-right: 1px solid rgba(47,65,86,0.10);
@@ -333,7 +346,6 @@
 .megaCol:first-child { padding-left: 0; }
 .megaCol:last-child  { padding-right: 0; border-right: none; }
 
-/* Column title */
 .megaColTitle {
   font-family:    'Satoshi', sans-serif;
   font-size:      1rem;
@@ -345,7 +357,6 @@
   border-bottom:  2px solid #2F4156;
 }
 
-/* Each link */
 .megaLink {
   display:         block;
   font-family:     'Satoshi', sans-serif;
@@ -357,6 +368,7 @@
   line-height:     1.45;
   transition:      color 0.15s ease, padding-left 0.15s ease;
   cursor:          pointer;
+  touch-action:    manipulation;
 }
 .megaLink:hover {
   color:        #2F4156;
@@ -381,6 +393,7 @@
   cursor:        pointer;
   background:    #C8D9E6;
   transition:    background 0.25s ease, transform 0.25s ease;
+  touch-action:  manipulation;
 }
 
 .dotActive {
@@ -392,7 +405,7 @@
   background: #8BA3C5;
 }
 
-/* ── CTA wrapper — needs relative for dropdown anchor ── */
+/* ── CTA wrapper ─────────────────────────────────────── */
 .ctaWrap {
   display:         flex;
   justify-content: center;
@@ -418,6 +431,7 @@
   box-shadow:      0 6px 24px rgba(47,65,86,0.18);
   transition:      background 0.22s ease, box-shadow 0.22s ease, transform 0.22s ease;
   text-decoration: none;
+  touch-action:    manipulation;
 }
 
 .ctaBtn:hover {
@@ -431,10 +445,11 @@
 }
 
 .arrow {
-  width:       18px;
-  height:      18px;
-  flex-shrink: 0;
-  transition:  transform 0.22s ease;
+  width:          18px;
+  height:         18px;
+  flex-shrink:    0;
+  transition:     transform 0.22s ease;
+  pointer-events: none;
 }
 
 .ctaBtn:hover .arrow {
@@ -454,7 +469,7 @@
 
 @media (max-width: 720px) {
   .headingBar   { padding: 44px 5vw 48px; margin-bottom: 40px; }
-  .carouselWrap { padding: 0 4vw; touch-action: pan-x;}
+  .carouselWrap { padding: 0 4vw; }
   .track        { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .card         { height: 280px; }
   .cardName     { font-size: 1rem; }

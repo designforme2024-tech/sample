@@ -1,15 +1,15 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { motion, useInView, AnimatePresence } from 'framer-motion';
+import React, { memo, useRef, useEffect, useState } from 'react';
+import { LazyMotion, domAnimation, m, AnimatePresence, useInView } from 'framer-motion';
 import styles from './About.module.css';
 import { Link } from "react-router-dom";
 
-import founder1 from '../../assets/about/Founder1.jpeg';
-import founder2 from '../../assets/about/Founder2.jpeg';
-import team3 from '../../assets/about/Team3.jpeg';
-import team4 from '../../assets/about/Team4.jpeg';
-import team5 from '../../assets/about/Team5.jpeg';
-import team6 from '../../assets/about/Team7.jpeg';
-import team7 from '../../assets/about/Team8.jpeg';
+import founder1 from '../../assets/about/Founder1.webp';
+import founder2 from '../../assets/about/Founder2.webp';
+import team3 from '../../assets/about/Team3.webp';
+import team4 from '../../assets/about/Team4.webp';
+import team5 from '../../assets/about/Team5.webp';
+import team6 from '../../assets/about/Team7.webp';
+import team7 from '../../assets/about/Team8.webp';
 
 // ── LIVE COUNTER HOOK ─────────────────────────────────────
 function useCounter(target, duration = 2200, start = false) {
@@ -33,7 +33,7 @@ function useCounter(target, duration = 2200, start = false) {
 function StatItem({ num, suffix, label, delay, inView }) {
   const count = useCounter(num, 2200, inView);
   return (
-    <motion.div
+    <m.div
       className={styles.statItem}
       initial={{ opacity: 0, y: 40 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -44,7 +44,7 @@ function StatItem({ num, suffix, label, delay, inView }) {
       </div>
       <div className={styles.statDivider} />
       <div className={styles.statLabel}>{label}</div>
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -151,7 +151,7 @@ const LinkedInIcon = () => (
 function FaqItem({ question, answer, index }) {
   const [open, setOpen] = useState(false);
   return (
-    <motion.div
+    <m.div
       className={`${styles.faqItem} ${open ? styles.faqItemOpen : ''}`}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -170,7 +170,7 @@ function FaqItem({ question, answer, index }) {
       </button>
       <AnimatePresence initial={false}>
         {open && (
-          <motion.div
+          <m.div
             className={styles.faqAnswer}
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
@@ -178,15 +178,15 @@ function FaqItem({ question, answer, index }) {
             transition={{ duration: 0.32, ease: 'easeInOut' }}
           >
             <p>{answer}</p>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
-    </motion.div>
+    </m.div>
   );
 }
 
 // ─────────────────────────────────────────────────────────
-export default function About() {
+function About() {
   const heroRef    = useRef(null);
   const statsRef   = useRef(null);
   const teamRef    = useRef(null);
@@ -202,7 +202,8 @@ export default function About() {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
 
   return (
-    <div className={styles.page}>
+    <LazyMotion features={domAnimation}>
+      <div className={styles.page}>
 
       {/* ══════════════════════════════════════════════════
           1. HERO
@@ -210,7 +211,7 @@ export default function About() {
       <section ref={heroRef} className={styles.hero}>
         <div className={styles.heroInner}>
 
-          <motion.div
+          <m.div
             className={styles.heroTextCol}
             initial={{ opacity: 0, x: -50 }}
             animate={heroInView ? { opacity: 1, x: 0 } : {}}
@@ -240,34 +241,46 @@ export default function About() {
             <Link to="/contact" className={styles.heroCtaBtn}>
               Work With Us
             </Link>
-          </motion.div>
+          </m.div>
 
-          <motion.div
+          <m.div
             className={styles.heroPhotoCol}
             initial={{ opacity: 0, x: 50 }}
             animate={heroInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.9, delay: 0.35 }}
           >
             <div className={styles.foundersGrid}>
-              <motion.div
+              <m.div
                 className={styles.founderCard}
                 initial={{ opacity: 0, y: 30 }}
                 animate={heroInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: 0.5 }}
               >
-                <img src={founder1} alt="Founder" className={styles.founderImage} />
-              </motion.div>
+                <img
+                  src={founder1}
+                  alt="Founder"
+                  className={styles.founderImage}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </m.div>
 
-              <motion.div
+              <m.div
                 className={`${styles.founderCard} ${styles.founderCardOffset}`}
                 initial={{ opacity: 0, y: 30 }}
                 animate={heroInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: 0.65 }}
               >
-                <img src={founder2} alt="Co-Founder" className={styles.founderImage} />
-              </motion.div>
+                <img
+                  src={founder2}
+                  alt="Co-Founder"
+                  className={styles.founderImage}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </m.div>
             </div>
-          </motion.div>
+          </m.div>
 
         </div>
       </section>
@@ -277,7 +290,7 @@ export default function About() {
       ══════════════════════════════════════════════════ */}
       <section className={styles.contentSection}>
         <div className={styles.container}>
-          <motion.div
+          <m.div
             className={styles.contentGrid}
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -332,7 +345,7 @@ export default function About() {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
@@ -360,7 +373,7 @@ export default function About() {
       <section ref={teamRef} className={styles.teamSection}>
         <div className={styles.teamContainer}>
 
-          <motion.div
+          <m.div
             className={styles.sectionHeader}
             initial={{ opacity: 0, y: 30 }}
             animate={teamInView ? { opacity: 1, y: 0 } : {}}
@@ -370,16 +383,16 @@ export default function About() {
             <h2 className={styles.teamHeadingBig}>
               35+ Dedicated Professionals
             </h2>
-          </motion.div>
+          </m.div>
 
-          <motion.div
+          <m.div
             className={styles.teamPhotoStrip}
             initial={{ opacity: 0, y: 40 }}
             animate={teamInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.9, delay: 0.2 }}
           >
             {TEAM.map((member, i) => (
-              <motion.div
+              <m.div
                 key={i}
                 className={styles.teamPhotoCard}
                 initial={{ opacity: 0, y: 30 }}
@@ -392,6 +405,9 @@ export default function About() {
                         src={member.photo}
                         alt={member.name}
                         className={`${styles.teamPhotoImg} ${member.photo === team3 ? styles.teamPhotoImgCropped : ''}`}
+                        loading="lazy"
+                        decoding="async"
+                        fetchPriority="low"
                       />
                     : <span className={styles.teamInitials}>{member.initials}</span>
                   }
@@ -409,9 +425,9 @@ export default function About() {
                     <LinkedInIcon />
                   </a>
                 </div>
-              </motion.div>
+              </m.div>
             ))}
-          </motion.div>
+          </m.div>
 
         </div>
       </section>
@@ -422,7 +438,7 @@ export default function About() {
       <section ref={galleryRef} className={styles.gallerySection}>
         <div className={styles.galleryInner}>
 
-          <motion.div
+          <m.div
             className={styles.galleryTextCol}
             initial={{ opacity: 0, x: -40 }}
             animate={galleryInView ? { opacity: 1, x: 0 } : {}}
@@ -462,26 +478,38 @@ export default function About() {
                 iStart Rajasthan incubated
               </div>
             </div>
-          </motion.div>
+          </m.div>
 
           <div className={styles.galleryImageCol}>
-            <motion.div
+            <m.div
               className={styles.galleryCard}
               initial={{ opacity: 0, y: 30 }}
               animate={galleryInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.75, delay: 0.2 }}
             >
-              <img src={team6} alt="AssignInc team" className={styles.galleryImg} />
-            </motion.div>
+              <img
+                src={team6}
+                alt="AssignInc team"
+                className={styles.galleryImg}
+                loading="lazy"
+                decoding="async"
+              />
+            </m.div>
 
-            <motion.div
+            <m.div
               className={`${styles.galleryCard} ${styles.galleryCardOffset}`}
               initial={{ opacity: 0, y: 30 }}
               animate={galleryInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.75, delay: 0.35 }}
             >
-              <img src={team7} alt="AssignInc team at work" className={styles.galleryImg} />
-            </motion.div>
+              <img
+                src={team7}
+                alt="AssignInc team at work"
+                className={styles.galleryImg}
+                loading="lazy"
+                decoding="async"
+              />
+            </m.div>
           </div>
 
         </div>
@@ -492,13 +520,13 @@ export default function About() {
       ══════════════════════════════════════════════════ */}
       <section ref={testiRef} className={styles.testiSection}>
         <div className={styles.container}>
-          <motion.div
+          <m.div
             className={styles.testiLayout}
             initial={{ opacity: 0 }}
             animate={testiInView ? { opacity: 1 } : {}}
             transition={{ duration: 0.8 }}
           >
-            <motion.div
+            <m.div
               className={styles.testiLeft}
               initial={{ opacity: 0, x: -40 }}
               animate={testiInView ? { opacity: 1, x: 0 } : {}}
@@ -506,9 +534,9 @@ export default function About() {
             >
               <div className={styles.testiLabelSmall}>TESTIMONIAL</div>
               <h2 className={styles.testiHeading}>WHAT OUR<br />CLIENTS SAY</h2>
-            </motion.div>
+            </m.div>
 
-            <motion.div
+            <m.div
               className={styles.testiRight}
               initial={{ opacity: 0, x: 40 }}
               animate={testiInView ? { opacity: 1, x: 0 } : {}}
@@ -548,8 +576,8 @@ export default function About() {
                   />
                 ))}
               </div>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         </div>
       </section>
 
@@ -559,7 +587,7 @@ export default function About() {
       <section className={styles.faqSection}>
         <div className={styles.faqContainer}>
 
-          <motion.div
+          <m.div
             className={styles.faqTopHeader}
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -570,11 +598,11 @@ export default function About() {
             <p className={styles.faqTopSubtitle}>
               Everything you need to know about working with AssignInc.
             </p>
-          </motion.div>
+          </m.div>
 
           <div className={styles.faqBody}>
 
-            <motion.div
+            <m.div
               className={styles.faqImageCol}
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -585,8 +613,11 @@ export default function About() {
                 src="https://img.magnific.com/free-vector/tiny-business-people-with-giant-faq-letters-gadget-users-searching-instructions-useful-information-flat-vector-illustration-customer-support-solution-concept-banner-landing-web-page_74855-23409.jpg?semt=ais_hybrid&w=740&q=80"
                 alt="FAQ illustration"
                 className={styles.faqIllustrationImg}
+                loading="lazy"
+                decoding="async"
+                fetchPriority="low"
               />
-            </motion.div>
+            </m.div>
 
             <div className={styles.faqList}>
               {FAQS.map((item, i) => (
@@ -596,7 +627,7 @@ export default function About() {
 
           </div>
 
-          <motion.div
+          <m.div
             className={styles.faqCta}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -607,7 +638,7 @@ export default function About() {
             <Link to="/contact" className={styles.heroCtaBtn}>
               Get in Touch
             </Link>
-          </motion.div>
+          </m.div>
 
         </div>
       </section>
@@ -642,6 +673,9 @@ export default function About() {
         </div>
       </section>
 
-    </div>
+      </div>
+    </LazyMotion>
   );
 }
+
+  export default memo(About);

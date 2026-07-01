@@ -1,0 +1,418 @@
+/* ══════════════════════════════════════════════════════
+   VideoTestimonial.css  —  AssignInc Client Testimonials
+   Font   : Satoshi, sans-serif
+   Palette:
+     Deep Navy   #2F4156
+     Steel Blue  #567C8D
+     Muted Blue  #8BA3C5
+     Pale Blue   #CBD9E6
+     Ice White   #F3F8FC
+     White       #FFFFFF
+   ══════════════════════════════════════════════════════ */
+
+.vt-section {
+  width: 100%;
+  font-family: 'Satoshi', sans-serif;
+  background: #f3f8fc;
+  overflow: hidden;
+}
+
+/* ══ HEADER — solid flat navy ═════════════════════════ */
+.vt-hero {
+  width: 100%;
+  background: #2f4156;
+  padding: 56px 24px 52px;
+  box-sizing: border-box;
+  text-align: center;
+
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.vt-hero--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.vt-hero__heading {
+  font-family: 'Satoshi', sans-serif;
+  font-size: clamp(2.2rem, 5.5vw, 3.6rem);
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+
+/* ══ TWO-COLUMN BODY ══════════════════════════════════
+   align-items: stretch  →  both columns fill the same
+   row height automatically. The card uses height:100%
+   + flex-column so it stretches to match the video.
+   ═════════════════════════════════════════════════════ */
+.vt-body {
+  display: grid;
+  grid-template-columns: 0.85fr 0.95fr;
+  gap: 48px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 60px 32px 80px;
+  box-sizing: border-box;
+  /* KEY: makes both columns the same height */
+  align-items: stretch;
+}
+
+/* ══ LEFT — Video column ══════════════════════════════ */
+.vt-video-col {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  /* Column height is driven by the video's aspect-ratio */
+
+  opacity: 0;
+  transform: scale(0.96) translateY(16px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.vt-video-col--visible {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+/* Poster placeholder */
+.vt-poster {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, #dce8f0, #f3f8fc);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.vt-poster svg {
+  width: 64px;
+  height: 64px;
+}
+
+/* Portrait video */
+.vt-video {
+  width: 100%;
+  max-width: 310px;
+  aspect-ratio: 9 / 16;
+  object-fit: cover;
+  border-radius: 18px;
+  display: block;
+  box-shadow:
+    0 8px 24px rgba(47, 65, 86, 0.14),
+    0 24px 56px rgba(47, 65, 86, 0.10);
+}
+
+/* ── Unmute pill ─────────────────────────────────────── */
+.vt-unmute-pill {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(18, 28, 40, 0.80);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #ffffff;
+  font-family: 'Satoshi', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 100px;
+  padding: 8px 16px;
+  cursor: pointer;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.vt-unmute-pill svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+.vt-unmute-pill--show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ══ RIGHT — Content card ═════════════════════════════
+   height: 100%  →  fills the grid row (same as video).
+   display: flex + flex-direction: column  →  lets the
+   quote region grow and pushes services to the bottom.
+   ═════════════════════════════════════════════════════ */
+.vt-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+
+  background: #ffffff;
+  border: 1px solid rgba(203, 217, 230, 0.7);
+  border-radius: 20px;
+  padding: 28px 24px;
+  box-shadow:
+    0 4px 6px rgba(47, 65, 86, 0.04),
+    0 10px 28px rgba(47, 65, 86, 0.08),
+    0 24px 56px rgba(47, 65, 86, 0.05);
+
+  opacity: 0;
+  transform: translateX(24px);
+  transition: opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s;
+}
+
+.vt-card--visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── QUOTE REGION — flex-grow fills all spare space ── */
+.vt-card__quote-region {
+  flex: 1;                   /* grows to fill the space above services */
+  display: flex;
+  flex-direction: column;
+  /* open quote top-left, text centered, close quote bottom-right */
+  position: relative;
+  padding: 8px 4px 16px;
+}
+
+/* ── Decorative curly opening quote — top-left ──────── */
+.vt-card__open-quote {
+  display: block;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 5rem;
+  line-height: 0.75;
+  color: #8ba3c5;
+  user-select: none;
+  /* sits in document flow — pushes quote text down naturally */
+  margin-bottom: 0;
+}
+
+/* ── Quote text — perfectly centered in the region ──── */
+.vt-card__quote-body {
+  flex: 1;                   /* fills remaining height inside quote-region */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;   /* vertically centers in the available space */
+  text-align: center;
+  padding: 0 20px;
+  /* small balanced margin keeps text away from the quote marks */
+  margin: 4px 0;
+}
+
+.vt-card__quote-line {
+  font-family: 'Satoshi', sans-serif;
+  font-size: clamp(1.6rem, 2.2vw, 2.1rem);
+  font-weight: 700;
+  color: #2f4156;
+  line-height: 1.3;
+}
+
+/* ── Decorative curly closing quote — bottom-right ──── */
+.vt-card__close-quote {
+  display: block;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 5rem;
+  line-height: 0.75;
+  color: #8ba3c5;
+  text-align: right;
+  user-select: none;
+}
+
+/* ── BOTTOM block — divider + services ──────────────── */
+.vt-card__bottom {
+  /* no flex-grow — stays its natural height at the bottom */
+  flex-shrink: 0;
+}
+
+/* ── Divider ─────────────────────────────────────────── */
+.vt-card__divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(203, 217, 230, 0.8);
+  margin-bottom: 16px;
+}
+
+/* ── Services label ──────────────────────────────────── */
+.vt-card__services-label {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #567c8d;
+  margin: 0 0 12px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid #567c8d;
+  display: inline-block;
+}
+
+/* ── Service list ────────────────────────────────────── */
+.vt-card__services {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.vt-svc {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(203, 217, 230, 0.5);
+
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 0.4s ease calc(0.38s + var(--delay, 0ms)),
+    transform 0.4s ease calc(0.38s + var(--delay, 0ms));
+}
+
+.vt-card--visible .vt-svc {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.vt-svc:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+/* First service — dark icon (priority highlight) */
+.vt-svc:first-child .vt-svc__icon {
+  background: #2f4156;
+  border-color: #2f4156;
+  color: #ffffff;
+}
+
+.vt-svc__icon {
+  width: 34px;
+  height: 34px;
+  background: #f3f8fc;
+  border: 1px solid #cbd9e6;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #567c8d;
+}
+
+.vt-svc__icon svg {
+  width: 17px;
+  height: 17px;
+}
+
+.vt-svc__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 3px;
+}
+
+.vt-svc__title {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #2f4156;
+}
+
+.vt-svc__desc {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 0.8rem;
+  color: #567c8d;
+  line-height: 1.55;
+  font-weight: 400;
+}
+
+/* ══ RESPONSIVE ═══════════════════════════════════════ */
+
+@media (max-width: 900px) {
+  .vt-body {
+    gap: 32px;
+    padding: 48px 24px 60px;
+  }
+
+  .vt-card {
+    padding: 24px 20px;
+  }
+}
+
+/* Mobile: stack vertically — equal height not needed */
+@media (max-width: 660px) {
+  .vt-hero {
+    padding: 44px 20px 40px;
+  }
+
+  .vt-body {
+    grid-template-columns: 1fr;
+    /* restore auto height on mobile — columns stack */
+    align-items: start;
+    padding: 40px 16px 56px;
+    gap: 28px;
+  }
+
+  .vt-video-col {
+    order: 1;
+  }
+
+  .vt-video {
+    max-width: 340px;
+    width: 100%;
+  }
+
+  /* Always show pill on mobile — no hover */
+  .vt-unmute-pill {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .vt-card {
+    order: 2;
+    height: auto;              /* release fixed height on mobile */
+    transform: translateX(0);
+    transition: opacity 0.7s ease 0.1s;
+  }
+
+  /* On mobile, quote region doesn't need to fill a fixed height */
+  .vt-card__quote-region {
+    flex: none;
+  }
+
+  .vt-card__quote-body {
+    flex: none;
+    padding: 16px 8px;
+  }
+
+  .vt-card__open-quote,
+  .vt-card__close-quote {
+    font-size: 3.5rem;
+  }
+
+  .vt-card__quote-line {
+    font-size: 1.3rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vt-hero,
+  .vt-video-col,
+  .vt-card,
+  .vt-svc {
+    transition: opacity 0.3s ease !important;
+    transform: none !important;
+  }
+}

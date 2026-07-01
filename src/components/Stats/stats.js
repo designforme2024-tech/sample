@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import './stats.css';
 
 const statsData = [
@@ -41,7 +41,9 @@ function StatCard({ stat, started, index }) {
   );
 }
 
-export default function Stats() {
+export default memo(Stats);
+
+function Stats() {
   const [started, setStarted] = useState(false);
   const ref = useRef(null);
 

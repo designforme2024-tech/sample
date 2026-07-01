@@ -1,32 +1,32 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { memo, useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import styles from "./GrowthJourneyV3.module.css";
 
 // import { useTranslation } from "react-i18next";
 
-import img1 from "../../assets/journey/Image-1.png";
-import img2 from "../../assets/journey/Image-2.png";
-import img3 from "../../assets/journey/Image-3.jpeg";
-import img4 from "../../assets/journey/Image-4.jpeg";
-import img5 from "../../assets/journey/Image-5.jpeg";
-import img6 from "../../assets/journey/Image-6.png";
+import img1 from "../../assets/journey/Image-1.webp";
+import img2 from "../../assets/journey/Image-2.webp";
+import img3 from "../../assets/journey/Image-3.webp";
+import img4 from "../../assets/journey/Image-4.webp";
+import img5 from "../../assets/journey/Image-5.webp";
+import img6 from "../../assets/journey/Image-6.webp";
 
-import evtImg1 from "../../assets/events/img-1.png";
-import evtImg2 from "../../assets/events/img-2.png";
-import evtImg3 from "../../assets/events/img-3.png";
-import evtImg4 from "../../assets/events/img-4.png";
-import evtImg5 from "../../assets/events/img-5.jpeg";
-import evtImg6 from "../../assets/events/img-6.png";
-import evtImg7 from "../../assets/events/img-7.png";
-import evtImg8 from "../../assets/events/img-8.jpeg";
-import evtImg9 from "../../assets/events/img-9.jpeg";
-import evtImg10 from "../../assets/events/img-10.jpeg";
-import evtImg11 from "../../assets/events/img-11.jpeg";
-import evtImg12 from "../../assets/events/img-12.jpeg";
-import evtImg13 from "../../assets/events/img-13.jpeg";
-import evtImg14 from "../../assets/events/img-14.jpeg";
-import evtImg15 from "../../assets/events/img-15.jpeg";
-import evtImg17 from "../../assets/events/img-17.jpeg";
+import evtImg1 from "../../assets/events/img-1.webp";
+import evtImg2 from "../../assets/events/img-2.webp";
+import evtImg3 from "../../assets/events/img-3.webp";
+import evtImg4 from "../../assets/events/img-4.webp";
+import evtImg5 from "../../assets/events/img-5.webp";
+import evtImg6 from "../../assets/events/img-6.webp";
+import evtImg7 from "../../assets/events/img-7.webp";
+import evtImg8 from "../../assets/events/img-8.webp";
+import evtImg9 from "../../assets/events/img-9.webp";
+import evtImg10 from "../../assets/events/img-10.webp";
+import evtImg11 from "../../assets/events/img-11.webp";
+import evtImg12 from "../../assets/events/img-12.webp";
+import evtImg13 from "../../assets/events/img-13.webp";
+import evtImg14 from "../../assets/events/img-14.webp";
+import evtImg15 from "../../assets/events/img-15.webp";
+import evtImg17 from "../../assets/events/img-17.webp";
 
 const milestones = [
   {
@@ -145,7 +145,9 @@ function Lightbox({ src, alt, onClose }) {
   );
 }
 
-export default function GrowthJourneyV3() {
+export default memo(GrowthJourneyV3);
+
+function GrowthJourneyV3() {
   // const { t } = useTranslation();
   const [activeIndex, setActiveIndex] = useState(null);
   const [visibleIndex, setVisibleIndex] = useState(0);
@@ -368,6 +370,9 @@ export default function GrowthJourneyV3() {
                     alt={item.title}
                     className={styles.image}
                     draggable={false}
+                    loading="lazy"
+                    decoding="async"
+                    fetchPriority="low"
                     /* Prevent long-press context menu on mobile from
                        interfering with touch events */
                     onContextMenu={(e) => e.preventDefault()}
@@ -480,6 +485,9 @@ export default function GrowthJourneyV3() {
                   src={img}
                   alt={`Work sample ${index + 1}`}
                   className={styles.galleryImage}
+                  loading="lazy"
+                  decoding="async"
+                  fetchPriority="low"
                 />
                 <span className={styles.galleryExpandHint} aria-hidden="true">
                   <svg width="22" height="22" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -1,20 +1,27 @@
-import React, { useRef, useEffect } from 'react';
+/**
+ * Hero.jsx — Performance-Optimised
+ *
+ * Changes vs original (UI/animations/layout: ZERO changes):
+ *  1. Videos use data-src instead of src in JSX → no network request on render
+ *  2. A single IntersectionObserver on the right column fires once the section
+ *     enters the viewport, then copies data-src → src and calls play()
+ *  3. preload="none" prevents any speculative fetching
+ *  4. Ticker and heading cycle logic unchanged
+ *  5. React.memo wraps the export to prevent parent-driven re-renders
+ *  6. useCallback on the interval callback (stable reference)
+ *  7. All constant arrays stay module-level (no recreation on render)
+ */
+
+import React, { useRef, useEffect, useCallback, memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Hero.module.css';
 
-// import v1 from '../../assets/videos/vid-1.mp4';
-// import v3 from '../../assets/videos/vid-3.mp4';
-// import v4 from '../../assets/videos/vid-4.mp4';
-
 const v1 =
-'https://cdn.jsdelivr.net/gh/Navyakhandelwal07/Assign-Website@main/vid-1.mp4';
-
+  'https://cdn.jsdelivr.net/gh/Navyakhandelwal07/Assign-Website@main/vid-1.mp4';
 const v3 =
-'https://cdn.jsdelivr.net/gh/Navyakhandelwal07/Assign-Website@main/vid-3.mp4';
-
+  'https://cdn.jsdelivr.net/gh/Navyakhandelwal07/Assign-Website@main/vid-3.mp4';
 const v4 =
-'https://cdn.jsdelivr.net/gh/Navyakhandelwal07/Assign-Website@main/vid-4.mp4';
-
+  'https://cdn.jsdelivr.net/gh/Navyakhandelwal07/Assign-Website@main/vid-4.mp4';
 
 const CYCLE_WORDS = ['Website', 'Campaigns', 'Socials', 'Branding', 'Content', 'Much More'];
 
@@ -35,33 +42,77 @@ const TICKER_ITEMS = [
   'Campaign Strategy',
 ];
 
-export default function Hero() {
+// ─── Duplicated once for seamless CSS ticker loop (module-level, never recreated) ───
+const TICKER_DOUBLED = [...TICKER_ITEMS, ...TICKER_ITEMS];
+
+function Hero() {
   const navigate = useNavigate();
   const wordRef  = useRef(null);
   const idxRef   = useRef(0);
+  const rightRef = useRef(null);   // watches the video column section
+  const videoObsRef = useRef(null); // stores the IO so we can disconnect
 
-  useEffect(() => {
+  // ── Word cycler (unchanged logic, stable callback) ──────────────────────────
+  const cycle = useCallback(() => {
     const el = wordRef.current;
     if (!el) return;
-    const cycle = () => {
-      el.style.opacity   = '0';
-      el.style.transform = 'translateY(-12px)';
-      setTimeout(() => {
-        idxRef.current     = (idxRef.current + 1) % CYCLE_WORDS.length;
-        el.textContent     = CYCLE_WORDS[idxRef.current];
-        el.style.opacity   = '1';
-        el.style.transform = 'translateY(0)';
-      }, 380);
-    };
+    el.style.opacity   = '0';
+    el.style.transform = 'translateY(-12px)';
+    setTimeout(() => {
+      idxRef.current = (idxRef.current + 1) % CYCLE_WORDS.length;
+      el.textContent     = CYCLE_WORDS[idxRef.current];
+      el.style.opacity   = '1';
+      el.style.transform = 'translateY(0)';
+    }, 380);
+  }, []);
+
+  useEffect(() => {
     const t = setInterval(cycle, 2500);
     return () => clearInterval(t);
+  }, [cycle]);
+
+  // ── Lazy-load all column videos when the right panel enters viewport ─────────
+  //    rootMargin '200px' → starts loading 200 px before the section is visible,
+  //    giving the browser a small head-start so autoplay fires smoothly.
+  useEffect(() => {
+    const rightEl = rightRef.current;
+    if (!rightEl) return;
+
+    const loadAndPlay = (videoEl) => {
+      if (!videoEl || videoEl.src) return; // already loaded
+      const src = videoEl.dataset.src;
+      if (!src) return;
+      videoEl.src = src;
+      videoEl.load();
+      // play() returns a promise; swallow AbortError on unmount
+      videoEl.play().catch(() => {});
+    };
+
+    videoObsRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          // Load every video inside the right panel
+          rightEl.querySelectorAll('video[data-src]').forEach(loadAndPlay);
+          // Only need to fire once
+          videoObsRef.current.disconnect();
+        });
+      },
+      { rootMargin: '200px 0px', threshold: 0 }
+    );
+
+    videoObsRef.current.observe(rightEl);
+
+    return () => {
+      videoObsRef.current && videoObsRef.current.disconnect();
+    };
   }, []);
 
   return (
     <>
       <section className={styles.hero}>
 
-        {/* ── LEFT ── */}
+        {/* ── LEFT (unchanged) ── */}
         <div className={styles.left}>
           <p className={styles.eyebrow}>
             <span className={styles.dot} />
@@ -81,7 +132,6 @@ export default function Hero() {
           </div>
 
           <p className={styles.sub}>
-            {/* Trusted by 1000+ brands across India, UAE, Australia and the US. */}
             Turning ideas into growth stories with content that performs.
           </p>
 
@@ -98,8 +148,9 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* ── RIGHT — 3 portrait columns ── */}
-        <div className={styles.right}>
+        {/* ── RIGHT — 3 portrait columns (layout unchanged) ── */}
+        {/*   KEY CHANGE: src → data-src, preload="none"       */}
+        <div className={styles.right} ref={rightRef}>
           <div className={styles.fadeTop} />
           <div className={styles.fadeBottom} />
 
@@ -110,13 +161,19 @@ export default function Hero() {
             >
               {[0, 1, 2, 3].map((i) => (
                 <div key={i} className={styles.tile}>
+                  {/*
+                   * data-src holds the real URL — no network request until
+                   * the IntersectionObserver above sets .src and calls play().
+                   * autoPlay / muted / loop / playsInline attributes are kept
+                   * so the browser honours them as soon as src is assigned.
+                   */}
                   <video
-                    src={col.vid}
+                    data-src={col.vid}
                     autoPlay
                     muted
                     loop
                     playsInline
-                    preload="metadata"
+                    preload="none"
                     className={styles.tileVid}
                   />
                 </div>
@@ -127,11 +184,10 @@ export default function Hero() {
 
       </section>
 
-      {/* ── TICKER — sits between Hero and WhoWeAre ── */}
+      {/* ── TICKER (unchanged) ── */}
       <div className={styles.ticker}>
         <div className={styles.tickerTrack}>
-          {/* Duplicated twice for seamless loop */}
-          {[...TICKER_ITEMS, ...TICKER_ITEMS].map((item, i) => (
+          {TICKER_DOUBLED.map((item, i) => (
             <span key={i} className={styles.tickerItem}>
               {item}
               <span className={styles.tickerDot} aria-hidden="true">✦</span>
@@ -142,3 +198,7 @@ export default function Hero() {
     </>
   );
 }
+
+// React.memo: Hero has no props — memoisation prevents any ancestor re-render
+// from unnecessarily diffing/re-running this tree.
+export default memo(Hero);

@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect, useCallback, memo } from 'react';
+import { LazyMotion, domAnimation, m, AnimatePresence } from 'framer-motion';
 import {
   FiUser, FiPhone, FiMail, FiSend, FiBriefcase,
 } from 'react-icons/fi';
@@ -23,7 +23,7 @@ const variants = {
   exit:  (dir) => ({ opacity: 0, x: dir > 0 ? -40 : 40 }),
 };
 
-export default function Contact() {
+function Contact() {
   const [step, setStep]           = useState(0);
   const [dir,  setDir]            = useState(1);
   const [submitted, setSubmitted] = useState(false);
@@ -102,149 +102,156 @@ export default function Contact() {
 
   if (submitted) {
     return (
-      <div className={styles.page} id="contact">
-        <div className={styles.logoArea}>
-          <p className={styles.subtitle}>Contact Form</p>
-        </div>
-        <motion.div
-          className={styles.card}
-          initial={{ opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
-        >
-          <div className={styles.successWrap}>
-            <div className={styles.successIcon}>✓</div>
-            <h2 className={styles.successTitle}>Message sent!</h2>
-            <p className={styles.successSub}>Our team will get back to you within 24 hours.</p>
+      <LazyMotion features={domAnimation}>
+        <div className={styles.page} id="contact">
+          <div className={styles.logoArea}>
+            <p className={styles.subtitle}>Contact Form</p>
           </div>
-        </motion.div>
 
-        <CallStrip />
-      </div>
+          <m.div
+            className={styles.card}
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+          >
+            <div className={styles.successWrap}>
+              <div className={styles.successIcon}>✓</div>
+              <h2 className={styles.successTitle}>Message sent!</h2>
+              <p className={styles.successSub}>Our team will get back to you within 24 hours.</p>
+            </div>
+          </m.div>
+
+          <CallStrip />
+        </div>
+      </LazyMotion>
     );
   }
 
   const meta = STEP_META[step];
 
   return (
-    <div className={styles.page} id="contact">
-      <div className={styles.logoArea}>
-        <p className={styles.subtitle}>Contact Us</p>
-      </div>
+    <LazyMotion features={domAnimation}>
+      <div className={styles.page} id="contact">
+        <div className={styles.logoArea}>
+          <p className={styles.subtitle}>Contact Us</p>
+        </div>
 
-      <div className={styles.progressBar}>
-        <motion.div
-          className={styles.progressFill}
-          animate={{ width: `${((step + 1) / 3) * 100}%` }}
-          transition={{ duration: 0.4 }}
-        />
-      </div>
+        <div className={styles.progressBar}>
+          <m.div
+            className={styles.progressFill}
+            animate={{ width: `${((step + 1) / 3) * 100}%` }}
+            transition={{ duration: 0.4 }}
+          />
+        </div>
 
-      <div className={styles.cardOuter}>
-        <AnimatePresence mode="wait" custom={dir}>
-          <motion.div
-            key={step}
-            className={styles.card}
-            custom={dir}
-            variants={variants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
-          >
-            <div className={styles.stepMeta}>
-              <span className={styles.stepNum}>{meta.num}</span>
-              <span className={styles.stepDot}>·</span>
-              <span className={styles.stepTag}>{meta.tag}</span>
-            </div>
+        <div className={styles.cardOuter}>
+          <AnimatePresence mode="wait" custom={dir}>
+            <m.div
+              key={step}
+              className={styles.card}
+              custom={dir}
+              variants={variants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
+            >
+              <div className={styles.stepMeta}>
+                <span className={styles.stepNum}>{meta.num}</span>
+                <span className={styles.stepDot}>·</span>
+                <span className={styles.stepTag}>{meta.tag}</span>
+              </div>
 
-            {step === 0 && (
-              <>
-                <h2 className={styles.heading}>Tell us about you</h2>
-                <div className={styles.fields}>
-                  <Field
-                    label="Your Name" required icon={<FiUser />}
-                    value={form.name} onChange={e => set('name', e.target.value)}
-                    placeholder="e.g. Rahul Sharma" error={errors.name}
-                  />
-                  <Field
-                    label="Business Name" required icon={<FiBriefcase />}
-                    value={form.business} onChange={e => set('business', e.target.value)}
-                    error={errors.business}
-                  />
-                </div>
-              </>
-            )}
+              {step === 0 && (
+                <>
+                  <h2 className={styles.heading}>Tell us about you</h2>
+                  <div className={styles.fields}>
+                    <Field
+                      label="Your Name" required icon={<FiUser />}
+                      value={form.name} onChange={e => set('name', e.target.value)}
+                      placeholder="e.g. Rahul Sharma" error={errors.name}
+                    />
+                    <Field
+                      label="Business Name" required icon={<FiBriefcase />}
+                      value={form.business} onChange={e => set('business', e.target.value)}
+                      error={errors.business}
+                    />
+                  </div>
+                </>
+              )}
 
-            {step === 1 && (
-              <>
-                <h2 className={styles.heading}>How can we contact you?</h2>
-                <div className={styles.fields}>
-                  <Field
-                    label="Contact Number" icon={<FiPhone />}
-                    value={form.phone} onChange={e => set('phone', e.target.value)}
-                    placeholder="+91 98XXX XXXXX" type="tel" error={errors.phone}
-                  />
-                  <Field
-                    label="Email ID" icon={<FiMail />}
-                    value={form.email} onChange={e => set('email', e.target.value)}
-                    placeholder="you@company.com" type="email" error={errors.email}
-                  />
-                  {!errors.phone && !errors.email && (
-                    <p className={styles.atLeastOne}>Please fill in at least one of the above.</p>
+              {step === 1 && (
+                <>
+                  <h2 className={styles.heading}>How can we contact you?</h2>
+                  <div className={styles.fields}>
+                    <Field
+                      label="Contact Number" icon={<FiPhone />}
+                      value={form.phone} onChange={e => set('phone', e.target.value)}
+                      placeholder="+91 98XXX XXXXX" type="tel" error={errors.phone}
+                    />
+                    <Field
+                      label="Email ID" icon={<FiMail />}
+                      value={form.email} onChange={e => set('email', e.target.value)}
+                      placeholder="you@company.com" type="email" error={errors.email}
+                    />
+                    {!errors.phone && !errors.email && (
+                      <p className={styles.atLeastOne}>Please fill in at least one of the above.</p>
+                    )}
+                  </div>
+                </>
+              )}
+
+              {step === 2 && (
+                <>
+                  <h2 className={styles.heading}>Ready to send?</h2>
+                  <div className={styles.summaryList}>
+                    <SummaryRow icon={<FiUser />}      label="Name"     value={form.name} />
+                    <SummaryRow icon={<FiBriefcase />} label="Business" value={form.business} />
+                    <SummaryRow icon={<FiPhone />}     label="Phone"    value={form.phone || '—'} />
+                    <SummaryRow icon={<FiMail />}      label="Email"    value={form.email || '—'} />
+                  </div>
+                </>
+              )}
+
+              <div className={`${styles.nav} ${step === 0 ? styles.navRight : ''}`}>
+                {step > 0 && (
+                  <button type="button" className={styles.backBtn} onClick={back}>
+                    ← Back
+                  </button>
+                )}
+                <div className={styles.nextArea}>
+                  {step === 2 ? (
+                    <button
+                      type="button"
+                      className={styles.submitBtn}
+                      onClick={next}
+                      disabled={sending}
+                    >
+                      {sending ? 'Sending…' : <><FiSend /> Submit</>}
+                    </button>
+                  ) : (
+                    <>
+                      <button type="button" className={styles.nextBtn} onClick={next}>
+                        Next →
+                      </button>
+                      <span className={styles.enterHint}>
+                        Press <kbd>Enter ↵</kbd> to continue
+                      </span>
+                    </>
                   )}
                 </div>
-              </>
-            )}
-
-            {step === 2 && (
-              <>
-                <h2 className={styles.heading}>Ready to send?</h2>
-                <div className={styles.summaryList}>
-                  <SummaryRow icon={<FiUser />}      label="Name"     value={form.name} />
-                  <SummaryRow icon={<FiBriefcase />} label="Business" value={form.business} />
-                  <SummaryRow icon={<FiPhone />}     label="Phone"    value={form.phone || '—'} />
-                  <SummaryRow icon={<FiMail />}      label="Email"    value={form.email || '—'} />
-                </div>
-              </>
-            )}
-
-            <div className={`${styles.nav} ${step === 0 ? styles.navRight : ''}`}>
-              {step > 0 && (
-                <button type="button" className={styles.backBtn} onClick={back}>
-                  ← Back
-                </button>
-              )}
-              <div className={styles.nextArea}>
-                {step === 2 ? (
-                  <button
-                    type="button"
-                    className={styles.submitBtn}
-                    onClick={next}
-                    disabled={sending}
-                  >
-                    {sending ? 'Sending…' : <><FiSend /> Submit</>}
-                  </button>
-                ) : (
-                  <>
-                    <button type="button" className={styles.nextBtn} onClick={next}>
-                      Next →
-                    </button>
-                    <span className={styles.enterHint}>
-                      Press <kbd>Enter ↵</kbd> to continue
-                    </span>
-                  </>
-                )}
               </div>
-            </div>
 
-          </motion.div>
-        </AnimatePresence>
+            </m.div>
+          </AnimatePresence>
+        </div>
+
+        <CallStrip />
       </div>
-
-      <CallStrip />
-    </div>
+    </LazyMotion>
   );
 }
+
+export default memo(Contact);
 
 function CallStrip() {
   return (

@@ -1,6 +1,6 @@
-import React, { useRef } from 'react';
+import React, { memo, useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion, useInView } from 'framer-motion';
+import { LazyMotion, domAnimation, m, useInView } from 'framer-motion';
 import { FiMail, FiPhone, FiMapPin, FiArrowRight, FiExternalLink } from 'react-icons/fi';
 import { SiWhatsapp } from 'react-icons/si';
 import styles from './ContactSection.module.css';
@@ -43,20 +43,26 @@ const MAP_LINK =
   'https://maps.app.goo.gl/nRPSqDBoYryxVvWV6';
 
 
-export default function ContactSection() {
+function ContactSection() {
   const ref      = useRef(null);
   const inView   = useInView(ref, { once: true, margin: '-60px' });
+  const [loadMap, setLoadMap] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (inView) setLoadMap(true);
+  }, [inView]);
+
   return (
-    <section ref={ref} className={styles.section} id="contact-home">
+    <LazyMotion features={domAnimation}>
+      <section ref={ref} className={styles.section} id="contact-home">
       <div className="container">
         <div className={styles.grid}>
 
           {/* ═══════════════════
               LEFT CARD
           ═══════════════════ */}
-          <motion.div
+          <m.div
             className={styles.leftCard}
             initial={{ opacity: 0, y: 32 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -80,7 +86,7 @@ export default function ContactSection() {
             {/* Contact rows */}
             <ul className={styles.contactList}>
               {INFO_ITEMS.map((item, i) => (
-                <motion.li
+                <m.li
                   key={i}
                   initial={{ opacity: 0, x: -16 }}
                   animate={inView ? { opacity: 1, x: 0 } : {}}
@@ -101,12 +107,12 @@ export default function ContactSection() {
                     </span>
                     <span className={styles.contactArrow}>›</span>
                   </a>
-                </motion.li>
+                </m.li>
               ))}
             </ul>
 
             {/* ── Embedded Google Map ── */}
-            <motion.div
+            <m.div
               className={styles.mapWrap}
               initial={{ opacity: 0, y: 16 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -117,14 +123,16 @@ export default function ContactSection() {
                 <span>Our Location — Jaipur</span>
               </div>
 
-              <div
+              <button
+                  type="button"
                   className={styles.mapFrame}
                   onClick={() => window.open(MAP_LINK, '_blank')}
                   style={{ cursor: 'pointer' }}
+                  aria-label="Open location in Google Maps"
                 >
                   <iframe
                     title="RAW Coworking — Mansarovar Jaipur"
-                    src={MAP_EMBED}
+                    src={loadMap ? MAP_EMBED : 'about:blank'}
                     width="100%"
                     height="100%"
                     style={{
@@ -135,7 +143,7 @@ export default function ContactSection() {
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
                   />
-                </div>
+                </button>
 
               <a
                 href={MAP_LINK}
@@ -146,13 +154,13 @@ export default function ContactSection() {
                 <FiExternalLink size={13} />
                 Open in Google Maps
               </a>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
 
           {/* ═══════════════════
               RIGHT OUTER CARD
           ═══════════════════ */}
-          <motion.div
+          <m.div
             className={styles.rightOuter}
             initial={{ opacity: 0, y: 32 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -186,10 +194,13 @@ export default function ContactSection() {
 
             {/* Decorative watermark */}
             {/* <span className={styles.watermark} aria-hidden="true">A</span> */}
-          </motion.div>
+          </m.div>
 
         </div>
       </div>
-    </section>
+      </section>
+    </LazyMotion>
   );
 }
+
+export default memo(ContactSection);

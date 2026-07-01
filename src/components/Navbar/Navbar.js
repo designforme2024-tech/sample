@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import logo from '../../assets/logo.png';
+import logo from '../../assets/logo.webp';
 import './Navbar.css';
 
 
@@ -73,8 +73,8 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 30);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll, { passive: true });
   }, []);
 
   useEffect(() => {
@@ -172,6 +172,7 @@ export default function Navbar() {
 
             {/* 4. Case Studies */}
             <li><Link to="/case-studies" className="navbar__link navbar__link--animated">Case Studies</Link></li>
+            <li><Link to="/blog" className="navbar__link navbar__link--animated">Blog</Link></li>
 
             {/* 5. About Us */}
             <li><Link to="/about" className="navbar__link navbar__link--animated">About Us</Link></li>
@@ -183,9 +184,15 @@ export default function Navbar() {
 
           {/* Hamburger */}
           <button
+            type="button"
             className={`navbar__hamburger ${mobileOpen ? 'navbar__hamburger--open' : ''}`}
-            onClick={() => setMobileOpen(!mobileOpen)}
+            onClick={() => setMobileOpen((open) => {
+              if (open) setMobileServicesOpen(false);
+              return !open;
+            })}
             aria-label="Toggle menu"
+            aria-expanded={mobileOpen}
+            aria-controls="navbar-mobile"
           >
             <span /><span /><span />
           </button>
@@ -198,7 +205,7 @@ export default function Navbar() {
         so it can't be clipped by the navbar's bounds. It's its own fixed
         panel that sits flush below the navbar bar.
       */}
-      <div className={`navbar__mobile ${mobileOpen ? 'navbar__mobile--open' : ''}`}>
+      <div id="navbar-mobile" className={`navbar__mobile ${mobileOpen ? 'navbar__mobile--open' : ''}`}>
         <div className="navbar__mobile-inner">
           <Link to="/" className="navbar__mobile-link">Home</Link>
 
@@ -230,6 +237,7 @@ export default function Navbar() {
 
           <Link to="/journey" className="navbar__mobile-link">Events</Link>
           <Link to="/case-studies" className="navbar__mobile-link">Case Studies</Link>
+          <Link to="/blog" className="navbar__mobile-link">Blog</Link>
           <Link to="/about" className="navbar__mobile-link">About Us</Link>
           <Link to="/contact" className="navbar__mobile-cta">Get Started</Link>
         </div>
