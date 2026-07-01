@@ -16,7 +16,7 @@
   width: 100%;
 
   min-height: calc(100svh - 80px);
-  padding-top: 0px;
+  padding-top: 40px;
 
 }
 
@@ -164,7 +164,7 @@
   min-width: 0;
   will-change: transform;
   transform: translateZ(0);
-  backface-visibility: hidden;
+  /* backface-visibility: hidden; */
 }
 
 .colDown { animation: scrollDown 20s linear infinite; }
@@ -283,6 +283,7 @@
 
   .left {
     padding: 0 3rem 0 5vw;
+    /* padding-top:2rem; */
     min-height: unset;
   }
 

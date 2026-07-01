@@ -7,7 +7,7 @@
   z-index: 1000;
   padding: 1rem 3rem;
   background: #ffffff;
-  border-bottom: 1px solid #f0f0f0;
+  /* border-bottom: 1px solid #f0f0f0; */
   transition: box-shadow 0.3s ease, padding 0.3s ease;
 }
 
