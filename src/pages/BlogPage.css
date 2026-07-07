@@ -80,7 +80,7 @@
 
 .bh-bg {
   position: absolute;
-  inset: 0;
+  /* inset: 0; */
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
@@ -88,7 +88,7 @@
 
 .bh-bg__mesh {
   position: absolute;
-  inset: -10%;
+  /* inset: -10%; */
   /* background:
     radial-gradient(45% 38% at 14% 18%, rgba(47, 65, 86, 0.18), transparent 70%),
     radial-gradient(40% 36% at 86% 14%, rgba(86, 124, 141, 0.32), transparent 70%),
@@ -100,7 +100,7 @@
 
 .bh-bg__dots {
   position: absolute;
-  inset: 0;
+  /* inset: 0; */
   background-image: radial-gradient(rgba(47, 65, 86, 0.16) 1px, transparent 1px);
   background-size: 26px 26px;
   -webkit-mask-image: radial-gradient(

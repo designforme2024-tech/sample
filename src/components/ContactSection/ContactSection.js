@@ -47,11 +47,34 @@ function ContactSection() {
   const ref      = useRef(null);
   const inView   = useInView(ref, { once: true, margin: '-60px' });
   const [loadMap, setLoadMap] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (inView) setLoadMap(true);
-  }, [inView]);
+    const mediaQuery = window.matchMedia('(max-width: 860px)');
+    const updateIsMobile = (event) => setIsMobile(event.matches);
+
+    setIsMobile(mediaQuery.matches);
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener('change', updateIsMobile);
+    } else {
+      mediaQuery.addListener(updateIsMobile);
+    }
+
+    return () => {
+      if (mediaQuery.removeEventListener) {
+        mediaQuery.removeEventListener('change', updateIsMobile);
+      } else {
+        mediaQuery.removeListener(updateIsMobile);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isMobile && inView) {
+      setLoadMap(true);
+    }
+  }, [inView, isMobile]);
 
   return (
     <LazyMotion features={domAnimation}>
@@ -126,7 +149,10 @@ function ContactSection() {
               <button
                   type="button"
                   className={styles.mapFrame}
-                  onClick={() => window.open(MAP_LINK, '_blank')}
+                  onClick={() => {
+                    if (!loadMap && !isMobile) setLoadMap(true);
+                    window.open(MAP_LINK, '_blank');
+                  }}
                   style={{ cursor: 'pointer' }}
                   aria-label="Open location in Google Maps"
                 >

@@ -6,11 +6,15 @@ import Hero from './components/Hero/Hero';
 import WhatsAppFloat from './components/UI/WhatsAppFloat';
 
 const WhoWeAre = lazy(() => import('./components/WhoWeAre/WhoWeAre'));
+const WhyChooseUs = lazy(() => import('./components/WhyChooseUs/WhyChooseUs'));
 const Services = lazy(() => import('./components/Services/Services'));
-const Domains = lazy(() => import('./components/Domains/Domains'));
+const IndustriesWeServe = lazy(() => import('./components/IndustriesWeServe/IndustriesWeServe'));
+// const Domains = lazy(() => import('./components/Domains/Domains'));
+const OurProcess = lazy(() => import('./components/OurProcess/OurProcess'));
 const Stats = lazy(() => import('./components/Stats/stats'));
 const Client = lazy(() => import('./components/Client/Client'));
 const Events = lazy(() => import('./components/Events/Events'));
+// const FAQ = lazy(() => import('./components/FAQ/FAQ'));
 const ContactSection = lazy(() => import('./components/ContactSection/ContactSection'));
 const Strip = lazy(() => import('./components/Strip/Strip'));
 const VideoTestimonial = lazy(() => import('./components/VideoTestimonial/VideoTestimonial'));
@@ -65,6 +69,13 @@ function HomePage() {
             </Suspense>
           </LazyLoadOnView>
         </section>
+        <section id="why-choose-assigninc">
+          <LazyLoadOnView>
+            <Suspense fallback={null}>
+              <WhyChooseUs />
+            </Suspense>
+          </LazyLoadOnView>
+        </section>
         <section id="services">
           <LazyLoadOnView>
             <Suspense fallback={null}>
@@ -72,10 +83,24 @@ function HomePage() {
             </Suspense>
           </LazyLoadOnView>
         </section>
-        <section id="domains">
+        <section id="industries-we-serve">
+          <LazyLoadOnView>
+            <Suspense fallback={null}>
+              <IndustriesWeServe />
+            </Suspense>
+          </LazyLoadOnView>
+        </section>
+        {/* <section id="domains">
           <LazyLoadOnView>
             <Suspense fallback={null}>
               <Domains />
+            </Suspense>
+          </LazyLoadOnView>
+        </section> */}
+        <section id="our-process">
+          <LazyLoadOnView>
+            <Suspense fallback={null}>
+              <OurProcess />
             </Suspense>
           </LazyLoadOnView>
         </section>
@@ -107,6 +132,13 @@ function HomePage() {
             </Suspense>
           </LazyLoadOnView>
         </section>
+        {/* <section id="faq">
+          <LazyLoadOnView>
+            <Suspense fallback={null}>
+              <FAQ />
+            </Suspense>
+          </LazyLoadOnView>
+        </section> */}
         <section id="contact-home">
           <LazyLoadOnView>
             <Suspense fallback={null}>

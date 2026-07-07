@@ -96,6 +96,27 @@ function VideoTestimonial() {
   const [cardVis,     setCardVis]     = useState(false);
   const [isMuted,     setIsMuted]     = useState(true);
   const [showPill,    setShowPill]    = useState(false);
+  const [isMobile,    setIsMobile]    = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 860px)');
+    const updateIsMobile = (event) => setIsMobile(event.matches);
+
+    setIsMobile(mediaQuery.matches);
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener('change', updateIsMobile);
+    } else {
+      mediaQuery.addListener(updateIsMobile);
+    }
+
+    return () => {
+      if (mediaQuery.removeEventListener) {
+        mediaQuery.removeEventListener('change', updateIsMobile);
+      } else {
+        mediaQuery.removeListener(updateIsMobile);
+      }
+    };
+  }, []);
 
   // ── Intersection Observer ──────────────────────────────────────
   useEffect(() => {
@@ -107,8 +128,13 @@ function VideoTestimonial() {
       ([entry]) => {
         if (entry.isIntersecting) {
           setHeaderVis(true);
-          setTimeout(() => setVideoVis(true), 150);
-          setTimeout(() => setCardVis(true),  300);
+          if (isMobile) {
+            setVideoVis(true);
+            setCardVis(true);
+          } else {
+            setTimeout(() => setVideoVis(true), 150);
+            setTimeout(() => setCardVis(true),  300);
+          }
 
           if (!videoLoaded && active.videoSrc) {
             video.src = active.videoSrc;
@@ -124,7 +150,7 @@ function VideoTestimonial() {
 
     observer.observe(section);
     return () => observer.disconnect();
-  }, [videoLoaded]);
+  }, [videoLoaded, isMobile]);
 
   // ── Unmute toggle ──────────────────────────────────────────────
   const toggleMute = useCallback((e) => {

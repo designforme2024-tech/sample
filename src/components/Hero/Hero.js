@@ -51,6 +51,8 @@ function Hero() {
   const idxRef   = useRef(0);
   const rightRef = useRef(null);   // watches the video column section
   const videoObsRef = useRef(null); // stores the IO so we can disconnect
+  const isMobileRef = useRef(false);
+  const mobileVideoRef = useRef(null);
 
   // ── Word cycler (unchanged logic, stable callback) ──────────────────────────
   const cycle = useCallback(() => {
@@ -71,40 +73,107 @@ function Hero() {
     return () => clearInterval(t);
   }, [cycle]);
 
-  // ── Lazy-load all column videos when the right panel enters viewport ─────────
-  //    rootMargin '200px' → starts loading 200 px before the section is visible,
-  //    giving the browser a small head-start so autoplay fires smoothly.
   useEffect(() => {
-    const rightEl = rightRef.current;
-    if (!rightEl) return;
-
-    const loadAndPlay = (videoEl) => {
-      if (!videoEl || videoEl.src) return; // already loaded
-      const src = videoEl.dataset.src;
-      if (!src) return;
-      videoEl.src = src;
-      videoEl.load();
-      // play() returns a promise; swallow AbortError on unmount
-      videoEl.play().catch(() => {});
+    const mediaQuery = window.matchMedia('(max-width: 768px)');
+    const updateIsMobile = (event) => {
+      isMobileRef.current = event.matches;
     };
 
-    videoObsRef.current = new IntersectionObserver(
+    isMobileRef.current = mediaQuery.matches;
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener('change', updateIsMobile);
+    } else {
+      mediaQuery.addListener(updateIsMobile);
+    }
+
+    const cleanupMediaQuery = () => {
+      if (mediaQuery.removeEventListener) {
+        mediaQuery.removeEventListener('change', updateIsMobile);
+      } else {
+        mediaQuery.removeListener(updateIsMobile);
+      }
+    };
+
+    const rightEl = rightRef.current;
+    if (!rightEl) {
+      cleanupMediaQuery();
+      return;
+    }
+
+    const videos = Array.from(rightEl.querySelectorAll('video[data-src]'));
+    const loadVideo = (video) => {
+      if (!video || video.src) return;
+      const src = video.dataset.src;
+      if (!src) return;
+      video.src = src;
+      video.load();
+    };
+    const unloadVideo = (video) => {
+      if (!video || !video.src) return;
+      video.pause();
+      video.removeAttribute('src');
+      video.load();
+    };
+    const playVideo = (video) => video.play().catch(() => {});
+    const pauseVideo = (video) => video.pause();
+
+    const isFarOutside = (entry) => {
+      const bounds = entry.rootBounds;
+      if (!bounds) return false;
+      const top = entry.boundingClientRect.top;
+      const bottom = entry.boundingClientRect.bottom;
+      const height = bounds.height;
+      return top > height * 1.5 || bottom < -height * 1.5;
+    };
+
+    const observer = new IntersectionObserver(
       (entries) => {
+        const mobile = isMobileRef.current;
+        if (!mobile) {
+          const anyVisible = entries.some((entry) => entry.isIntersecting);
+          if (anyVisible) {
+            videos.forEach((video) => {
+              loadVideo(video);
+              playVideo(video);
+            });
+          }
+          return;
+        }
+
         entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          // Load every video inside the right panel
-          rightEl.querySelectorAll('video[data-src]').forEach(loadAndPlay);
-          // Only need to fire once
-          videoObsRef.current.disconnect();
+          const video = entry.target;
+          if (entry.isIntersecting) {
+            if (!mobileVideoRef.current) {
+              loadVideo(video);
+              mobileVideoRef.current = video;
+            } else if (mobileVideoRef.current !== video) {
+              const currentRect = mobileVideoRef.current.getBoundingClientRect();
+              if (currentRect.bottom < 0 || currentRect.top > window.innerHeight) {
+                unloadVideo(mobileVideoRef.current);
+                loadVideo(video);
+                mobileVideoRef.current = video;
+              }
+            }
+            playVideo(video);
+          } else {
+            pauseVideo(video);
+            if (isFarOutside(entry)) {
+              if (mobileVideoRef.current === video) {
+                mobileVideoRef.current = null;
+              }
+              unloadVideo(video);
+            }
+          }
         });
       },
-      { rootMargin: '200px 0px', threshold: 0 }
+      { rootMargin: '220px 0px 220px 0px', threshold: [0, 0.01, 0.25] }
     );
 
-    videoObsRef.current.observe(rightEl);
+    videos.forEach((video) => observer.observe(video));
 
     return () => {
-      videoObsRef.current && videoObsRef.current.disconnect();
+      observer.disconnect();
+      cleanupMediaQuery();
     };
   }, []);
 
