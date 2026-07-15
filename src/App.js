@@ -33,6 +33,21 @@ const ArticlePage = lazy(() => import('./pages/ArticlePage'));
 const Ads = lazy(() => import('./pages/Ads'));
 
 
+// Serve static files
+app.use(express.static(path.join(__dirname, "public")));
+
+// Route
+app.get("/Ads", (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "Ads.html"));
+});
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
+
+
 function LazyLoadOnView({ children, rootMargin = '320px 0px 160px 0px' }) {
   const ref = useRef(null);
   const [mounted, setMounted] = useState(false);
