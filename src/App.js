@@ -30,6 +30,8 @@ const MediaSolutions = lazy(() => import('./pages/MediaSolutions'));
 const FilmPhotography = lazy(() => import('./pages/FilmPhotography'));
 const BlogPage = lazy(() => import('./pages/BlogPage'));
 const ArticlePage = lazy(() => import('./pages/ArticlePage'));
+const Ads = lazy(() => import('./pages/Ads'));
+
 
 function LazyLoadOnView({ children, rootMargin = '320px 0px 160px 0px' }) {
   const ref = useRef(null);
@@ -191,6 +193,7 @@ function App() {
         <Route path="/media-solutions" element={<ServicePageWrapper><MediaSolutions /></ServicePageWrapper>} />
         <Route path="/film-photography" element={<ServicePageWrapper><FilmPhotography /></ServicePageWrapper>} />
         <Route path="/case-studies" element={<CaseStudiesPage />} />
+        <Route path="/Ads" element={<Ads />} />
         <Route path="/blog" element={<ServicePageWrapper><BlogPage /></ServicePageWrapper>} />
         <Route path="/blog/:slug" element={<ServicePageWrapper><ArticlePage /></ServicePageWrapper>} />
       </Routes>
