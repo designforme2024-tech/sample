@@ -39,6 +39,10 @@ const app = express();
 
 app.use(express.static(path.join(__dirname, "public")));
 
+app.get("/Ads", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "Ads.html"));
+});
+
 
 function LazyLoadOnView({ children, rootMargin = '320px 0px 160px 0px' }) {
   const ref = useRef(null);
