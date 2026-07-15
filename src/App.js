@@ -32,19 +32,21 @@ const BlogPage = lazy(() => import('./pages/BlogPage'));
 const ArticlePage = lazy(() => import('./pages/ArticlePage'));
 
 
-// Serve static files
-app.use(express.static(path.join(__dirname, "public")));
+const express = require('express');
+const path = require('path');
 
-// Route
-app.get("/Ads", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "Ads.html"));
+const app = express();
+
+// Serve static files from the "public" folder
+app.use(express.static(path.join(__dirname, '../public')));
+
+// Optional: explicit route for Ads.html (not required if it's in public/)
+app.get('/ads', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/Ads.html'));
 });
 
 const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 
 function LazyLoadOnView({ children, rootMargin = '320px 0px 160px 0px' }) {
