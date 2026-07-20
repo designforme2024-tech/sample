@@ -2442,7 +2442,7 @@ footer::before {
   .fan-card.f1 { left: calc(50% - 175px); }
   .fan-card.f2 { top: calc(50% - 130px); left: calc(50% - 85px); }
   .fan-card.f3 { right: calc(50% - 175px); }
-  .fan-badge { width: 80px; height: 80px; bottom: 0; }
+  .fan-badge { display: none; width: 80px; height: 80px; bottom: 0; }
 
   .section-head {
     grid-template-columns: 1fr;
