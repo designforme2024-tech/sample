@@ -187,28 +187,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (response.ok) {
           console.log('Lead submitted to Formspree successfully.');
-
-          // Fire Google Ads conversion
-  if (typeof gtag_report_conversion === "function") {
-    gtag_report_conversion(function () {
-      console.log("Google Ads conversion tracked.");
-
-      form.reset();
-
-      if (successModal) {
-        successModal.classList.add("open");
-      }
-    });
-  } else {
-    // Fallback if Google Ads hasn't loaded
-    console.warn("gtag_report_conversion not found.");
-
-    form.reset();
-
-    if (successModal) {
-      successModal.classList.add("open");
-    }
-  }
 }
           
         } else {
