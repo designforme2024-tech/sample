@@ -187,8 +187,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (response.ok) {
           console.log('Lead submitted to Formspree successfully.');
-}
+
+  gtag_report_conversion(function () {
+
+        form.reset();
+
+        successModal.classList.add("active");
+
+        console.log('tracked to Google Ads');
+
+    });
           
+          form.reset();
+          if (successModal) {
+            successModal.classList.add('open');
+          }
         } else {
           const result = await response.json().catch(() => null);
           const message = (result && Array.isArray(result.errors) && result.errors.length)
