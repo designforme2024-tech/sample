@@ -188,20 +188,29 @@ document.addEventListener('DOMContentLoaded', () => {
         if (response.ok) {
           console.log('Lead submitted to Formspree successfully.');
 
-  gtag_report_conversion(function () {
+          // Fire Google Ads conversion
+  if (typeof gtag_report_conversion === "function") {
+    gtag_report_conversion(function () {
+      console.log("Google Ads conversion tracked.");
 
-        form.reset();
+      form.reset();
 
-        successModal.classList.add("active");
-
-        console.log('tracked to Google Ads');
-
+      if (successModal) {
+        successModal.classList.add("open");
+      }
     });
+  } else {
+    // Fallback if Google Ads hasn't loaded
+    console.warn("gtag_report_conversion not found.");
+
+    form.reset();
+
+    if (successModal) {
+      successModal.classList.add("open");
+    }
+  }
+}
           
-          form.reset();
-          if (successModal) {
-            successModal.classList.add('open');
-          }
         } else {
           const result = await response.json().catch(() => null);
           const message = (result && Array.isArray(result.errors) && result.errors.length)
