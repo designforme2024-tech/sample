@@ -188,17 +188,18 @@ document.addEventListener('DOMContentLoaded', () => {
         if (response.ok) {
           console.log('Lead submitted to Formspree successfully.');
 
-  gtag_report_conversion(function () {
+    if (typeof gtag === "function") {
+    gtag("event", "conversion", {
+      send_to: "AW-18311707106/Csr8CK2IzNUcEOLz2ZtE",
+      value: 1.0,
+      currency: "INR"
+     });
 
-        form.reset();
-
-        successModal.classList.add("active");
-
-        console.log('tracked to Google Ads');
-
-    });
+     console.log("Google Ads conversion tracked.");
+  }
           
           form.reset();
+          
           if (successModal) {
             successModal.classList.add('open');
           }
@@ -230,4 +231,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-});
+}); 
