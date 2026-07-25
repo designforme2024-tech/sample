@@ -784,6 +784,12 @@ h1 span.highlight, h1 span.num {
   }
 }
 
+@media (max-width: 768px) {    
+  #solutions {
+    display: none !important;
+  }
+}
+
 /* Section Header (Light Theme Default) */
 .section {
   padding: 120px 0;
