@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Assigninc — Digital Marketing & Social Media Growth</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;900&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14150F;
+    --white:#FFFFFF;
+    --lime:#C6F135;
+    --lime-deep:#9FCB1B;
+    --grey-bg:#F4F4F1;
+    --text-muted:#6C6D66;
+    --line:#E5E5DF;
+    --radius:20px;
+    --max:1180px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--white);
+    color:var(--ink);
+    font-family:'Open Sans',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.5;
+  }
+  h1,h2,h3,h4{
+    font-family:'Roboto',sans-serif;
+    letter-spacing:-0.02em;
+    color:var(--ink);
+  }
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px;}
+  .mono{
+    font-family:'Roboto',sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    font-size:12px;
+    font-weight:600;
+  }
+  :focus-visible{outline:2px solid var(--ink);outline-offset:3px;}
+
+  /* BUTTONS */
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    font-family:'Roboto',sans-serif;
+    font-weight:600;
+    font-size:13.5px;
+    letter-spacing:0.02em;
+    padding:16px 26px;
+    border-radius:100px;
+    border:none;
+    cursor:pointer;
+    transition:transform .18s ease, background .18s ease;
+    white-space:nowrap;
+  }
+  .btn-primary{
+    background:var(--ink);
+    color:var(--white);
+  }
+  .btn-primary:hover{background:#000;transform:translateY(-2px);}
+  .btn-lime{
+    background:var(--lime);
+    color:var(--ink);
+  }
+  .btn-lime:hover{background:var(--lime-deep);transform:translateY(-2px);}
+  .btn-ghost{
+    background:transparent;
+    color:var(--ink);
+    border:1.5px solid var(--line);
+  }
+  .btn-ghost:hover{border-color:var(--ink);}
+  .btn-sm{padding:11px 18px;font-size:12px;}
+
+  .highlight{
+    background:var(--lime);
+    padding:2px 8px;
+    border-radius:6px;
+    display:inline;
+  }
+
+  /* TOPBAR */
+  .topbar{
+    position:sticky;top:0;z-index:50;
+    background:rgba(255,255,255,0.88);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .topbar-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 24px;
+  }
+  .logo{
+    font-family:'Roboto',sans-serif;
+    font-weight:700;
+    font-size:20px;
+    display:flex;align-items:center;gap:9px;
+  }
+  .logo-mark{
+    width:28px;height:28px;border-radius:8px;
+    background:var(--ink);
+    position:relative;
+  }
+  .logo-mark::after{
+    content:'';
+    position:absolute;left:7px;top:12px;
+    width:12px;height:6px;
+    border-left:2.5px solid var(--lime);
+    border-bottom:2.5px solid var(--lime);
+    transform:rotate(-45deg);
+  }
+  .topbar-cta{display:flex;align-items:center;gap:18px;}
+  .phone-link{font-size:14px;font-weight:600;display:none;}
+  @media(min-width:720px){.phone-link{display:block;}}
+
+  /* HERO */
+  .hero{padding:64px 0 40px;}
+  .hero-grid{
+    display:grid;grid-template-columns:1fr;gap:48px;align-items:center;
+  }
+  @media(min-width:960px){.hero-grid{grid-template-columns:1.05fr 0.95fr;gap:40px;}}
+  h1.headline{
+    font-size:clamp(34px,5.4vw,56px);
+    line-height:1.06;
+    font-weight:700;
+    margin-bottom:20px;
+  }
+  .sub{
+    font-size:16.5px;
+    color:var(--text-muted);
+    max-width:480px;
+    margin-bottom:30px;
+  }
+  .hero-cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:0;}
+
+  /* HERO ILLUSTRATION */
+  .hero-illust{
+    position:relative;
+    min-height:420px;
+    display:flex;align-items:center;justify-content:center;
+  }
+
+  /* HERO CARD STACK */
+  .card-stack{
+    position:relative;
+    width:100%;max-width:380px;height:400px;
+  }
+  .stack-card{
+    position:absolute;
+    top:46px;
+    width:220px;height:290px;
+    border-radius:24px;
+    padding:24px;
+    display:flex;flex-direction:column;justify-content:space-between;
+    box-shadow:0 30px 55px -22px rgba(20,21,15,0.4);
+    opacity:0;
+  }
+  .stack-icon{
+    width:40px;height:40px;border-radius:12px;
+    display:flex;align-items:center;justify-content:center;
+    background:rgba(255,255,255,0.18);
+  }
+  .stack-card.bright .stack-icon{background:rgba(20,21,15,0.14);}
+  .stack-eyebrow{
+    font-family:'Roboto',sans-serif;font-weight:700;font-size:11.5px;
+    letter-spacing:0.08em;text-transform:uppercase;
+    color:rgba(255,255,255,0.8);margin-bottom:10px;
+  }
+  .stack-card.bright .stack-eyebrow{color:rgba(20,21,15,0.65);}
+  .stack-headline{font-size:19px;font-weight:700;line-height:1.2;color:var(--white);}
+  .stack-card.bright .stack-headline{color:var(--ink);}
+  .stack-stat-num{font-family:'Roboto',sans-serif;font-weight:700;font-size:26px;color:var(--white);}
+  .stack-card.bright .stack-stat-num{color:var(--ink);}
+  .stack-stat-label{font-size:12px;color:rgba(255,255,255,0.75);margin-top:2px;}
+  .stack-card.bright .stack-stat-label{color:rgba(20,21,15,0.65);}
+
+  .card-a{
+    left:0;z-index:1;
+    background:linear-gradient(155deg,#14150F,#2A2C21);
+    animation:fanInA .8s cubic-bezier(.22,1,.36,1) .05s forwards, shuffleA 9s ease-in-out 1.1s infinite;
+  }
+  .card-b.bright{
+    left:78px;top:14px;z-index:3;
+    background:linear-gradient(155deg,#C6F135,#9FCB1B);
+    animation:fanInB .8s cubic-bezier(.22,1,.36,1) .2s forwards, shuffleB 9s ease-in-out 1.1s infinite;
+  }
+  .card-c{
+    right:0;left:auto;z-index:2;
+    background:linear-gradient(155deg,#1E2118,#14150F);
+    animation:fanInC .8s cubic-bezier(.22,1,.36,1) .35s forwards, shuffleC 9s ease-in-out 1.1s infinite;
+  }
+
+  @keyframes fanInA{
+    from{opacity:0;transform:translateY(26px) rotate(0deg) scale(.92);}
+    to{opacity:1;transform:translateY(0) rotate(-9deg) scale(1);}
+  }
+  @keyframes fanInB{
+    from{opacity:0;transform:translateY(26px) rotate(0deg) scale(.92);}
+    to{opacity:1;transform:translateY(0) rotate(-2deg) scale(1);}
+  }
+  @keyframes fanInC{
+    from{opacity:0;transform:translateY(26px) rotate(0deg) scale(.92);}
+    to{opacity:1;transform:translateY(0) rotate(9deg) scale(1);}
+  }
+
+  /* Each card takes a turn stepping to the front of the stack */
+  @keyframes shuffleA{
+    0%,88%,100%{transform:translateY(0) rotate(-9deg) scale(1);z-index:1;}
+    4%{transform:translateY(-26px) rotate(-2deg) scale(1.1);z-index:5;}
+    16%{transform:translateY(0) rotate(-9deg) scale(1);z-index:1;}
+  }
+  @keyframes shuffleB{
+    0%,33%,49%,100%{transform:translateY(0) rotate(-2deg) scale(1);z-index:3;}
+    37%{transform:translateY(-28px) rotate(2deg) scale(1.1);z-index:5;}
+  }
+  @keyframes shuffleC{
+    0%,66%,82%,100%{transform:translateY(0) rotate(9deg) scale(1);z-index:2;}
+    70%{transform:translateY(-26px) rotate(3deg) scale(1.1);z-index:5;}
+  }
+
+  @media(max-width:420px){
+    .stack-card{width:82vw;max-width:220px;}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .stack-card{animation:none !important;opacity:1;}
+    .card-a{transform:rotate(-9deg);}
+    .card-b.bright{transform:rotate(-2deg);}
+    .card-c{transform:rotate(9deg);}
+  }
+
+  /* LOGO/STATS STRIP */
+  .stats-bar{
+    padding:36px 0;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    margin-top:20px;
+  }
+  .stats-grid{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:24px;
+    text-align:center;
+  }
+  @media(min-width:720px){.stats-grid{grid-template-columns:repeat(4,1fr);}}
+  .stat-num{font-family:'Roboto',sans-serif;font-weight:700;font-size:28px;color:var(--ink);}
+  .stat-label{font-size:12.5px;color:var(--text-muted);margin-top:4px;}
+
+  /* TRUSTED BY MARQUEE */
+  .trusted-section{
+    padding:64px 0 76px;
+    text-align:center;
+  }
+  .trusted-label{
+    font-size:14px;color:var(--text-muted);
+    margin-bottom:36px;
+    letter-spacing:0.1em;
+  }
+  .marquee-rows{
+    display:flex;flex-direction:column;gap:32px;
+  }
+  .marquee{
+    position:relative;
+    overflow:hidden;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+  }
+  .marquee-track{
+    display:flex;
+    align-items:center;
+    width:max-content;
+    gap:60px;
+    animation:scrollLeft 60s linear infinite;
+  }
+  .marquee-track.reverse{
+    animation-direction:reverse;
+  }
+  .marquee:hover .marquee-track{animation-play-state:paused;}
+  @keyframes scrollLeft{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+  }
+  .brand-logo{
+    display:flex;align-items:center;justify-content:center;
+    height:76px;
+    flex-shrink:0;
+    opacity:0.55;
+    filter:grayscale(1);
+    transition:opacity .2s ease, filter .2s ease;
+  }
+  .brand-logo:hover{opacity:1;filter:grayscale(0);}
+  .brand-logo img{
+    height:48px;
+    width:auto;
+    max-width:180px;
+    object-fit:contain;
+    display:block;
+  }
+  @media(min-width:720px){
+    .brand-logo{height:88px;}
+    .brand-logo img{height:56px;max-width:200px;}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .marquee-track{animation:none;}
+  }
+
+  /* SECTION */
+  .section{padding:88px 0;}
+  .section-head{
+    display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:flex-start;
+    margin-bottom:44px;
+  }
+  .section-tag{
+    display:inline-flex;align-items:center;
+    background:var(--lime);
+    padding:8px 16px;
+    border-radius:100px;
+    font-family:'Roboto',sans-serif;
+    font-weight:600;
+    font-size:15px;
+    height:fit-content;
+  }
+  .section-head p{color:var(--text-muted);font-size:15px;max-width:420px;}
+  .section-head h2{font-size:clamp(26px,3.4vw,36px);font-weight:700;}
+  .section-head-title{
+    display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+  }
+
+  /* SERVICES */
+  .services-grid{
+    display:grid;grid-template-columns:1fr;gap:20px;
+  }
+  @media(min-width:760px){.services-grid{grid-template-columns:1fr 1fr;}}
+  .service-card{
+    border-radius:var(--radius);
+    padding:32px;
+    position:relative;
+    min-height:250px;
+    display:flex;flex-direction:column;justify-content:space-between;
+    transition:transform .2s ease;
+    overflow:hidden;
+  }
+  .service-card:hover{transform:translateY(-4px);}
+  .service-card.light{background:var(--white);border:1.5px solid var(--ink);}
+  .service-card.dark{background:var(--ink);color:var(--white);}
+  .service-card h3{font-size:22px;font-weight:600;margin-bottom:0;line-height:1.2;}
+  .service-card h3 span{
+    background:var(--lime);color:var(--ink);
+    padding:2px 8px;border-radius:6px;
+    box-decoration-break:clone;
+    -webkit-box-decoration-break:clone;
+  }
+  .service-desc{
+    font-size:14px;
+    color:var(--text-muted);
+    max-width:300px;
+    margin-top:12px;
+  }
+  .service-card.dark .service-desc{color:#B9BAB2;}
+  .service-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;}
+  .service-icon{
+    width:56px;height:56px;
+    border-radius:14px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:26px;
+    flex-shrink:0;
+  }
+  .service-card.light .service-icon{background:var(--grey-bg);}
+  .service-card.dark .service-icon{background:rgba(255,255,255,0.08);}
+  .service-link{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:13.5px;font-weight:600;
+    margin-top:20px;
+  }
+  .service-link .arrow{
+    width:26px;height:26px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:13px;
+  }
+  .service-card.light .arrow{background:var(--lime);color:var(--ink);}
+  .service-card.dark .arrow{background:var(--lime);color:var(--ink);}
+
+  /* PROCESS */
+  .process-strip{
+    display:grid;grid-template-columns:1fr;gap:0;
+    border-top:1px solid var(--line);
+  }
+  @media(min-width:820px){.process-strip{grid-template-columns:repeat(4,1fr);}}
+  .process-step{
+    padding:24px 22px 24px 0;
+    border-bottom:1px solid var(--line);
+  }
+  @media(min-width:820px){
+    .process-step{border-right:1px solid var(--line);border-bottom:none;padding:24px 22px;}
+    .process-step:last-child{border-right:none;}
+  }
+  .process-num{
+    font-family:'Roboto',sans-serif;
+    font-size:13px;color:var(--lime-deep);
+    margin-bottom:14px;
+  }
+  .process-step h4{font-size:17px;font-weight:600;margin-bottom:8px;}
+  .process-step p{font-size:13.5px;color:var(--text-muted);}
+
+  /* CTA BANNER */
+  .cta-banner{
+    background:var(--grey-bg);
+    border-radius:26px;
+    padding:56px 40px;
+    display:flex;flex-wrap:wrap;
+    align-items:center;justify-content:space-between;
+    gap:28px;
+    position:relative;
+    overflow:hidden;
+  }
+  .cta-banner-text{position:relative;z-index:2;max-width:440px;}
+  .cta-banner h2{font-size:clamp(24px,3vw,32px);margin-bottom:10px;}
+  .cta-banner p{color:var(--text-muted);font-size:15px;margin-bottom:22px;}
+  .cta-blob{
+    position:relative;z-index:2;
+    flex-shrink:0;
+    width:140px;height:140px;
+  }
+
+  /* CASE STUDIES */
+  .case-grid{display:grid;grid-template-columns:1fr;gap:18px;}
+  @media(min-width:820px){.case-grid{grid-template-columns:repeat(3,1fr);}}
+  .case-card{
+    background:var(--ink);
+    color:var(--white);
+    border-radius:var(--radius);
+    padding:30px;
+    display:flex;flex-direction:column;
+    justify-content:space-between;
+    min-height:250px;
+  }
+  .case-result{
+    font-family:'Roboto',sans-serif;
+    font-size:34px;font-weight:700;color:var(--lime);margin-bottom:10px;
+  }
+  .case-card p.body{font-size:14px;color:#B9BAB2;margin-bottom:20px;}
+  .case-link{font-size:13px;font-weight:600;color:var(--lime);display:inline-flex;gap:6px;align-items:center;}
+
+  /* REELS CASE STUDIES */
+  .reels-head{
+    display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:flex-end;
+    margin-bottom:28px;
+  }
+  .reels-scroll-hint{font-size:12.5px;color:var(--text-muted);display:flex;align-items:center;gap:6px;}
+  @media(min-width:900px){.reels-scroll-hint{display:none;}}
+  .reels-track{
+    display:flex;gap:16px;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    padding:4px 4px 14px;
+    margin:0 -4px;
+    scrollbar-width:none;
+  }
+  .reels-track::-webkit-scrollbar{display:none;}
+  @media(min-width:900px){
+    .reels-track{display:grid;grid-template-columns:repeat(4,1fr);overflow:visible;padding:0;margin:0;}
+  }
+  .reel-card{
+    scroll-snap-align:start;
+    flex:0 0 72%;
+    max-width:260px;
+    aspect-ratio:9/16;
+    border-radius:22px;
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(155deg,#1B1E27,#0E0F0A);
+    box-shadow:0 14px 30px rgba(0,0,0,0.18);
+  }
+  @media(min-width:520px){.reel-card{flex-basis:46%;}}
+  @media(min-width:900px){.reel-card{flex-basis:auto;max-width:none;}}
+  .reel-card.g2{background:linear-gradient(155deg,#22261A,#0E0F0A);}
+  .reel-card.g3{background:linear-gradient(155deg,#1A1D14,#111208);}
+  .reel-card.g4{background:linear-gradient(155deg,#1E2118,#0C0D08);}
+  .reel-progress{
+    position:absolute;top:12px;left:12px;right:12px;
+    display:flex;gap:4px;z-index:3;
+  }
+  .reel-progress span{flex:1;height:2.5px;border-radius:2px;background:rgba(255,255,255,0.28);}
+  .reel-progress span.active{background:var(--lime);}
+  .reel-topbar{
+    position:absolute;top:22px;left:12px;right:12px;z-index:3;
+    display:flex;align-items:center;gap:8px;
+  }
+  .reel-avatar{
+    width:22px;height:22px;border-radius:50%;
+    background:var(--lime);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Roboto',sans-serif;font-weight:700;font-size:10px;color:var(--ink);
+    flex-shrink:0;
+  }
+  .reel-handle{font-size:11.5px;color:#fff;font-weight:600;}
+  .reel-play{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:52px;height:52px;border-radius:50%;
+    background:rgba(255,255,255,0.14);
+    backdrop-filter:blur(4px);
+    display:flex;align-items:center;justify-content:center;
+    z-index:2;
+  }
+  .reel-play::after{
+    content:'';
+    border-style:solid;
+    border-width:9px 0 9px 15px;
+    border-color:transparent transparent transparent #ffffff;
+    margin-left:3px;
+  }
+  .reel-bg-icon{
+    position:absolute;inset:0;
+    display:flex;align-items:center;justify-content:center;
+    opacity:0.16;
+  }
+  .reel-bottom{
+    position:absolute;left:0;right:0;bottom:0;z-index:3;
+    padding:16px 14px 16px;
+    background:linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+  }
+  .reel-stat-badge{
+    display:inline-flex;align-items:center;gap:5px;
+    background:var(--lime);color:var(--ink);
+    font-family:'Roboto',sans-serif;font-weight:700;font-size:12.5px;
+    padding:4px 9px;border-radius:100px;
+    margin-bottom:10px;
+  }
+  .reel-caption{
+    color:#fff;font-size:13.5px;font-weight:600;line-height:1.35;margin-bottom:8px;
+  }
+  .reel-meta{
+    display:flex;gap:14px;
+    font-size:11.5px;color:#D9DAD3;
+  }
+  .reel-meta span{display:flex;align-items:center;gap:4px;}
+
+  /* TESTIMONIALS */
+  .testimonials-grid{
+    display:grid;grid-template-columns:1fr;gap:18px;
+  }
+  @media(min-width:760px){.testimonials-grid{grid-template-columns:repeat(3,1fr);}}
+  .testimonial-card{
+    background:var(--grey-bg);
+    border-radius:var(--radius);
+    padding:28px;
+    display:flex;flex-direction:column;
+    justify-content:space-between;
+    min-height:230px;
+  }
+  .stars{display:flex;gap:3px;margin-bottom:16px;}
+  .stars svg{width:17px;height:17px;flex-shrink:0;}
+  .testimonial-quote{
+    font-size:15px;line-height:1.55;color:var(--ink);margin-bottom:24px;
+  }
+  .testimonial-person{display:flex;align-items:center;gap:12px;}
+  .testimonial-avatar{
+    width:40px;height:40px;border-radius:50%;
+    background:var(--ink);color:var(--lime);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Roboto',sans-serif;font-weight:700;font-size:14px;
+    flex-shrink:0;
+  }
+  .testimonial-name{font-size:13.5px;font-weight:600;}
+  .testimonial-role{font-size:12px;color:var(--text-muted);}
+
+  /* ASK COMPARISON */
+  .ask-grid{
+    display:grid;grid-template-columns:1fr;gap:20px;
+  }
+  @media(min-width:900px){.ask-grid{grid-template-columns:1fr 1fr;}}
+  .ask-panel{
+    border-radius:var(--radius);
+    padding:36px 34px;
+  }
+  .ask-panel.light{background:var(--grey-bg);}
+  .ask-panel.dark{background:var(--ink);}
+  .ask-panel-head{
+    display:flex;align-items:center;gap:12px;
+    margin-bottom:28px;
+  }
+  .ask-panel-head h3{font-size:19px;font-weight:700;}
+  .ask-panel.dark .ask-panel-head h3{color:var(--white);}
+  .ask-icon{
+    width:32px;height:32px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;font-size:14px;
+  }
+  .ask-panel.light .ask-icon{background:var(--line);color:var(--text-muted);}
+  .ask-panel.dark .ask-icon{background:var(--lime);color:var(--ink);}
+  .ask-list{list-style:none;}
+  .ask-item{
+    display:flex;gap:14px;
+    padding:18px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .ask-panel.dark .ask-item{border-bottom-color:rgba(255,255,255,0.1);}
+  .ask-item:last-child{border-bottom:none;padding-bottom:0;}
+  .ask-item:first-child{padding-top:0;}
+  .ask-item-mark{
+    width:22px;height:22px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:11px;font-weight:700;flex-shrink:0;margin-top:2px;
+  }
+  .ask-panel.light .ask-item-mark{background:var(--white);color:var(--text-muted);border:1.5px solid var(--line);}
+  .ask-panel.dark .ask-item-mark{background:rgba(198,241,53,0.16);color:var(--lime);}
+  .ask-item-q{font-size:15px;color:var(--text-muted);line-height:1.4;}
+  .ask-panel.dark .ask-item-q{color:var(--white);font-weight:600;}
+  .ask-item-a{font-size:13.5px;color:#B9BAB2;font-style:italic;line-height:1.5;margin-top:8px;}
+
+  /* FORM SECTION */
+  .form-section{
+    background:var(--ink);
+    border-radius:32px;
+    margin:0 24px;
+    max-width:calc(var(--max) - 48px);
+    margin-left:auto;margin-right:auto;
+    padding:64px 40px;
+  }
+  .form-grid{
+    display:grid;grid-template-columns:1fr;gap:40px;
+    align-items:center;
+  }
+  @media(min-width:900px){.form-grid{grid-template-columns:0.9fr 1.1fr;}}
+  .form-left h2{color:var(--white);font-size:clamp(26px,3.6vw,36px);margin-bottom:16px;}
+  .form-left p{color:#B9BAB2;font-size:15px;margin-bottom:24px;max-width:400px;}
+  .form-perks{display:flex;flex-direction:column;gap:12px;}
+  .perk{display:flex;align-items:center;gap:10px;color:var(--white);font-size:14px;}
+  .perk-check{
+    width:22px;height:22px;border-radius:6px;background:var(--lime);color:var(--ink);
+    display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;font-weight:700;
+  }
+  .lead-form{
+    background:var(--white);
+    border-radius:20px;
+    padding:32px;
+  }
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+  @media(max-width:520px){.form-row{grid-template-columns:1fr;}}
+  .field label{
+    display:block;font-size:12.5px;font-weight:600;margin-bottom:6px;color:var(--ink);
+  }
+  .field input,.field select,.field textarea{
+    width:100%;
+    padding:12px 14px;
+    border-radius:10px;
+    border:1.5px solid var(--line);
+    font-family:'Open Sans',sans-serif;
+    font-size:14px;
+    background:var(--white);
+  }
+  .field input:focus,.field select:focus,.field textarea:focus{
+    outline:none;border-color:var(--ink);
+  }
+  .field{margin-bottom:14px;}
+  .field-checkbox{
+    display:flex;align-items:flex-start;gap:10px;
+    font-size:12.5px;line-height:1.5;color:var(--text-muted);
+    margin-bottom:18px;cursor:pointer;
+  }
+  .field-checkbox input[type="checkbox"]{
+    appearance:none;-webkit-appearance:none;
+    width:19px;height:19px;flex-shrink:0;margin-top:1px;
+    border:1.5px solid var(--line);border-radius:5px;
+    background:var(--white);cursor:pointer;position:relative;
+  }
+  .field-checkbox input[type="checkbox"]:checked{background:var(--lime);border-color:var(--lime);}
+  .field-checkbox input[type="checkbox"]:checked::after{
+    content:'✓';position:absolute;inset:0;
+    display:flex;align-items:center;justify-content:center;
+    font-size:12px;font-weight:700;color:var(--ink);
+  }
+  .field-checkbox a{color:var(--ink);font-weight:600;text-decoration:underline;text-underline-offset:2px;}
+  .field-checkbox a:hover{color:var(--lime-deep);}
+  .lead-form .btn{width:100%;margin-top:6px;justify-content:center;}
+  .form-fine{font-size:11.5px;color:var(--text-muted);text-align:center;margin-top:12px;}
+
+  /* FOOTER */
+  footer{padding:44px 0 30px;}
+  .footer-grid{
+    display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;
+    align-items:center;
+  }
+  .footer-contact{
+    display:flex;flex-direction:column;gap:12px;
+    font-size:13.5px;color:var(--text-muted);
+  }
+  @media(min-width:640px){
+    .footer-contact{flex-direction:row;align-items:center;gap:26px;}
+  }
+  .footer-contact-item{
+    display:inline-flex;align-items:center;gap:8px;
+    transition:color .15s ease;
+  }
+  .footer-contact-item:hover{color:var(--ink);}
+  .footer-contact-item svg{flex-shrink:0;}
+  .footer-copy{font-size:12.5px;color:var(--text-muted);margin-top:20px;}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="wrap topbar-inner">
+    <div class="logo"><span class="logo-mark"></span>Assigninc</div>
+    <div class="topbar-cta">
+      <a class="phone-link" href="tel:+18005550142">+1 (800) 555-0142</a>
+      <a href="#lead-form" class="btn btn-primary btn-sm">Book a consultation</a>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <h1 class="headline">Navigating the digital landscape for <span class="highlight">success</span></h1>
+      <p class="sub">Assigninc helps businesses grow and succeed online through SEO, PPC, social media marketing, and content creation — every task assigned to a specialist, every result reported clearly.</p>
+      <div class="hero-cta-row">
+        <a href="#lead-form" class="btn btn-primary">Book a consultation</a>
+        <a href="#services" class="btn btn-ghost">See our services</a>
+      </div>
+    </div>
+
+    <div class="hero-illust">
+      <div class="card-stack">
+        <div class="stack-card card-a">
+          <div class="stack-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#fff" stroke-width="2"/><path d="M20 20l-4.4-4.4" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <p class="stack-eyebrow">SEO &amp; growth</p>
+            <h4 class="stack-headline">Rankings built to compound</h4>
+          </div>
+          <div>
+            <div class="stack-stat-num">3.2x</div>
+            <div class="stack-stat-label">Avg ROI on ad spend</div>
+          </div>
+        </div>
+
+        <div class="stack-card card-b bright">
+          <div class="stack-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="7" y="2" width="10" height="20" rx="3" stroke="#14150F" stroke-width="2"/><path d="M9.5 8c1-.8 2.2-.8 3.2 0 1-.8 2.2-.8 3.2 0 1 .9 0 2.4-3.2 4.4-3.2-2-4.2-3.5-3.2-4.4z" fill="#14150F"/></svg>
+          </div>
+          <div>
+            <p class="stack-eyebrow">Social media marketing</p>
+            <h4 class="stack-headline">Content and community, done for you</h4>
+          </div>
+          <div>
+            <div class="stack-stat-num">180+</div>
+            <div class="stack-stat-label">Businesses grown</div>
+          </div>
+        </div>
+
+        <div class="stack-card card-c">
+          <div class="stack-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 10v4a1 1 0 001 1h3l5 4V5L7 9H4a1 1 0 00-1 1z" fill="#fff"/><path d="M16 9c1 1 1 5 0 6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <p class="stack-eyebrow">Digital marketing</p>
+            <h4 class="stack-headline">Every channel, one team</h4>
+          </div>
+          <div>
+            <div class="stack-stat-num">4.9/5</div>
+            <div class="stack-stat-label">Client rating</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="wrap stats-grid">
+    <div><div class="stat-num">4.9/5</div><div class="stat-label">Client rating, 120+ reviews</div></div>
+    <div><div class="stat-num">3.2x</div><div class="stat-label">Average ROI on ad spend</div></div>
+    <div><div class="stat-num">180+</div><div class="stat-label">Businesses grown</div></div>
+    <div><div class="stat-num">12</div><div class="stat-label">Industries served</div></div>
+  </div>
+</div>
+
+<!-- TRUSTED BY -->
+<section class="trusted-section">
+  <div class="wrap">
+    <p class="trusted-label mono">Trusted by beloved brands</p>
+  </div>
+
+  <div class="marquee-rows">
+    <!-- Row 1: scrolls right to left -->
+    <div class="marquee">
+      <div class="marquee-track">
+        <span class="brand-logo"><img src="images/logo-northloop.png" alt="Northloop logo"></span>
+        <span class="brand-logo"><img src="images/logo-brightfield.png" alt="Brightfield logo"></span>
+        <span class="brand-logo"><img src="images/logo-loopify.png" alt="Loopify logo"></span>
+        <span class="brand-logo"><img src="images/logo-vantek.png" alt="Vantek logo"></span>
+        <span class="brand-logo" aria-hidden="true"><img src="images/logo-northloop.png" alt=""></span>
+        <span class="brand-logo" aria-hidden="true"><img src="images/logo-brightfield.png" alt=""></span>
+        <span class="brand-logo" aria-hidden="true"><img src="images/logo-loopify.png" alt=""></span>
+        <span class="brand-logo" aria-hidden="true"><img src="images/logo-vantek.png" alt=""></span>
+        <span class="brand-logo" aria-hidden="true"><img src="images/logo-northloop.png" alt=""></span>
+        <span class="brand-logo" aria-hidden="true"><img src="images/logo-brightfield.png" alt=""></span>
+        <span class="brand-logo" aria-hidden="true"><img src="images/logo-loopify.png" alt=""></span>
+        <span class="brand-logo" aria-hidden="true"><img src="images/logo-vantek.png" alt=""></span>
+        <span class="brand-logo" aria-hidden="true"><img src="images/logo-northloop.png" alt=""></span>
+        <span class="brand-logo" aria-hidden="true"><img src="images/logo-brightfield.png" alt=""></span>
+        <span class="brand-logo" aria-hidden="true"><img src="images/logo-loopify.png" alt=""></span>
+        <span class="brand-logo" aria-hidden="true"><img src="images/logo-vantek.png" alt=""></span>
+      </div>
+    </div>
+
+    <!-- Row 2: scrolls left to right -->
+    <div class="marquee">
+      <div class="marquee-track reverse">
+        <span class="brand-logo"><img src="images/logo-coralwave.png" alt="Coralwave logo"></span>
+        <span class="brand-logo"><img src="images/logo-peakhouse.png" alt="Peakhouse logo"></span>
+        <span class="brand-logo"><img src="images/logo-solenne.png" alt="Solenne logo"></span>
+        <span class="brand-logo"><img src="images/logo-marbl.png" alt="Marbl Co. logo"></span>
+        <span class="brand-logo" aria-hidden="true"><img src="images/logo-coralwave.png" alt=""></span>
+        <span class="brand-logo" aria-hidden="true"><img src="images/logo-peakhouse.png" alt=""></span>
+        <span class="brand-logo" aria-hidden="true"><img src="images/logo-solenne.png" alt=""></span>
+        <span class="brand-logo" aria-hidden="true"><img src="images/logo-marbl.png" alt=""></span>
+        <span class="brand-logo" aria-hidden="true"><img src="images/logo-coralwave.png" alt=""></span>
+        <span class="brand-logo" aria-hidden="true"><img src="images/logo-peakhouse.png" alt=""></span>
+        <span class="brand-logo" aria-hidden="true"><img src="images/logo-solenne.png" alt=""></span>
+        <span class="brand-logo" aria-hidden="true"><img src="images/logo-marbl.png" alt=""></span>
+        <span class="brand-logo" aria-hidden="true"><img src="images/logo-coralwave.png" alt=""></span>
+        <span class="brand-logo" aria-hidden="true"><img src="images/logo-peakhouse.png" alt=""></span>
+        <span class="brand-logo" aria-hidden="true"><img src="images/logo-solenne.png" alt=""></span>
+        <span class="brand-logo" aria-hidden="true"><img src="images/logo-marbl.png" alt=""></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-head-title">
+        <span class="section-tag">Services</span>
+        <h2>What we offer</h2>
+      </div>
+      <p>At Assigninc, we offer a range of services to help businesses grow and succeed online. These services include:</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card light">
+        <div class="service-card-top">
+          <h3><span>Search engine optimization</span></h3>
+          <div class="service-icon">
+            <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
+              <circle cx="15" cy="15" r="10" stroke="#14150F" stroke-width="2.4"/>
+              <path d="M15 9v12M9 15h12" stroke="#14150F" stroke-width="2" stroke-linecap="round" opacity="0.35"/>
+              <path d="M22.5 22.5L29 29" stroke="#14150F" stroke-width="2.6" stroke-linecap="round"/>
+              <circle cx="15" cy="15" r="3.4" fill="#C6F135"/>
+            </svg>
+          </div>
+        </div>
+        <p class="service-desc">Rank higher for the searches your customers already make, with technical fixes, content, and link building that compound over time.</p>
+        <a href="#lead-form" class="service-link"><span class="arrow">↗</span> Learn more</a>
+      </div>
+
+      <div class="service-card dark">
+        <div class="service-card-top">
+          <h3><span>Pay per click advertising</span></h3>
+          <div class="service-icon">
+            <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
+              <rect x="4" y="5" width="26" height="19" rx="3" stroke="#C6F135" stroke-width="2"/>
+              <path d="M4 10h26" stroke="#C6F135" stroke-width="2"/>
+              <path d="M17 15l9 8-4 .5 2.2 4.2-2 1-2.2-4.2-2.6 3z" fill="#C6F135"/>
+            </svg>
+          </div>
+        </div>
+        <p class="service-desc">Google and Meta campaigns built around real customer intent, so your budget goes to clicks that turn into leads and sales.</p>
+        <a href="#lead-form" class="service-link"><span class="arrow">↗</span> Learn more</a>
+      </div>
+
+      <div class="service-card light">
+        <div class="service-card-top">
+          <h3><span>Social media marketing</span></h3>
+          <div class="service-icon">
+            <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
+              <rect x="9" y="3" width="16" height="28" rx="4" stroke="#14150F" stroke-width="2"/>
+              <circle cx="17" cy="25" r="1.6" fill="#14150F"/>
+              <path d="M13 12c1.3-1 2.7-1 4 0 1.3-1 2.7-1 4 0 1.3 1.1 0 3-4 5.5-4-2.5-5.3-4.4-4-5.5z" fill="#C6F135"/>
+            </svg>
+          </div>
+        </div>
+        <p class="service-desc">Content, community, and paid social working together to build a following that actually buys — not just likes.</p>
+        <a href="#lead-form" class="service-link"><span class="arrow">↗</span> Learn more</a>
+      </div>
+
+      <div class="service-card dark">
+        <div class="service-card-top">
+          <h3><span>Email marketing</span></h3>
+          <div class="service-icon">
+            <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
+              <rect x="3" y="7" width="28" height="20" rx="3" stroke="#C6F135" stroke-width="2"/>
+              <path d="M4 9l13 10 13-10" stroke="#C6F135" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M20 27l6-6 4 4" stroke="#C6F135" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </svg>
+          </div>
+        </div>
+        <p class="service-desc">Nurture sequences and newsletters that keep your business top of mind between purchases.</p>
+        <a href="#lead-form" class="service-link"><span class="arrow">↗</span> Learn more</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="section" style="padding-top:0;">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag">How it works</span>
+      <p>From first call to measurable growth — here's what working with us looks like.</p>
+    </div>
+    <div class="process-strip">
+      <div class="process-step">
+        <div class="process-num">01</div>
+        <h4>Free audit</h4>
+        <p>We review your website, ads, and social presence and flag the fastest wins.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-num">02</div>
+        <h4>Strategy & proposal</h4>
+        <p>You get a plan with clear deliverables, timelines, and expected outcomes.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-num">03</div>
+        <h4>Launch & assign</h4>
+        <p>Every task is assigned to a specialist on our team, with a visible deadline.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-num">04</div>
+        <h4>Report & grow</h4>
+        <p>Monthly reporting shows what moved the needle, and where we scale next.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="section" style="padding-top:0;">
+  <div class="wrap">
+    <div class="cta-banner">
+      <div class="cta-banner-text">
+        <h2>Let's make things happen</h2>
+        <p>Contact us today to learn more about how our digital marketing services can help your business grow and succeed online.</p>
+        <a href="#lead-form" class="btn btn-primary">Get your free proposal</a>
+      </div>
+      <div class="cta-blob">
+        <svg width="140" height="140" viewBox="0 0 140 140" fill="none">
+          <circle cx="70" cy="70" r="52" fill="#14150F"/>
+          <path d="M55 68c-7-5-11-9-11-14 0-4 3-6 6-6 3 0 4.5 1.3 5 3 0.5-1.7 2-3 5-3 3 0 6 2 6 6 0 5-4 9-11 14z" fill="#C6F135"/>
+          <circle cx="90" cy="55" r="9" fill="none" stroke="#C6F135" stroke-width="2"/>
+          <path d="M96.5 61.5l6 6" stroke="#C6F135" stroke-width="2.4" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDIES -->
+<section class="section" style="padding-top:0;">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag">Case study</span>
+      <p>Explore real-life examples of our proven digital marketing success through our case studies.</p>
+    </div>
+    <div class="case-grid">
+      <div class="case-card">
+        <div>
+          <div class="case-result">+50%</div>
+          <p class="body">For a local restaurant, we implemented a targeted PPC campaign that resulted in a 50% increase in website traffic and a 25% increase in sales.</p>
+        </div>
+        <a href="#lead-form" class="case-link">Learn more ↗</a>
+      </div>
+      <div class="case-card">
+        <div>
+          <div class="case-result">Page 1</div>
+          <p class="body">For a B2B software company, we developed an SEO strategy that resulted in a first page ranking for key keywords and a 200% increase in organic traffic.</p>
+        </div>
+        <a href="#lead-form" class="case-link">Learn more ↗</a>
+      </div>
+      <div class="case-card">
+        <div>
+          <div class="case-result">+20%</div>
+          <p class="body">For a national retail chain, we created a social media campaign that increased followers by 25% and generated a 20% increase in online sales.</p>
+        </div>
+        <a href="#lead-form" class="case-link">Learn more ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REELS CASE STUDIES -->
+<section class="section" style="padding-top:0;">
+  <div class="wrap">
+    <div class="reels-head">
+      <div class="section-head-title">
+        <span class="section-tag">Reels</span>
+        <h2>Campaigns, in motion</h2>
+      </div>
+      <span class="reels-scroll-hint">← Swipe to see more →</span>
+    </div>
+
+    <div class="reels-track">
+      <div class="reel-card">
+        <div class="reel-progress"><span class="active"></span><span></span><span></span></div>
+        <div class="reel-topbar"><div class="reel-avatar">A</div><span class="reel-handle">assigninc</span></div>
+        <div class="reel-bg-icon">
+          <svg width="70" height="70" viewBox="0 0 34 34" fill="none">
+            <rect x="4" y="5" width="26" height="19" rx="3" stroke="#C6F135" stroke-width="1.6"/>
+            <path d="M4 10h26" stroke="#C6F135" stroke-width="1.6"/>
+            <path d="M17 15l9 8-4 .5 2.2 4.2-2 1-2.2-4.2-2.6 3z" fill="#C6F135"/>
+          </svg>
+        </div>
+        <div class="reel-play"></div>
+        <div class="reel-bottom">
+          <span class="reel-stat-badge">+50% traffic</span>
+          <p class="reel-caption">Local restaurant · PPC campaign breakdown</p>
+          <div class="reel-meta"><span>▶ 12.4k</span><span>♥ 890</span></div>
+        </div>
+      </div>
+
+      <div class="reel-card g2">
+        <div class="reel-progress"><span class="active"></span><span></span><span></span></div>
+        <div class="reel-topbar"><div class="reel-avatar">A</div><span class="reel-handle">assigninc</span></div>
+        <div class="reel-bg-icon">
+          <svg width="70" height="70" viewBox="0 0 34 34" fill="none">
+            <circle cx="15" cy="15" r="10" stroke="#C6F135" stroke-width="1.6"/>
+            <path d="M22.5 22.5L29 29" stroke="#C6F135" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="reel-play"></div>
+        <div class="reel-bottom">
+          <span class="reel-stat-badge">Page 1 rank</span>
+          <p class="reel-caption">B2B SaaS · SEO strategy walkthrough</p>
+          <div class="reel-meta"><span>▶ 8.1k</span><span>♥ 640</span></div>
+        </div>
+      </div>
+
+      <div class="reel-card g3">
+        <div class="reel-progress"><span class="active"></span><span></span><span></span></div>
+        <div class="reel-topbar"><div class="reel-avatar">A</div><span class="reel-handle">assigninc</span></div>
+        <div class="reel-bg-icon">
+          <svg width="70" height="70" viewBox="0 0 34 34" fill="none">
+            <rect x="9" y="3" width="16" height="28" rx="4" stroke="#C6F135" stroke-width="1.6"/>
+            <path d="M13 12c1.3-1 2.7-1 4 0 1.3-1 2.7-1 4 0 1.3 1.1 0 3-4 5.5-4-2.5-5.3-4.4-4-5.5z" fill="#C6F135"/>
+          </svg>
+        </div>
+        <div class="reel-play"></div>
+        <div class="reel-bottom">
+          <span class="reel-stat-badge">+25% followers</span>
+          <p class="reel-caption">Retail chain · Social growth case study</p>
+          <div class="reel-meta"><span>▶ 15.7k</span><span>♥ 1.2k</span></div>
+        </div>
+      </div>
+
+      <div class="reel-card g4">
+        <div class="reel-progress"><span class="active"></span><span></span><span></span></div>
+        <div class="reel-topbar"><div class="reel-avatar">A</div><span class="reel-handle">assigninc</span></div>
+        <div class="reel-bg-icon">
+          <svg width="70" height="70" viewBox="0 0 34 34" fill="none">
+            <rect x="3" y="7" width="28" height="20" rx="3" stroke="#C6F135" stroke-width="1.6"/>
+            <path d="M4 9l13 10 13-10" stroke="#C6F135" stroke-width="1.6" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="reel-play"></div>
+        <div class="reel-bottom">
+          <span class="reel-stat-badge">3.2x replies</span>
+          <p class="reel-caption">E-commerce · Email nurture results</p>
+          <div class="reel-meta"><span>▶ 6.3k</span><span>♥ 510</span></div>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:12.5px;color:var(--text-muted);margin-top:14px;">Video placeholders — swap in your real reel footage when ready.</p>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section" style="padding-top:0;">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-head-title">
+        <span class="section-tag">Testimonials</span>
+        <h2>What clients say</h2>
+      </div>
+      <p>Real feedback from businesses we've helped grow. Average rating: 4.9 out of 5 across 120+ reviews.</p>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div>
+          <div class="stars" aria-label="5 out of 5 stars">
+            <svg viewBox="0 0 20 20" fill="#14150F"><path d="M10 1.5l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6-4.6-4.1 6.1-.6z"/></svg>
+            <svg viewBox="0 0 20 20" fill="#14150F"><path d="M10 1.5l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6-4.6-4.1 6.1-.6z"/></svg>
+            <svg viewBox="0 0 20 20" fill="#14150F"><path d="M10 1.5l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6-4.6-4.1 6.1-.6z"/></svg>
+            <svg viewBox="0 0 20 20" fill="#14150F"><path d="M10 1.5l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6-4.6-4.1 6.1-.6z"/></svg>
+            <svg viewBox="0 0 20 20" fill="#14150F"><path d="M10 1.5l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6-4.6-4.1 6.1-.6z"/></svg>
+          </div>
+          <p class="testimonial-quote">Assigninc rebuilt our PPC account from scratch and our cost per lead dropped within the first month. Reporting is clear and we always know what's being worked on.</p>
+        </div>
+        <div class="testimonial-person">
+          <div class="testimonial-avatar">MR</div>
+          <div>
+            <div class="testimonial-name">Maria Reyes</div>
+            <div class="testimonial-role">Owner, local restaurant group</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div>
+          <div class="stars" aria-label="5 out of 5 stars">
+            <svg viewBox="0 0 20 20" fill="#14150F"><path d="M10 1.5l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6-4.6-4.1 6.1-.6z"/></svg>
+            <svg viewBox="0 0 20 20" fill="#14150F"><path d="M10 1.5l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6-4.6-4.1 6.1-.6z"/></svg>
+            <svg viewBox="0 0 20 20" fill="#14150F"><path d="M10 1.5l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6-4.6-4.1 6.1-.6z"/></svg>
+            <svg viewBox="0 0 20 20" fill="#14150F"><path d="M10 1.5l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6-4.6-4.1 6.1-.6z"/></svg>
+            <svg viewBox="0 0 20 20" fill="#14150F"><path d="M10 1.5l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6-4.6-4.1 6.1-.6z"/></svg>
+          </div>
+          <p class="testimonial-quote">We tried three other agencies before Assigninc. The difference is the specialist assignment model — every deliverable has a named owner and a date, so nothing falls through the cracks.</p>
+        </div>
+        <div class="testimonial-person">
+          <div class="testimonial-avatar">DK</div>
+          <div>
+            <div class="testimonial-name">David Kwan</div>
+            <div class="testimonial-role">Founder, B2B SaaS</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div>
+          <div class="stars" aria-label="4 out of 5 stars">
+            <svg viewBox="0 0 20 20" fill="#14150F"><path d="M10 1.5l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6-4.6-4.1 6.1-.6z"/></svg>
+            <svg viewBox="0 0 20 20" fill="#14150F"><path d="M10 1.5l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6-4.6-4.1 6.1-.6z"/></svg>
+            <svg viewBox="0 0 20 20" fill="#14150F"><path d="M10 1.5l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6-4.6-4.1 6.1-.6z"/></svg>
+            <svg viewBox="0 0 20 20" fill="#14150F"><path d="M10 1.5l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6-4.6-4.1 6.1-.6z"/></svg>
+            <svg viewBox="0 0 20 20" fill="none" stroke="#14150F" stroke-width="1.2"><path d="M10 1.5l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6-4.6-4.1 6.1-.6z"/></svg>
+          </div>
+          <p class="testimonial-quote">Our social following grew steadily and, more importantly, actual sales followed. Communication could be a touch faster, but the results speak for themselves.</p>
+        </div>
+        <div class="testimonial-person">
+          <div class="testimonial-avatar">PT</div>
+          <div>
+            <div class="testimonial-name">Priya Thakur</div>
+            <div class="testimonial-role">Marketing lead, retail chain</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW WE'RE DIFFERENT -->
+<section class="section" style="padding-top:0;">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-head-title">
+        <span class="section-tag">Comparison</span>
+        <h2>How we're different from 100+ marketing agencies</h2>
+      </div>
+      <p>The same buzzwords, a different way of working. Here's what actually changes when you work with Assigninc.</p>
+    </div>
+
+    <div class="ask-grid">
+      <div class="ask-panel light">
+        <div class="ask-panel-head">
+          <span class="ask-icon">✕</span>
+          <h3>Most agencies ask&hellip;</h3>
+        </div>
+        <ul class="ask-list">
+          <li class="ask-item">
+            <span class="ask-item-mark">✕</span>
+            <span class="ask-item-q">&ldquo;How many posts do you need?&rdquo;</span>
+          </li>
+          <li class="ask-item">
+            <span class="ask-item-mark">✕</span>
+            <span class="ask-item-q">&ldquo;What's your monthly ad budget?&rdquo;</span>
+          </li>
+          <li class="ask-item">
+            <span class="ask-item-mark">✕</span>
+            <span class="ask-item-q">&ldquo;Do you need a new website?&rdquo;</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="ask-panel dark">
+        <div class="ask-panel-head">
+          <span class="ask-icon">⚡</span>
+          <h3>We ask&hellip;</h3>
+        </div>
+        <ul class="ask-list">
+          <li class="ask-item">
+            <span class="ask-item-mark">✓</span>
+            <div>
+              <div class="ask-item-q">&ldquo;Where are you losing customers between click and checkout?&rdquo;</div>
+              <p class="ask-item-a">Then we map your funnel and fix the drop-off points with tracking and automation.</p>
+            </div>
+          </li>
+          <li class="ask-item">
+            <span class="ask-item-mark">✓</span>
+            <div>
+              <div class="ask-item-q">&ldquo;Which channel are your competitors ignoring?&rdquo;</div>
+              <p class="ask-item-a">Then we build a plan to own that channel before they catch on.</p>
+            </div>
+          </li>
+          <li class="ask-item">
+            <span class="ask-item-mark">✓</span>
+            <div>
+              <div class="ask-item-q">&ldquo;What would it take to double your repeat customers?&rdquo;</div>
+              <p class="ask-item-a">Then we build the retention and email flows to make it happen.</p>
+            </div>
+          </li>
+          <li class="ask-item">
+            <span class="ask-item-mark">✓</span>
+            <div>
+              <div class="ask-item-q">&ldquo;Can your business handle 3x the leads next month?&rdquo;</div>
+              <p class="ask-item-a">Then we scale spend only as fast as your team can convert it profitably.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEAD FORM -->
+<div class="form-section" id="lead-form">
+  <div class="form-grid">
+    <div class="form-left">
+      <span class="section-tag" style="background:var(--lime);">Get started</span>
+      <h2 style="margin-top:18px;">Apply for a growth call</h2>
+      <p>Ready to scale? Introduce your business to our experts — a strategist will review your details and reach out to book your call.</p>
+      <div class="form-perks">
+        <div class="perk"><span class="perk-check">✓</span> No long-term contracts required</div>
+        <div class="perk"><span class="perk-check">✓</span> Response within 24 hours</div>
+        <div class="perk"><span class="perk-check">✓</span> One dedicated growth strategist</div>
+      </div>
+    </div>
+
+    <form class="lead-form" onsubmit="return false;">
+      <div class="field">
+        <label for="name">Full Name *</label>
+        <input id="name" type="text" placeholder="e.g. Rahul Sharma" required>
+      </div>
+      <div class="field">
+        <label for="email">Work Email *</label>
+        <input id="email" type="email" placeholder="e.g. rahul@company.com" required>
+      </div>
+      <div class="field">
+        <label for="phone">Phone Number (Indian format) *</label>
+        <input id="phone" type="tel" pattern="(\+91[\-\s]?)?[6-9]\d{9}" placeholder="e.g. +91 98765 43210" required>
+      </div>
+      <div class="field">
+        <label for="business">Business Name *</label>
+        <input id="business" type="text" placeholder="e.g. Acme Corporation" required>
+      </div>
+      <div class="field">
+        <label for="budget">How much are you willing to spend in marketing monthly? *</label>
+        <select id="budget" required>
+          <option value="" disabled selected>Select a monthly budget</option>
+          <option>Under ₹25,000</option>
+          <option>₹25,000 – ₹50,000</option>
+          <option>₹50,000 – ₹1,00,000</option>
+          <option>₹1,00,000+</option>
+          <option>Not sure yet</option>
+        </select>
+      </div>
+      <label class="field-checkbox">
+        <input type="checkbox" required>
+        <span>I agree to the <a href="#">Terms &amp; Conditions</a> and <a href="#">Privacy Policy</a>. *</span>
+      </label>
+      <button class="btn btn-lime" type="submit">Apply Now 🚀</button>
+    </form>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="logo"><span class="logo-mark"></span>Assigninc</div>
+      <div class="footer-contact">
+        <a class="footer-contact-item" href="tel:+18005550142">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1L6.6 10.8z" stroke="#6C6D66" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          +1 (800) 555-0142
+        </a>
+        <a class="footer-contact-item" href="https://wa.me/18005550142" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 4.3A10 10 0 0 0 3.4 16.8L2 22l5.3-1.4A10 10 0 1 0 20 4.3z" stroke="#6C6D66" stroke-width="1.6"/><path d="M8.5 8.6c.2-.5.5-.5.8-.5h.6c.2 0 .5 0 .7.5.3.6.9 2 1 2.1.1.2.1.4 0 .6-.1.3-.2.4-.4.6l-.5.6c-.1.2-.3.4-.1.7.2.4 1 1.5 2 2.4 1.2 1 2.1 1.4 2.5 1.6.3.1.5.1.7-.1l.7-.9c.2-.3.4-.2.7-.1l1.8 1c.2.1.4.2.4.4 0 .8-.4 1.7-1.1 2.2-.7.5-1.4.5-2.1.4-1.8-.4-3.6-1.4-5-2.8-1.2-1.2-2.1-2.5-2.7-4-.3-.7-.4-1.5.2-2.2.2-.3.4-.5.6-.8.2-.2.2-.4.1-.7-.2-.5-.7-1.7-.9-2.2z" fill="#6C6D66"/></svg>
+          +1 (800) 555-0142
+        </a>
+        <a class="footer-contact-item" href="mailto:hello@assigninc.com">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="#6C6D66" stroke-width="1.6"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5" stroke="#6C6D66" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          hello@assigninc.com
+        </a>
+      </div>
+    </div>
+    <div class="footer-copy">© 2026 Assigninc. All rights reserved. Privacy Policy · Terms of Service</div>
+  </div>
+</footer>
+
+</body>
+</html>
