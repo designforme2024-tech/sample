@@ -20,6 +20,42 @@ document.addEventListener('DOMContentLoaded', () => {
   revealElements.forEach(el => revealObserver.observe(el));
 
   // ==========================================
+  // 1b. Hero Video Wall resilience
+  // Every card now loads eagerly (real src straight in the HTML), so this
+  // block is just a safety net, not a loading strategy:
+  //  - if a clip 404s / errors out, swap in another clip's src that's
+  //    already known to be playing, so no card is ever left blank
+  //  - nudge .play() on load in case autoplay didn't kick in immediately
+  //    (e.g. the tab was backgrounded on arrival from the ad)
+  // ==========================================
+  const heroVideos = document.querySelectorAll('.video-wall .video-el');
+
+  const getWorkingHeroSrc = (excludeVideo) => {
+    for (const v of heroVideos) {
+      if (v === excludeVideo) continue;
+      const src = v.currentSrc || (v.querySelector('source') || {}).src;
+      if (src && v.readyState >= 2) return src; // HAVE_CURRENT_DATA or better
+    }
+    return null;
+  };
+
+  heroVideos.forEach(video => {
+    video.addEventListener('error', () => {
+      const fallbackSrc = getWorkingHeroSrc(video);
+      const source = video.querySelector('source');
+      if (fallbackSrc && source && source.src !== fallbackSrc) {
+        source.src = fallbackSrc;
+        video.load();
+        video.play().catch(() => {});
+      }
+    }, true); // capture — media error events don't bubble
+
+    video.addEventListener('canplay', () => {
+      if (video.paused) video.play().catch(() => {});
+    });
+  });
+
+  // ==========================================
   // 2. Sticky CTA Bar Visibility
   // ==========================================
   const stickyCta = document.getElementById('sticky-cta');
@@ -113,25 +149,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   syncTileStates();
-
-  // ==========================================
-  // Interactive Hero Card Stack Focus (.fan-card)
-  // ==========================================
-  const cards = document.querySelectorAll('.fan-card');
-  cards.forEach(card => {
-    card.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const isActive = card.classList.contains('active-stack');
-      cards.forEach(c => c.classList.remove('active-stack'));
-      if (!isActive) {
-        card.classList.add('active-stack');
-      }
-    });
-  });
-
-  document.addEventListener('click', () => {
-    cards.forEach(c => c.classList.remove('active-stack'));
-  });
 
   // ==========================================
   // Mobile Nav Toggle (Breadcrumb menu)
