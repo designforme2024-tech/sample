@@ -20,9 +20,26 @@ document.addEventListener('DOMContentLoaded', () => {
   revealElements.forEach(el => revealObserver.observe(el));
 
   // ==========================================
-  // 1b. Hero Video Wall resilience
-  // Every card now loads eagerly (real src straight in the HTML), so this
-  // block is just a safety net, not a loading strategy:
+  // 1a. Events & Achievements — graceful image placeholders
+  // Until real photos are dropped into assets/events/, show a tasteful
+  // "Add photo" placeholder tile instead of a broken-image icon.
+  // ==========================================
+  document.querySelectorAll('.events-tile img').forEach(img => {
+    img.addEventListener('error', () => {
+      const tile = img.closest('.events-tile');
+      if (tile) tile.classList.add('img-pending');
+    }, { once: true });
+  });
+
+  // ==========================================
+  // 1b. Hero Video Wall — resilience + loading illustration
+  // Every card has a real src straight in the HTML (nothing depends on JS
+  // to appear), so this block layers on top of that:
+  //  - the two priority clips per column load fully (preload=auto); the
+  //    other 12 start on preload=metadata to ease bandwidth pressure on
+  //    mobile, then get bumped to full preload once idle time allows
+  //  - each card shows an animated "loading" illustration (see .video-loader
+  //    in style.css) until its clip fires loadeddata/playing
   //  - if a clip 404s / errors out, swap in another clip's src that's
   //    already known to be playing, so no card is ever left blank
   //  - nudge .play() on load in case autoplay didn't kick in immediately
@@ -53,7 +70,32 @@ document.addEventListener('DOMContentLoaded', () => {
     video.addEventListener('canplay', () => {
       if (video.paused) video.play().catch(() => {});
     });
+
+    // Reveal the actual clip and dismiss the loading illustration as soon
+    // as there's real playable data — 'playing' also covers the fallback
+    // swap above, so a card never gets stuck showing the loader forever.
+    const markReady = () => {
+      const card = video.closest('.video-card');
+      if (card) card.classList.add('is-ready');
+    };
+    video.addEventListener('loadeddata', markReady);
+    video.addEventListener('playing', markReady);
   });
+
+  // Safety nudge: the lower-priority clips start on preload="metadata" to
+  // ease initial bandwidth pressure (helps mobile). If one is still stuck
+  // a few seconds in (slow connection, video paused because the tab was
+  // backgrounded, etc.) bump it to full preload so it isn't left waiting
+  // behind higher-priority clips indefinitely.
+  setTimeout(() => {
+    heroVideos.forEach(video => {
+      if (video.readyState < 2 && video.preload !== 'auto') {
+        video.preload = 'auto';
+        video.load();
+        video.play().catch(() => {});
+      }
+    });
+  }, 3500);
 
   // ==========================================
   // 2. Sticky CTA Bar Visibility
