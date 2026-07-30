@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap');
 
 :root {
-  /* Former "dark" surface tokens — now light, so Hero, Footer, and accent
+  /* Former "dark" surface tokens â€” now light, so Hero, Footer, and accent
      cards (pricing box, testimonials, CTA banner, lead form) match the
      rest of the page instead of inverting to black. */
   --bg-dark: #FFFFFF;
@@ -29,16 +29,16 @@
   --card-border-light: #DAD6CB;
   --card-bg-light: #FFFFFF;
 
-  /* Global Accents — Primary brand accent is a rich indigo (tech/marketing-platform
-     feel, not a pastel/pink), with the violet → pink → orange trio below reserved
+  /* Global Accents â€” Primary brand accent is a rich indigo (tech/marketing-platform
+     feel, not a pastel/pink), with the violet â†’ pink â†’ orange trio below reserved
      for decorative "social gradient" surfaces (hero cards, service icons). */
   --accent-color: #4F46E5; /* Indigo */
   --accent: #4F46E5;
   --accent-glow: rgba(79, 70, 229, 0.15);
   --accent-hover: #6366F1;
-  --accent-ink: #3730A3; /* Deep indigo — used for small text/eyebrows on light backgrounds where the vivid indigo lacks contrast */
+  --accent-ink: #3730A3; /* Deep indigo â€” used for small text/eyebrows on light backgrounds where the vivid indigo lacks contrast */
 
-  /* Secondary Accent Trio — the three stops of the violet → pink → orange
+  /* Secondary Accent Trio â€” the three stops of the violet â†’ pink â†’ orange
      "social gradient" story, split across the three recurring "theme" surfaces
      (hero cards, bento creative cell, case studies) so the palette reads as one
      engineered system instead of a random rainbow. */
@@ -355,7 +355,9 @@ h1 span.highlight, h1 span.num {
   margin-bottom: 32px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  flex-wrap: wrap;
+  gap: 6px 8px;
+  max-width: 100%;
 }
 
 .credibility-tag strong {
@@ -395,7 +397,7 @@ h1 span.highlight, h1 span.num {
   background: rgba(10, 12, 16, 0.06);
 }
 
-/* Lead Form slot — right column of hero (replaces old card-deck visual) */
+/* Lead Form slot â€” right column of hero (replaces old card-deck visual) */
 .hero-form-slot {
   display: flex;
   align-items: flex-start;
@@ -469,7 +471,7 @@ h1 span.highlight, h1 span.num {
   justify-content: center;
 }
 
-/* Scrolling Video Wall (Hero Right) — two columns of vertically looping,
+/* Scrolling Video Wall (Hero Right) â€” two columns of vertically looping,
    full-size reel-format video cards, alternating scroll direction, for a
    "social proof reel" feel. The same 3 clips repeat across all tiles; swap
    sources in the HTML whenever new footage is ready. */
@@ -495,7 +497,7 @@ h1 span.highlight, h1 span.num {
   margin-top: 64px;
 }
 
-/* Two identical tracks stacked in the same column, animated together —
+/* Two identical tracks stacked in the same column, animated together â€”
    as the first scrolls out of view the second takes its place seamlessly. */
 .video-track {
   display: flex;
@@ -563,6 +565,96 @@ h1 span.highlight, h1 span.num {
 .video-play-badge svg {
   width: 16px;
   height: 16px;
+}
+
+/* Loading illustration â€” shown over a video card until its clip can play.
+   Radar-style pulsing rings around a play glyph, plus a soft shimmer sweep,
+   so a slow-loading clip on a weak mobile connection still looks intentional
+   and "alive" instead of a blank/broken tile. Removed via JS (.is-ready)
+   once the underlying <video> fires loadeddata/playing. */
+.video-loader {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    linear-gradient(120deg, transparent 20%, rgba(255,255,255,0.55) 45%, transparent 70%),
+    linear-gradient(160deg, var(--bg-dark-3), var(--bg-dark-2));
+  background-size: 200% 200%, 100% 100%;
+  animation: video-loader-shimmer 2.2s ease-in-out infinite;
+  transition: opacity .45s ease;
+  opacity: 1;
+  pointer-events: none;
+}
+
+.video-card.is-ready .video-loader {
+  opacity: 0;
+}
+
+.video-loader-rings {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-loader-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1.5px solid var(--accent-color);
+  opacity: 0;
+  animation: video-loader-ping 1.8s cubic-bezier(0.2, 0.6, 0.4, 1) infinite;
+}
+
+.video-loader-ring-2 { animation-delay: .5s; }
+.video-loader-ring-3 { animation-delay: 1s; }
+
+.video-loader-icon {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 16px rgba(79, 70, 229, 0.7);
+  animation: video-loader-pulse 1.8s ease-in-out infinite;
+}
+
+.video-loader-icon svg {
+  width: 7px;
+  height: 7px;
+  margin-left: 1px;
+  fill: #fff;
+}
+
+@keyframes video-loader-ping {
+  0%   { transform: scale(0.5); opacity: 0.7; }
+  80%  { transform: scale(1.7); opacity: 0; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
+
+@keyframes video-loader-pulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.12); }
+}
+
+@keyframes video-loader-shimmer {
+  0%   { background-position: 0% 0%, 0 0; }
+  50%  { background-position: 100% 100%, 0 0; }
+  100% { background-position: 0% 0%, 0 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .video-loader, .video-loader-ring, .video-loader-icon {
+    animation: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -659,7 +751,7 @@ h1 span.highlight, h1 span.num {
   margin-bottom: 36px;
 }
 
-/* Marquee wrapper — masks the edges and clips the scrolling track */
+/* Marquee wrapper â€” masks the edges and clips the scrolling track */
 .logos-marquee {
   display: flex;
   overflow: hidden;
@@ -979,6 +1071,117 @@ h1 span.highlight, h1 span.num {
   padding-bottom: 2px;
   text-decoration: none;
   color: var(--ink);
+}
+
+/* Events & Achievements â€” image grid */
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 200px;
+  grid-auto-flow: dense;
+  gap: 16px;
+}
+
+.events-tile {
+  position: relative;
+  margin: 0;
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--bg-dark-3, #EBE8E0);
+  box-shadow: 0 14px 30px -18px rgba(10, 12, 16, 0.35);
+}
+
+.events-tile-lg {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.events-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .5s ease;
+}
+
+.events-tile:hover img {
+  transform: scale(1.05);
+}
+
+.events-tile figcaption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 28px 16px 14px;
+  background: linear-gradient(to top, rgba(10, 12, 16, 0.82), transparent);
+  color: #fff;
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: .2px;
+}
+
+/* Graceful placeholder until real photos are dropped into assets/events/
+   â€” avoids a broken-image icon if a filename doesn't exist yet */
+.events-tile.img-pending img {
+  display: none;
+}
+
+.events-tile.img-pending::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, var(--bg-dark-3), var(--bg-dark-2));
+}
+
+.events-tile.img-pending::after {
+  content: "Add photo";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: .3px;
+  opacity: .55;
+}
+
+@media (max-width: 1024px) {
+  .events-grid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 170px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Concise mobile layout: a swipeable horizontal strip instead of a tall
+     multi-row grid, so the section doesn't dominate the scroll on mobile */
+  .events-grid {
+    display: flex;
+    grid-auto-rows: unset;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 12px;
+    margin: 0 -20px;
+    padding: 0 20px 6px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .events-grid::-webkit-scrollbar {
+    display: none;
+  }
+  .events-tile, .events-tile-lg {
+    grid-column: unset;
+    grid-row: unset;
+    flex: 0 0 62%;
+    aspect-ratio: 4 / 5;
+    scroll-snap-align: start;
+  }
+  .events-tile figcaption {
+    font-size: 12.5px;
+    padding: 22px 12px 12px;
+  }
 }
 
 /* About / Stats (Light theme 2) */
@@ -1572,7 +1775,7 @@ h1 span.highlight, h1 span.num {
   }
 }
 
-/* Testimonials Section — compact dark card row */
+/* Testimonials Section â€” compact dark card row */
 .testimonials.testimonials-compact {
   background-color: var(--bg-dark);
   padding: 56px 0;
@@ -2402,12 +2605,16 @@ footer::before {
   }
   h1 {
     margin-bottom: 14px;
+    overflow-wrap: break-word;
   }
   .credibility-tag {
     margin-bottom: 18px;
+    justify-content: center;
+    text-align: center;
   }
   .hero-copy {
     margin-bottom: 16px;
+    overflow-wrap: break-word;
   }
   .hero-lead-form {
     padding: 24px;
@@ -2417,11 +2624,19 @@ footer::before {
   }
   .hero-actions, .hero-cta-row {
     flex-direction: column;
+    align-items: center;
     width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
     gap: 16px;
   }
   .hero-actions .btn, .hero-cta-row .btn-primary {
     width: 100%;
+    box-sizing: border-box;
+  }
+  .play-inline {
+    align-self: center;
+    flex-shrink: 0;
   }
   .hero-visual {
     height: 520px;
