@@ -1184,6 +1184,72 @@ h1 span.highlight, h1 span.num {
   }
 }
 
+/* Video Testimonials â€” 3-up grid of native <video> clients */
+.video-testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.video-testimonial-card {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.video-testimonial-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--bg-dark-3, #EBE8E0);
+  box-shadow: 0 14px 30px -18px rgba(10, 12, 16, 0.35);
+}
+
+.video-testimonial-el {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  background: var(--bg-dark-3, #EBE8E0);
+}
+
+.video-testimonial-caption {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.video-testimonial-name {
+  font-weight: 600;
+  font-size: 14.5px;
+  color: var(--ink);
+}
+
+.video-testimonial-role {
+  font-size: 12.5px;
+  color: var(--text-dark-muted);
+}
+
+@media (max-width: 1024px) {
+  .video-testimonials-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+}
+
+@media (max-width: 640px) {
+  .video-testimonials-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .video-testimonial-media {
+    aspect-ratio: 16 / 10;
+  }
+}
+
 /* About / Stats (Light theme 2) */
 .about {
   background: var(--bg-light-2);
