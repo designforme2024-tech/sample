@@ -1182,6 +1182,41 @@ h1 span.highlight, h1 span.num {
   }
 }
 
+/* Shared dot-indicator strip for mobile carousels (Events + Client Stories) */
+.carousel-dots {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.carousel-dot {
+  appearance: none;
+  border: none;
+  padding: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--ink-soft, #B9B4A8);
+  opacity: .4;
+  cursor: pointer;
+  transition: all .25s ease;
+}
+
+.carousel-dot.active {
+  width: 20px;
+  border-radius: 4px;
+  opacity: 1;
+  background: var(--accent, #C9973E);
+}
+
+@media (max-width: 768px) {
+  .carousel-dots {
+    display: flex;
+  }
+}
+
 /* Video Testimonials â€” 3-up grid of native <video> clients */
 .video-testimonials-grid {
   display: grid;
@@ -1238,13 +1273,32 @@ h1 span.highlight, h1 span.num {
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
+  /* Reel-style swipeable carousel: one vertical 9:16 card in focus at a
+     time, snap-scrolled, with a slight peek of the next card. Only the
+     card in focus actually plays (handled in script.js); the rest stay
+     paused so we're not running multiple videos at once on mobile data. */
   .video-testimonials-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
+    display: flex;
+    grid-template-columns: unset;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 14px;
+    margin: 0 -20px;
+    padding: 0 20px 6px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .video-testimonials-grid::-webkit-scrollbar {
+    display: none;
+  }
+  .video-testimonial-card {
+    flex: 0 0 78%;
+    max-width: 300px;
+    scroll-snap-align: center;
   }
   .video-testimonial-media {
-    aspect-ratio: 16 / 10;
+    aspect-ratio: 9 / 16;
   }
 }
 
@@ -2665,19 +2719,19 @@ footer::before {
     font-size: 40px;
   }
   .eyebrow {
-    margin-bottom: 14px;
+    margin-bottom: 18px;
   }
   h1 {
-    margin-bottom: 14px;
+    margin-bottom: 18px;
     overflow-wrap: break-word;
   }
   .credibility-tag {
-    margin-bottom: 18px;
+    margin-bottom: 22px;
     justify-content: center;
     text-align: center;
   }
   .hero-copy {
-    margin-bottom: 16px;
+    margin-bottom: 26px;
     overflow-wrap: break-word;
   }
   .hero-lead-form {
@@ -2704,9 +2758,12 @@ footer::before {
   }
   .hero-visual {
     height: 520px;
+    margin-top: 36px;
   }
   .video-wall {
     gap: 16px;
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 4%, #000 94%, transparent);
+    mask-image: linear-gradient(to bottom, transparent, #000 4%, #000 94%, transparent);
   }
   .video-col:nth-child(2) {
     margin-top: 40px;
@@ -2776,7 +2833,7 @@ footer::before {
   .bento { grid-template-columns: 1fr; grid-template-rows: auto; height: auto; }
   .cell-ai, .cell-creative, .cell-growth, .cell-tech { grid-column: 1; grid-row: auto; transform: none; }
   .cell-tech { flex-direction: column; align-items: flex-start; }
-  .hero-visual { height: 440px; }
+  .hero-visual { height: 440px; margin-top: 28px; }
   .video-wall { gap: 12px; }
   .video-col:nth-child(2) { margin-top: 30px; }
   .video-track { gap: 12px; }

@@ -290,4 +290,108 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ==========================================
+  // 6. Mobile Dot-Indicator Carousels (Events & Achievements + Client Stories)
+  // Both sections become horizontal snap-scrollers on mobile (<=768px).
+  // This wires up matching dot indicators: dots reflect whichever card is
+  // currently centered/in-focus, and tapping a dot scrolls to that card.
+  // For Client Stories specifically, only the card in focus keeps its video
+  // playing — every other card's video is paused — so we're never running
+  // several videos at once on a mobile connection, and it feels like a
+  // Reels-style "one clip in focus" carousel.
+  // ==========================================
+  function setupDotCarousel({ trackSelector, dotsSelector, itemSelector, mediaQuery, onActivate, onDeactivate }) {
+    const track = document.querySelector(trackSelector);
+    const dotsWrap = document.querySelector(dotsSelector);
+    if (!track || !dotsWrap) return;
+
+    let items = [];
+    let dots = [];
+    let observer = null;
+
+    const setActiveDot = (index) => {
+      dots.forEach((d, i) => d.classList.toggle('active', i === index));
+    };
+
+    const buildDots = () => {
+      dotsWrap.innerHTML = '';
+      dots = [];
+      items = Array.from(track.querySelectorAll(itemSelector));
+      items.forEach((item, i) => {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'carousel-dot';
+        dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+        dot.addEventListener('click', () => {
+          item.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        });
+        dotsWrap.appendChild(dot);
+        dots.push(dot);
+      });
+      setActiveDot(0);
+    };
+
+    const startObserving = () => {
+      if (observer) observer.disconnect();
+      observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const idx = items.indexOf(entry.target);
+          if (idx === -1) return;
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
+            setActiveDot(idx);
+            if (onActivate) onActivate(entry.target);
+          } else if (onDeactivate) {
+            onDeactivate(entry.target);
+          }
+        });
+      }, { root: track, threshold: [0, 0.6, 1] });
+      items.forEach(item => observer.observe(item));
+    };
+
+    const enable = () => {
+      buildDots();
+      startObserving();
+    };
+
+    const disable = () => {
+      if (observer) observer.disconnect();
+      observer = null;
+      dotsWrap.innerHTML = '';
+      // Leaving mobile mode — hand every card back to its default state
+      // (Client Stories videos resume normal desktop autoplay-all).
+      if (onDeactivate) {
+        Array.from(track.querySelectorAll(itemSelector)).forEach(item => onActivate ? onActivate(item) : null);
+      }
+    };
+
+    const mqList = window.matchMedia(mediaQuery);
+    const handleChange = (e) => (e.matches ? enable() : disable());
+    mqList.addEventListener('change', handleChange);
+    handleChange(mqList);
+  }
+
+  // Events & Achievements — dots only, no play/pause behavior needed
+  setupDotCarousel({
+    trackSelector: '.events-grid',
+    dotsSelector: '#events-dots',
+    itemSelector: '.events-tile',
+    mediaQuery: '(max-width: 768px)'
+  });
+
+  // Client Stories — dots + "only the focused card plays" behavior
+  setupDotCarousel({
+    trackSelector: '.video-testimonials-grid',
+    dotsSelector: '#testimonials-dots',
+    itemSelector: '.video-testimonial-card',
+    mediaQuery: '(max-width: 768px)',
+    onActivate: (card) => {
+      const video = card.querySelector('video');
+      if (video) video.play().catch(() => {});
+    },
+    onDeactivate: (card) => {
+      const video = card.querySelector('video');
+      if (video) video.pause();
+    }
+  });
+
 }); 
