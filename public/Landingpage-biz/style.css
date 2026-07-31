@@ -786,19 +786,17 @@ h1 span.highlight, h1 span.num {
 }
 
 .client-logo {
-  height: 56px;
+  height: 72px;
   width: auto;
-  max-width: 220px;
+  max-width: 260px;
   object-fit: contain;
-  filter: grayscale(1);
-  opacity: 0.55;
+  filter: none;
+  opacity: 1;
   transition: var(--transition-smooth);
   flex-shrink: 0;
 }
 
 .client-logo:hover {
-  filter: grayscale(0);
-  opacity: 1;
   transform: translateY(-2px);
 }
 
@@ -819,8 +817,8 @@ h1 span.highlight, h1 span.num {
     to   { transform: translateX(-100%); }
   }
   .client-logo {
-    height: 40px;
-    max-width: 150px;
+    height: 50px;
+    max-width: 180px;
   }
 }
 
