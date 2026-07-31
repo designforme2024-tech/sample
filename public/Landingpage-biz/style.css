@@ -295,7 +295,6 @@ body::before {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 12px;
 }
 
 .badge, .eyebrow {
@@ -1070,6 +1069,102 @@ h1 span.highlight, h1 span.num {
   padding-bottom: 2px;
   text-decoration: none;
   color: var(--ink);
+}
+
+/* Quick Services â€” icon-grid teaser (Digital Marketing / Social Media / Reel Shots) */
+.quick-services-section {
+  padding-top: 0;
+}
+
+.quick-services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.quick-service-card {
+  background: var(--card-bg-light);
+  border: 1px solid var(--paper-line);
+  border-radius: var(--radius-lg);
+  padding: 30px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition-smooth);
+  box-shadow: 0 10px 24px -18px rgba(10, 12, 16, 0.25);
+}
+
+.quick-service-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  opacity: 1;
+}
+
+.quick-service-card.qs-tech::after { background: var(--gradient-tech); }
+.quick-service-card.qs-creative::after { background: var(--gradient-creative); }
+.quick-service-card.qs-growth::after { background: var(--gradient-growth); }
+
+.quick-service-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(10, 12, 16, 0.18);
+  box-shadow: 0 20px 40px rgba(10, 12, 16, 0.1);
+}
+
+.quick-service-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.quick-service-card.qs-tech .quick-service-icon { background: var(--gradient-tech); }
+.quick-service-card.qs-creative .quick-service-icon { background: var(--gradient-creative); }
+.quick-service-card.qs-growth .quick-service-icon { background: var(--gradient-growth); }
+
+.quick-service-card h3 {
+  font-family: var(--font-display);
+  font-size: 18.5px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.quick-service-card p {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+@media (max-width: 1024px) {
+  .quick-services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .quick-services-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .quick-service-card {
+    padding: 24px 22px;
+    gap: 12px;
+  }
+
+  .quick-service-icon {
+    width: 44px;
+    height: 44px;
+  }
 }
 
 /* Events & Achievements â€” image grid */
