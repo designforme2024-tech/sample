@@ -2759,6 +2759,7 @@ footer::before {
   }
   .hero-content {
     align-items: center;
+    padding: 10px;
   }
   .hero-subtitle, .hero-copy {
     max-width: 100%;
